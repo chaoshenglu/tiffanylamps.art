@@ -34,7 +34,13 @@ body {
 }
 
 #app {
+  width: 100%;
   min-height: 100vh;
+  margin: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 a {

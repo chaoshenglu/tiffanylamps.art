@@ -2,8 +2,7 @@
   <header class="header">
     <div class="container">
       <div class="logo">
-        <span class="logo-icon">🔮</span>
-        <span class="logo-text">WooNust</span>
+        <img class="logo-icon" src="/src/assets/logo.webp" />
       </div>
       <nav class="nav">
         <a href="#" class="nav-link active">Home</a>
@@ -25,20 +24,19 @@
 <style scoped>
 .header {
   background: white;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
   z-index: 100;
+  width:1800px;
 }
 
 .container {
-  max-width: 1200px;
+  width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 70px;
+  height: 100px;
 }
 
 .logo {
@@ -51,7 +49,7 @@
 }
 
 .logo-icon {
-  font-size: 28px;
+  height: 40px;
 }
 
 .nav {
@@ -100,6 +98,15 @@
 @media (max-width: 768px) {
   .container {
     padding: 0 15px;
+    height: 60px;
+  }
+  
+  .logo {
+    font-size: 20px;
+  }
+  
+  .logo-icon {
+    font-size: 24px;
   }
   
   .nav {
@@ -107,7 +114,21 @@
   }
   
   .search {
-    width: 200px;
+    width: 180px;
+  }
+  
+  .search-input {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 10px;
+  }
+  
+  .search {
+    width: 150px;
   }
 }
 </style>

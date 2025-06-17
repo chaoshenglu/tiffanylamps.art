@@ -57,8 +57,8 @@ onUnmounted(() => {
 
 <style scoped>
 .banner {
-  width: 100%;
-  height: 400px;
+  width: 1280px;
+  height: 469px;
   position: relative;
   overflow: hidden;
 }
@@ -114,7 +114,32 @@ onUnmounted(() => {
 
 @media (max-width: 768px) {
   .banner {
-    height: 250px;
+    height: 280px;
+  }
+  
+  .banner-indicators {
+    bottom: 15px;
+  }
+  
+  .indicator {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .banner {
+    height: 220px;
+  }
+  
+  .banner-indicators {
+    bottom: 10px;
+    gap: 8px;
+  }
+  
+  .indicator {
+    width: 8px;
+    height: 8px;
   }
 }
 </style>

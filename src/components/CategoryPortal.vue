@@ -56,11 +56,11 @@ const getCategoryImage = (imageUrl) => {
 <style scoped>
 .category-portal {
   padding: 80px 0;
-  background: #f8f9fa;
+  background: white;
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1800px;
   margin: 0 auto;
   padding: 0 20px;
 }
@@ -94,7 +94,7 @@ const getCategoryImage = (imageUrl) => {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 30px;
-  max-width: 1000px;
+  max-width: 1250px;
   margin: 0 auto;
 }
 
@@ -114,7 +114,7 @@ const getCategoryImage = (imageUrl) => {
 
 .category-image {
   width: 100%;
-  height: 150px;
+  height: 250px;
   overflow: hidden;
 }
 
@@ -154,8 +154,16 @@ const getCategoryImage = (imageUrl) => {
     padding: 50px 0;
   }
   
+  .container {
+    padding: 0 15px;
+  }
+  
   .section-title {
     font-size: 28px;
+  }
+  
+  .section-subtitle {
+    font-size: 16px;
   }
   
   .category-grid {
@@ -169,6 +177,42 @@ const getCategoryImage = (imageUrl) => {
   
   .category-info {
     padding: 15px;
+  }
+  
+  .category-name-zh {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 10px;
+  }
+  
+  .section-title {
+    font-size: 24px;
+    letter-spacing: 1px;
+  }
+  
+  .category-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+  
+  .category-image {
+    height: 100px;
+  }
+  
+  .category-info {
+    padding: 12px;
+  }
+  
+  .category-name-zh {
+    font-size: 14px;
+  }
+  
+  .category-name-en {
+    font-size: 11px;
   }
 }
 </style>

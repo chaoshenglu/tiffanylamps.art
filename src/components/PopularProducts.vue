@@ -45,7 +45,7 @@ const getProductImage = (imageUrl) => {
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1800px;
   margin: 0 auto;
   padding: 0 20px;
 }
@@ -79,6 +79,7 @@ const getProductImage = (imageUrl) => {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 30px;
+  max-width: 1250px;
 }
 
 .product-item {
@@ -98,7 +99,7 @@ const getProductImage = (imageUrl) => {
 .product-image {
   position: relative;
   width: 100%;
-  height: 200px;
+  height: 220px;
   overflow: hidden;
 }
 
@@ -163,14 +164,19 @@ const getProductImage = (imageUrl) => {
     padding: 50px 0;
   }
   
+  .container {
+    padding: 0 15px;
+  }
+  
   .section-header {
     flex-direction: column;
     gap: 15px;
     text-align: center;
+    margin-bottom: 40px;
   }
   
   .section-title {
-    font-size: 24px;
+    font-size: 26px;
   }
   
   .products-grid {
@@ -184,6 +190,42 @@ const getProductImage = (imageUrl) => {
   
   .product-info {
     padding: 15px;
+  }
+  
+  .product-name {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 10px;
+  }
+  
+  .section-title {
+    font-size: 22px;
+  }
+  
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+  
+  .product-image {
+    height: 130px;
+  }
+  
+  .product-info {
+    padding: 12px;
+  }
+  
+  .product-name {
+    font-size: 14px;
+  }
+  
+  .btn-view {
+    padding: 8px 16px;
+    font-size: 13px;
   }
 }
 </style>
