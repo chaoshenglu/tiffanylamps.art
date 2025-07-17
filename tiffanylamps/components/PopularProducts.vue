@@ -104,6 +104,7 @@ const getProductImage = (imageUrl) => {
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 30px;
   max-width: 1250px;
+  margin: 0 auto;
 }
 
 .product-item {
