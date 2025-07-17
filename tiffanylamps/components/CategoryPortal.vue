@@ -1,0 +1,240 @@
+<template>
+  <section class="category-portal">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">CATEGORY PORTAL</h2>
+        <p class="section-subtitle">分类入口</p>
+        <p class="section-description">多样式灯具选择</p>
+      </div>
+      <div class="category-grid">
+        <div 
+          v-for="(category, index) in categories" 
+          :key="index"
+          class="category-item"
+        >
+          <div class="category-image">
+            <img :src="getCategoryImage(category.imageUrl)" :alt="category.name_zh" />
+          </div>
+          <div class="category-info">
+            <h3 class="category-name-zh">{{ category.name_zh }}</h3>
+            <p class="category-name-en">{{ category.name_en }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+
+const categories = ref([
+  {
+    "name_zh": "小夜灯",
+    "name_en": "Night Light",
+    "imageUrl": "src/assets/Night Light.webp"
+  },
+  {
+    "name_zh": "台灯",
+    "name_en": "Table Lamp",
+    "imageUrl": "src/assets/Table Lamp.webp"
+  },
+  {
+    "name_zh": "壁灯",
+    "name_en": "Wall Lamp",
+    "imageUrl": "src/assets/Wall Lamp.webp"
+  },
+  {
+    "name_zh": "吊灯",
+    "name_en": "Chandelier",
+    "imageUrl": "src/assets/Chandelier.webp"
+  },
+  {
+    "name_zh": "吸顶灯",
+    "name_en": "Ceiling Lamp",
+    "imageUrl": "src/assets/Ceiling Lamp.webp"
+  },
+  {
+    "name_zh": "落地灯",
+    "name_en": "Floor Lamp",
+    "imageUrl": "src/assets/Floor Lamp.webp"
+  }
+])
+
+const imageMap = {
+  'src/assets/Night Light.webp': '/assets/Night Light.webp',
+  'src/assets/Table Lamp.webp': '/assets/Table Lamp.webp',
+  'src/assets/Wall Lamp.webp': '/assets/Wall Lamp.webp',
+  'src/assets/Chandelier.webp': '/assets/Chandelier.webp',
+  'src/assets/Ceiling Lamp.webp': '/assets/Ceiling Lamp.webp',
+  'src/assets/Floor Lamp.webp': '/assets/Floor Lamp.webp'
+}
+
+const getCategoryImage = (imageUrl) => {
+  return imageMap[imageUrl] || ''
+}
+</script>
+
+<style scoped>
+.category-portal {
+  padding: 80px 0;
+  background: white;
+}
+
+.container {
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.section-title {
+  font-size: 36px;
+  font-weight: bold;
+  color: #333;
+  margin: 0 0 10px 0;
+  letter-spacing: 2px;
+}
+
+.section-subtitle {
+  font-size: 18px;
+  color: #666;
+  margin: 0 0 5px 0;
+}
+
+.section-description {
+  font-size: 14px;
+  color: #999;
+  margin: 0;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 30px;
+  max-width: 1250px;
+  margin: 0 auto;
+}
+
+.category-item {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
+
+.category-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.category-image {
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+}
+
+.category-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.category-item:hover .category-image img {
+  transform: scale(1.1);
+}
+
+.category-info {
+  padding: 20px;
+  text-align: center;
+}
+
+.category-name-zh {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin: 0 0 5px 0;
+}
+
+.category-name-en {
+  font-size: 12px;
+  color: #999;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 768px) {
+  .category-portal {
+    padding: 50px 0;
+  }
+  
+  .container {
+    padding: 0 15px;
+  }
+  
+  .section-title {
+    font-size: 28px;
+  }
+  
+  .section-subtitle {
+    font-size: 16px;
+  }
+  
+  .category-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+  }
+  
+  .category-image {
+    height: 120px;
+  }
+  
+  .category-info {
+    padding: 15px;
+  }
+  
+  .category-name-zh {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 10px;
+  }
+  
+  .section-title {
+    font-size: 24px;
+    letter-spacing: 1px;
+  }
+  
+  .category-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+  
+  .category-image {
+    height: 100px;
+  }
+  
+  .category-info {
+    padding: 12px;
+  }
+  
+  .category-name-zh {
+    font-size: 14px;
+  }
+  
+  .category-name-en {
+    font-size: 11px;
+  }
+}
+</style>
