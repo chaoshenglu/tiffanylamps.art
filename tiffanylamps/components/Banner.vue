@@ -1,20 +1,20 @@
 <template>
-  <div class="banner">
-    <div class="banner-container">
+  <div class="w-full max-w-[1280px] h-[469px] relative overflow-hidden mx-auto">
+    <div class="w-full h-full relative">
       <div 
-        class="banner-slide" 
+        class="absolute top-0 left-0 w-full h-full opacity-0 transition-opacity duration-500 ease-in-out" 
+        :class="{ 'opacity-100': currentSlide === index }"
         v-for="(image, index) in bannerImages" 
         :key="index"
-        :class="{ active: currentSlide === index }"
       >
-        <img :src="image" :alt="`Banner ${index + 1}`" />
+        <img :src="image" :alt="`Banner ${index + 1}`" class="w-full h-full object-cover block" />
       </div>
-      <div class="banner-indicators">
+      <div class="absolute bottom-5 md:bottom-3.75 sm:bottom-2.5 left-1/2 transform -translate-x-1/2 flex gap-2.5 md:gap-2.5 sm:gap-2">
         <span 
           v-for="(image, index) in bannerImages" 
           :key="index"
-          class="indicator"
-          :class="{ active: currentSlide === index }"
+          class="w-3 h-3 md:w-2.5 md:h-2.5 sm:w-2 sm:h-2 rounded-full bg-white bg-opacity-50 cursor-pointer transition-colors duration-300"
+          :class="{ 'bg-white bg-opacity-100': currentSlide === index }"
           @click="currentSlide = index"
         ></span>
       </div>
@@ -52,94 +52,3 @@ onUnmounted(() => {
   stopAutoSlide()
 })
 </script>
-
-<style scoped>
-.banner {
-  width: 100%;
-  max-width: 1280px;
-  height: 469px;
-  position: relative;
-  overflow: hidden;
-  margin: 0 auto;
-}
-
-.banner-container {
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
-
-.banner-slide {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out;
-}
-
-.banner-slide.active {
-  opacity: 1;
-}
-
-.banner-slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.banner-indicators {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 10px;
-}
-
-.indicator {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.5);
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.indicator.active {
-  background: white;
-}
-
-@media (max-width: 768px) {
-  .banner {
-    height: 280px;
-  }
-  
-  .banner-indicators {
-    bottom: 15px;
-  }
-  
-  .indicator {
-    width: 10px;
-    height: 10px;
-  }
-}
-
-@media (max-width: 480px) {
-  .banner {
-    height: 220px;
-  }
-  
-  .banner-indicators {
-    bottom: 10px;
-    gap: 8px;
-  }
-  
-  .indicator {
-    width: 8px;
-    height: 8px;
-  }
-}
-</style>

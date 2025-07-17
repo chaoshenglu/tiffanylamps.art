@@ -1,23 +1,23 @@
 <template>
-  <section class="category-portal">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">CATEGORY PORTAL</h2>
-        <p class="section-subtitle">分类入口</p>
-        <p class="section-description">多样式灯具选择</p>
+  <section class="py-20 bg-white">
+    <div class="max-w-450 mx-auto px-5">
+      <div class="text-center mb-15">
+        <h2 class="text-9 font-bold text-gray-8 mb-2.5 tracking-0.5">CATEGORY PORTAL</h2>
+        <p class="text-4.5 text-gray-6 mb-1.25">分类入口</p>
+        <p class="text-3.5 text-gray-4 m-0">多样式灯具选择</p>
       </div>
-      <div class="category-grid">
+      <div class="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-7.5 max-w-312.5 mx-auto md:grid-cols-[repeat(auto-fit,minmax(150px,1fr))] md:gap-5 sm:grid-cols-2 sm:gap-3.75">
         <div 
           v-for="(category, index) in categories" 
           :key="index"
-          class="category-item"
+          class="bg-white rounded-3.75 overflow-hidden shadow-[0_5px_20px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer hover:translate-y--1.25 hover:shadow-[0_10px_30px_rgba(0,0,0,0.15)] group"
         >
-          <div class="category-image">
-            <img :src="getCategoryImage(category.imageUrl)" :alt="category.name_zh" />
+          <div class="w-full h-[250px] overflow-hidden">
+            <img :src="getCategoryImage(category.imageUrl)" :alt="category.name_zh" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110" />
           </div>
-          <div class="category-info">
-            <h3 class="category-name-zh">{{ category.name_zh }}</h3>
-            <p class="category-name-en">{{ category.name_en }}</p>
+          <div class="p-5 text-center md:p-3.75 sm:p-3">
+            <h3 class="text-4.5 font-bold text-gray-8 mb-1.25 m-0 md:text-4 sm:text-3.5">{{ category.name_zh }}</h3>
+            <p class="text-3 text-gray-4 m-0 uppercase tracking-0.25 sm:text-2.75">{{ category.name_en }}</p>
           </div>
         </div>
       </div>
@@ -74,167 +74,3 @@ const getCategoryImage = (imageUrl) => {
   return imageMap[imageUrl] || ''
 }
 </script>
-
-<style scoped>
-.category-portal {
-  padding: 80px 0;
-  background: white;
-}
-
-.container {
-  max-width: 1800px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-.section-header {
-  text-align: center;
-  margin-bottom: 60px;
-}
-
-.section-title {
-  font-size: 36px;
-  font-weight: bold;
-  color: #333;
-  margin: 0 0 10px 0;
-  letter-spacing: 2px;
-}
-
-.section-subtitle {
-  font-size: 18px;
-  color: #666;
-  margin: 0 0 5px 0;
-}
-
-.section-description {
-  font-size: 14px;
-  color: #999;
-  margin: 0;
-}
-
-.category-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 30px;
-  max-width: 1250px;
-  margin: 0 auto;
-}
-
-.category-item {
-  background: white;
-  border-radius: 15px;
-  overflow: hidden;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s, box-shadow 0.3s;
-  cursor: pointer;
-}
-
-.category-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-}
-
-.category-image {
-  width: 100%;
-  height: 250px;
-  overflow: hidden;
-}
-
-.category-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s;
-}
-
-.category-item:hover .category-image img {
-  transform: scale(1.1);
-}
-
-.category-info {
-  padding: 20px;
-  text-align: center;
-}
-
-.category-name-zh {
-  font-size: 18px;
-  font-weight: bold;
-  color: #333;
-  margin: 0 0 5px 0;
-}
-
-.category-name-en {
-  font-size: 12px;
-  color: #999;
-  margin: 0;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-@media (max-width: 768px) {
-  .category-portal {
-    padding: 50px 0;
-  }
-  
-  .container {
-    padding: 0 15px;
-  }
-  
-  .section-title {
-    font-size: 28px;
-  }
-  
-  .section-subtitle {
-    font-size: 16px;
-  }
-  
-  .category-grid {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 20px;
-  }
-  
-  .category-image {
-    height: 120px;
-  }
-  
-  .category-info {
-    padding: 15px;
-  }
-  
-  .category-name-zh {
-    font-size: 16px;
-  }
-}
-
-@media (max-width: 480px) {
-  .container {
-    padding: 0 10px;
-  }
-  
-  .section-title {
-    font-size: 24px;
-    letter-spacing: 1px;
-  }
-  
-  .category-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-  }
-  
-  .category-image {
-    height: 100px;
-  }
-  
-  .category-info {
-    padding: 12px;
-  }
-  
-  .category-name-zh {
-    font-size: 14px;
-  }
-  
-  .category-name-en {
-    font-size: 11px;
-  }
-}
-</style>

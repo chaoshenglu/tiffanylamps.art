@@ -1,53 +1,99 @@
 <template>
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-section">
-          <div class="logo">
-            <span class="logo-icon">🔮</span>
-            <span class="logo-text">WooNust</span>
+  <footer class="bg-gray-700 text-white w-full">
+    <div class="max-w-screen-xl mx-auto px-5 py-15 pb-5">
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-10 mb-10">
+        <div class="md:col-span-2">
+          <div class="flex items-center gap-2 text-2xl font-bold text-purple-400 mb-4 md:justify-start justify-center">
+            <span class="text-3xl md:text-3xl sm:text-2xl">🔮</span>
+            <span>WooNust</span>
           </div>
-          <p class="footer-description">
+          <p class="text-gray-400 leading-relaxed m-0 text-center md:text-left">
             专业的蒂芙尼灯具制造商，为您提供高品质的手工艺术灯具。
           </p>
         </div>
         
-        <div class="footer-section">
-          <h3 class="footer-title">产品分类</h3>
-          <ul class="footer-links">
-            <li><NuxtLink to="/categories/night-light">小夜灯</NuxtLink></li>
-            <li><NuxtLink to="/categories/table-lamp">台灯</NuxtLink></li>
-            <li><NuxtLink to="/categories/wall-lamp">壁灯</NuxtLink></li>
-            <li><NuxtLink to="/categories/chandelier">吊灯</NuxtLink></li>
+        <div>
+          <h3 class="text-lg font-bold mb-5 text-white text-center md:text-left">
+            产品分类
+          </h3>
+          <ul class="list-none p-0 m-0 text-center md:text-left">
+            <li class="mb-2.5">
+              <NuxtLink to="/categories/night-light" class="text-gray-400 no-underline transition-colors duration-300 hover:text-purple-400">
+                小夜灯
+              </NuxtLink>
+            </li>
+            <li class="mb-2.5">
+              <NuxtLink to="/categories/table-lamp" class="text-gray-400 no-underline transition-colors duration-300 hover:text-purple-400">
+                台灯
+              </NuxtLink>
+            </li>
+            <li class="mb-2.5">
+              <NuxtLink to="/categories/wall-lamp" class="text-gray-400 no-underline transition-colors duration-300 hover:text-purple-400">
+                壁灯
+              </NuxtLink>
+            </li>
+            <li class="mb-2.5">
+              <NuxtLink to="/categories/chandelier" class="text-gray-400 no-underline transition-colors duration-300 hover:text-purple-400">
+                吊灯
+              </NuxtLink>
+            </li>
           </ul>
         </div>
         
-        <div class="footer-section">
-          <h3 class="footer-title">客户服务</h3>
-          <ul class="footer-links">
-            <li><NuxtLink to="/contact">联系我们</NuxtLink></li>
-            <li><NuxtLink to="/service">售后服务</NuxtLink></li>
-            <li><NuxtLink to="/shipping">配送信息</NuxtLink></li>
-            <li><NuxtLink to="/returns">退换政策</NuxtLink></li>
+        <div>
+          <h3 class="text-lg font-bold mb-5 text-white text-center md:text-left">
+            客户服务
+          </h3>
+          <ul class="list-none p-0 m-0 text-center md:text-left">
+            <li class="mb-2.5">
+              <NuxtLink to="/contact" class="text-gray-400 no-underline transition-colors duration-300 hover:text-purple-400">
+                联系我们
+              </NuxtLink>
+            </li>
+            <li class="mb-2.5">
+              <NuxtLink to="/service" class="text-gray-400 no-underline transition-colors duration-300 hover:text-purple-400">
+                售后服务
+              </NuxtLink>
+            </li>
+            <li class="mb-2.5">
+              <NuxtLink to="/shipping" class="text-gray-400 no-underline transition-colors duration-300 hover:text-purple-400">
+                配送信息
+              </NuxtLink>
+            </li>
+            <li class="mb-2.5">
+              <NuxtLink to="/returns" class="text-gray-400 no-underline transition-colors duration-300 hover:text-purple-400">
+                退换政策
+              </NuxtLink>
+            </li>
           </ul>
         </div>
         
-        <div class="footer-section">
-          <h3 class="footer-title">关注我们</h3>
-          <div class="social-links">
-            <a href="#" class="social-link">📘</a>
-            <a href="#" class="social-link">📷</a>
-            <a href="#" class="social-link">🐦</a>
-            <a href="#" class="social-link">📺</a>
+        <div>
+          <h3 class="text-lg font-bold mb-5 text-white text-center md:text-left">
+            关注我们
+          </h3>
+          <div class="flex gap-4 justify-center md:justify-start">
+            <a href="#" class="inline-block w-10 h-10 bg-gray-600 rounded-full text-center leading-10 text-lg no-underline transition-all duration-300 hover:bg-purple-400 hover:-translate-y-0.5">
+              📘
+            </a>
+            <a href="#" class="inline-block w-10 h-10 bg-gray-600 rounded-full text-center leading-10 text-lg no-underline transition-all duration-300 hover:bg-purple-400 hover:-translate-y-0.5">
+              📷
+            </a>
+            <a href="#" class="inline-block w-10 h-10 bg-gray-600 rounded-full text-center leading-10 text-lg no-underline transition-all duration-300 hover:bg-purple-400 hover:-translate-y-0.5">
+              🐦
+            </a>
+            <a href="#" class="inline-block w-10 h-10 bg-gray-600 rounded-full text-center leading-10 text-lg no-underline transition-all duration-300 hover:bg-purple-400 hover:-translate-y-0.5">
+              📺
+            </a>
           </div>
         </div>
       </div>
       
-      <div class="footer-bottom">
-        <p class="copyright">
+      <div class="border-t border-gray-600 pt-5 flex flex-col md:flex-row justify-between items-center flex-wrap gap-2.5 text-center md:text-left">
+        <p class="text-gray-400 m-0 text-sm">
           Copyright © 2025 Saedio. All rights reserved.
         </p>
-        <p class="powered-by">
+        <p class="text-gray-400 m-0 text-sm">
           Made by WooTemplates · GitHub
         </p>
       </div>
@@ -57,201 +103,3 @@
 
 <script setup>
 </script>
-
-<style scoped>
-.footer {
-  background: #2d3748;
-  color: white;
-  width: 100%;
-}
-
-.container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 60px 20px 20px;
-}
-
-.footer-content {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 40px;
-  margin-bottom: 40px;
-}
-
-.footer-section .logo {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 24px;
-  font-weight: bold;
-  color: #8B5CF6;
-  margin-bottom: 15px;
-}
-
-.logo-icon {
-  font-size: 28px;
-}
-
-.footer-description {
-  color: #a0aec0;
-  line-height: 1.6;
-  margin: 0;
-}
-
-.footer-title {
-  font-size: 18px;
-  font-weight: bold;
-  margin: 0 0 20px 0;
-  color: white;
-}
-
-.footer-links {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.footer-links li {
-  margin-bottom: 10px;
-}
-
-.footer-links a {
-  color: #a0aec0;
-  text-decoration: none;
-  transition: color 0.3s;
-}
-
-.footer-links a:hover {
-  color: #8B5CF6;
-}
-
-.social-links {
-  display: flex;
-  gap: 15px;
-}
-
-.social-link {
-  display: inline-block;
-  width: 40px;
-  height: 40px;
-  background: #4a5568;
-  border-radius: 50%;
-  text-align: center;
-  line-height: 40px;
-  font-size: 18px;
-  text-decoration: none;
-  transition: background 0.3s, transform 0.3s;
-}
-
-.social-link:hover {
-  background: #8B5CF6;
-  transform: translateY(-2px);
-}
-
-.footer-bottom {
-  border-top: 1px solid #4a5568;
-  padding-top: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.copyright,
-.powered-by {
-  color: #a0aec0;
-  margin: 0;
-  font-size: 14px;
-}
-
-@media (max-width: 768px) {
-  .footer {
-    padding: 40px 0 20px;
-  }
-  
-  .container {
-    padding: 0 15px;
-  }
-  
-  .footer-content {
-    grid-template-columns: 1fr;
-    gap: 30px;
-  }
-  
-  .footer-section .logo {
-    justify-content: center;
-    font-size: 22px;
-  }
-  
-  .logo-icon {
-    font-size: 26px;
-  }
-  
-  .footer-description {
-    text-align: center;
-  }
-  
-  .footer-title {
-    text-align: center;
-    font-size: 16px;
-  }
-  
-  .footer-links {
-    text-align: center;
-  }
-  
-  .footer-bottom {
-    flex-direction: column;
-    text-align: center;
-    gap: 10px;
-  }
-  
-  .social-links {
-    justify-content: center;
-  }
-}
-
-@media (max-width: 480px) {
-  .container {
-    padding: 0 10px;
-  }
-  
-  .footer-content {
-    gap: 25px;
-  }
-  
-  .footer-section .logo {
-    font-size: 20px;
-  }
-  
-  .logo-icon {
-    font-size: 24px;
-  }
-  
-  .footer-title {
-    font-size: 15px;
-    margin-bottom: 15px;
-  }
-  
-  .footer-links li {
-    margin-bottom: 8px;
-  }
-  
-  .footer-links a {
-    font-size: 14px;
-  }
-  
-  .social-link {
-    width: 36px;
-    height: 36px;
-    line-height: 36px;
-    font-size: 16px;
-  }
-  
-  .copyright,
-  .powered-by {
-    font-size: 13px;
-  }
-}
-</style>
