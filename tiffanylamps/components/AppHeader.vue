@@ -1,15 +1,15 @@
 <template>
-  <header class="app-header fixed top-0 left-0 right-0 z-40 transition-all duration-300">
-    <div class="flex items-center justify-between px-6 py-4">
+  <header class="app-header fixed top-0 left-0 right-0 z-40 transition-all duration-300" style="height: 85px;">
+    <div class="flex items-center justify-between px-6 py-4" style="height: 100%;">
       <!-- Logo -->
       <div class="logo-container">
-        <a href="/" class="text-white text-2xl font-bold tracking-wider">
+        <a href="/" class="text-white text-2xl font-bold tracking-wider ml-10px">
           蒂凡尼灯艺术
         </a>
       </div>
 
       <!-- Navigation -->
-      <nav class="hidden md:flex items-center space-x-8 ml-auto">
+      <nav class="hidden md:flex items-center space-x-8 ml-auto" style="margin-right: 60px;">
         <a href="/" class="text-white hover:text-blue-400 transition-colors font-medium">首页</a>
         <a href="/albums" class="text-white hover:text-blue-400 transition-colors font-medium">作品集</a>
         <a href="/about" class="text-white hover:text-blue-400 transition-colors font-medium">关于我们</a>
@@ -53,7 +53,7 @@ defineEmits(['toggle-side-menu', 'toggle-mobile-menu'])
 
 .app-header:hover {
   /* 鼠标悬停时变成黑色半透明背景 */
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(8px);
 }
 
