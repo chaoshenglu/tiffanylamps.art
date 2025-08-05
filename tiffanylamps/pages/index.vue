@@ -68,13 +68,13 @@
             @click="prevSlide" 
             class="absolute left-9 top-1/2 transform -translate-y-1/2 text-white transition-colors text-5xl"
           >
-            <i class="fa fa-chevron-left"></i>
+            <img src="/assets/chevron-left.svg" alt="Previous" class="w-40px h-40px" />
           </button>
           <button 
             @click="nextSlide" 
             class="absolute right-9 top-1/2 transform -translate-y-1/2 text-white transition-colors text-5xl"
           >
-            <i class="fa fa-chevron-right"></i>
+            <img src="/assets/chevron-right.svg" alt="Next" class="w-40px h-40px" />
           </button>
         </div>
       </section>
