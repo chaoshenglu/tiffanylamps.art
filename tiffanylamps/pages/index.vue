@@ -46,23 +46,6 @@
                      transition: 'transform 7s ease-in-out'
                    }"
                 >
-                <!-- Gradient Overlay -->
-                <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60"></div>
-                
-                <!-- Slide Content -->
-                <div class="absolute inset-0 flex items-center justify-center">
-                  <div class="text-center text-white px-6 max-w-4xl">
-                    <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-wider animate-fade-in-up">
-                      {{ slide.title }}
-                    </h1>
-                    <p class="text-lg md:text-xl lg:text-2xl mb-8 opacity-90 animate-fade-in-up animation-delay-300">
-                      {{ slide.description }}
-                    </p>
-                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 animate-fade-in-up animation-delay-600">
-                      探索作品
-                    </button>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
