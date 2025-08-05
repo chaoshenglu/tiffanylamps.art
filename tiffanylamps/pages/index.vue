@@ -66,13 +66,13 @@
           <!-- Slider Arrows -->
           <button 
             @click="prevSlide" 
-            class="absolute left-6 top-1/2 transform -translate-y-1/2 text-white hover:text-blue-400 transition-colors text-3xl"
+            class="absolute left-9 top-1/2 transform -translate-y-1/2 text-white hover:text-blue-400 transition-colors text-6xl"
           >
             <i class="fa fa-angle-left"></i>
           </button>
           <button 
             @click="nextSlide" 
-            class="absolute right-6 top-1/2 transform -translate-y-1/2 text-white hover:text-blue-400 transition-colors text-3xl"
+            class="absolute right-9 top-1/2 transform -translate-y-1/2 text-white hover:text-blue-400 transition-colors text-6xl"
           >
             <i class="fa fa-angle-right"></i>
           </button>
