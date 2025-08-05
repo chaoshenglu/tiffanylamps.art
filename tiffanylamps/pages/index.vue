@@ -254,8 +254,8 @@ const autoplayInterval = ref(null)
 // Generate random animation values for each slide
 const generateRandomAnimation = () => {
   return {
-    animationX: Math.random() * 60 - 30, // -30 to 30px
-    animationY: Math.random() * 60 - 30  // -30 to 30px
+    animationX: Math.random() * 200 - 100, // -100 to 100px
+    animationY: Math.random() * 200 - 100  // -100 to 100px
   }
 }
 
