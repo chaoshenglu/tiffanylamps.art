@@ -1,10 +1,6 @@
 <template>
   <div>
-    <Header />
-    <Banner />
-    <CategoryPortal />
-    <PopularProducts />
-    <Footer />
+    蒂凡尼灯的艺术世界
   </div>
 </template>
 

@@ -7,9 +7,7 @@ export default defineConfig({
   ],
   shortcuts: {
     // 自定义快捷类
-    'btn': 'py-2 px-4 font-semibold rounded-lg shadow-md',
-    'btn-primary': 'btn text-white bg-blue-500 hover:bg-blue-700',
-    'btn-secondary': 'btn text-gray-700 bg-gray-200 hover:bg-gray-300',
+    'btn': 'py-2 px-4 font-semibold rounded-lg shadow-md'
   },
   theme: {
     colors: {
