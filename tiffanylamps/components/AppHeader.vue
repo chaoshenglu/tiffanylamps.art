@@ -1,5 +1,5 @@
 <template>
-  <header class="fixed top-0 left-0 right-0 z-40 bg-black bg-opacity-90 backdrop-blur-sm transition-all duration-300">
+  <header class="app-header fixed top-0 left-0 right-0 z-40 transition-all duration-300">
     <div class="flex items-center justify-between px-6 py-4">
       <!-- Logo -->
       <div class="logo-container">
@@ -9,7 +9,7 @@
       </div>
 
       <!-- Navigation -->
-      <nav class="hidden md:flex items-center space-x-8">
+      <nav class="hidden md:flex items-center space-x-8 ml-auto">
         <a href="/" class="text-white hover:text-blue-400 transition-colors font-medium">首页</a>
         <a href="/albums" class="text-white hover:text-blue-400 transition-colors font-medium">作品集</a>
         <a href="/about" class="text-white hover:text-blue-400 transition-colors font-medium">关于我们</a>
@@ -45,5 +45,25 @@ defineEmits(['toggle-side-menu', 'toggle-mobile-menu'])
 </script>
 
 <style scoped>
-/* 组件特定的样式可以在这里添加 */
+.app-header {
+  /* 默认透明背景 */
+  background-color: transparent;
+  backdrop-filter: none;
+}
+
+.app-header:hover {
+  /* 鼠标悬停时变成黑色半透明背景 */
+  background-color: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(8px);
+}
+
+/* 确保导航栏右对齐 */
+.app-header .flex {
+  justify-content: space-between;
+}
+
+.app-header nav {
+  margin-left: auto;
+  margin-right: 0;
+}
 </style>
