@@ -31,13 +31,21 @@
                ]"
              >
                <div 
-                 class="w-full h-full bg-cover bg-center bg-no-repeat slider-image"
-                 :style="{ 
-                    backgroundImage: `url(${slide.image})`,
-                    transform: currentSlide === index ? `translate(${slide.animationX}px, ${slide.animationY}px) scale(1.1)` : 'translate(0, 0) scale(1)',
-                    transition: 'transform 7s ease-in-out'
-                  }"
-               >
+                  class="slider-image"
+                  :style="{ 
+                     backgroundImage: `url(${slide.image})`,
+                     backgroundSize: 'cover',
+                     backgroundPosition: 'center',
+                     backgroundRepeat: 'no-repeat',
+                     width: 'calc(100% + 200px)',
+                     height: 'calc(100% + 200px)',
+                     position: 'absolute',
+                     top: '-100px',
+                     left: '-100px',
+                     transform: currentSlide === index ? `translate(${slide.animationX}px, ${slide.animationY}px) scale(1.1)` : 'translate(0, 0) scale(1)',
+                     transition: 'transform 7s ease-in-out'
+                   }"
+                >
                 <!-- Gradient Overlay -->
                 <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60"></div>
                 
