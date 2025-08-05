@@ -60,17 +60,21 @@
           <!-- Slider Container -->
           <div class="relative w-full h-full">
             <div 
-              v-for="(slide, index) in slides" 
-              :key="index"
-              :class="[
-                'absolute inset-0 transition-all duration-1000 ease-in-out',
-                currentSlide === index ? 'opacity-100 scale-100' : 'opacity-0 scale-110'
-              ]"
-            >
-              <div 
-                class="w-full h-full bg-cover bg-center bg-no-repeat"
-                :style="{ backgroundImage: `url(${slide.image})` }"
-              >
+               v-for="(slide, index) in slides" 
+               :key="index"
+               :class="[
+                 'absolute inset-0 transition-all duration-1000 ease-in-out',
+                 currentSlide === index ? 'opacity-100' : 'opacity-0'
+               ]"
+             >
+               <div 
+                 class="w-full h-full bg-cover bg-center bg-no-repeat slider-image"
+                 :style="{ 
+                   backgroundImage: `url(${slide.image})`,
+                   transform: currentSlide === index ? `translate(${slide.animationX}px, ${slide.animationY}px) scale(1.2)` : 'translate(0, 0) scale(1)',
+                   transition: 'transform 7s ease-in-out'
+                 }"
+               >
                 <!-- Gradient Overlay -->
                 <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60"></div>
                 
@@ -284,37 +288,50 @@ const currentSlide = ref(0)
 const showBackToTop = ref(false)
 const autoplayInterval = ref(null)
 
+// Generate random animation values for each slide
+const generateRandomAnimation = () => {
+  return {
+    animationX: Math.random() * 60 - 30, // -30 to 30px
+    animationY: Math.random() * 60 - 30  // -30 to 30px
+  }
+}
+
 // Slides data
 const slides = ref([
   {
     id: 1,
     title: '经典蒂凡尼艺术',
     description: '传承百年工艺，每一片玻璃都诉说着光影的故事',
-    image: 'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=1920&h=1080&fit=crop'
+    image: 'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=1920&h=1080&fit=crop',
+    ...generateRandomAnimation()
   },
   {
     id: 2,
     title: '现代创新设计',
     description: '融合当代美学，重新定义光影艺术的边界',
-    image: 'https://images.unsplash.com/photo-1524484485831-a92ffc0de03f?w=1920&h=1080&fit=crop'
+    image: 'https://images.unsplash.com/photo-1524484485831-a92ffc0de03f?w=1920&h=1080&fit=crop',
+    ...generateRandomAnimation()
   },
   {
     id: 3,
     title: '手工精致工艺',
     description: '每一个细节都体现着匠人的专注与热爱',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1920&h=1080&fit=crop'
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1920&h=1080&fit=crop',
+    ...generateRandomAnimation()
   },
   {
     id: 4,
     title: '色彩斑斓世界',
     description: '用色彩编织梦想，让光线舞动生命',
-    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&h=1080&fit=crop'
+    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&h=1080&fit=crop',
+    ...generateRandomAnimation()
   },
   {
     id: 5,
     title: '艺术生活美学',
     description: '将艺术融入生活，让美好触手可及',
-    image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1920&h=1080&fit=crop'
+    image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1920&h=1080&fit=crop',
+    ...generateRandomAnimation()
   }
 ])
 
@@ -344,16 +361,24 @@ const toggleMobileMenu = () => {
 
 const goToSlide = (index) => {
   currentSlide.value = index
+  // Regenerate random animation for the new slide
+  slides.value[index] = { ...slides.value[index], ...generateRandomAnimation() }
   resetAutoplay()
 }
 
 const nextSlide = () => {
-  currentSlide.value = (currentSlide.value + 1) % slides.value.length
+  const nextIndex = (currentSlide.value + 1) % slides.value.length
+  currentSlide.value = nextIndex
+  // Regenerate random animation for the new slide
+  slides.value[nextIndex] = { ...slides.value[nextIndex], ...generateRandomAnimation() }
   resetAutoplay()
 }
 
 const prevSlide = () => {
-  currentSlide.value = currentSlide.value === 0 ? slides.value.length - 1 : currentSlide.value - 1
+  const prevIndex = currentSlide.value === 0 ? slides.value.length - 1 : currentSlide.value - 1
+  currentSlide.value = prevIndex
+  // Regenerate random animation for the new slide
+  slides.value[prevIndex] = { ...slides.value[prevIndex], ...generateRandomAnimation() }
   resetAutoplay()
 }
 
