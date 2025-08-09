@@ -67,144 +67,6 @@
         </div>
       </section>
     </main>
-
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12">
-      <div class="max-w-6xl mx-auto px-6">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <!-- Logo & Description -->
-           <div class="md:col-span-1">
-             <div class="h-12 mb-4 flex items-center">
-               <span class="text-2xl font-bold text-white">蒂凡尼灯艺术</span>
-             </div>
-             <p class="text-gray-400 text-sm leading-relaxed">
-               专注于蒂凡尼灯艺术的创作与展示，传承经典工艺，创新现代设计。
-             </p>
-           </div>
-
-          <!-- Contact Info -->
-          <div>
-            <h3 class="text-lg font-semibold mb-4">联系方式</h3>
-            <p class="text-gray-400 text-sm mb-2">
-              <strong>管理部:</strong> +86 138 0013 8000
-            </p>
-            <p class="text-gray-400 text-sm">
-              <strong>工作室:</strong> +86 138 0013 8001
-            </p>
-          </div>
-
-          <!-- Address -->
-          <div>
-            <h3 class="text-lg font-semibold mb-4">工作室地址</h3>
-            <p class="text-gray-400 text-sm">
-              <strong>地址:</strong> 北京市朝阳区艺术区创意园
-            </p>
-          </div>
-
-          <!-- Social Media -->
-          <div>
-            <h3 class="text-lg font-semibold mb-4">关注我们</h3>
-            <div class="flex space-x-4">
-              <a href="#" class="text-gray-400 hover:text-white transition-colors text-xl">
-                <i class="fab fa-weibo"></i>
-              </a>
-              <a href="#" class="text-gray-400 hover:text-white transition-colors text-xl">
-                <i class="fab fa-wechat"></i>
-              </a>
-              <a href="#" class="text-gray-400 hover:text-white transition-colors text-xl">
-                <i class="fab fa-instagram"></i>
-              </a>
-              <a href="#" class="text-gray-400 hover:text-white transition-colors text-xl">
-                <i class="fab fa-douyin"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Copyright -->
-        <div class="border-t border-gray-800 mt-8 pt-8 text-center">
-          <p class="text-gray-400 text-sm">
-            © 2024 蒂凡尼灯艺术. 保留所有权利. | 网站由 
-            <a href="#" class="text-blue-400 hover:text-blue-300 transition-colors">创意工作室</a> 设计制作
-          </p>
-        </div>
-      </div>
-    </footer>
-
-    <!-- Side Menu -->
-    <nav 
-      :class="[
-        'fixed top-0 right-0 h-full w-80 bg-gray-900 text-white transform transition-transform duration-300 z-50',
-        sideMenuOpen ? 'translate-x-0' : 'translate-x-full'
-      ]"
-    >
-      <div class="p-6 h-full overflow-y-auto">
-        <!-- Close Button -->
-        <button 
-          @click="toggleSideMenu" 
-          class="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors text-xl"
-        >
-          <i class="fa fa-times"></i>
-        </button>
-
-        <!-- Side Menu Content -->
-         <div class="mt-12">
-           <div class="w-full h-48 bg-gradient-to-br from-blue-600 to-purple-700 rounded-lg mb-6 flex items-center justify-center">
-             <span class="text-white text-xl font-semibold">蒂凡尼灯艺术</span>
-           </div>
-          
-          <h3 class="text-xl font-semibold mb-4">蒂凡尼灯艺术工作室</h3>
-          <p class="text-gray-300 text-sm leading-relaxed mb-6">
-            我们致力于传承和发扬蒂凡尼灯的经典工艺，结合现代设计理念，创作出独具特色的艺术作品。每一盏灯都承载着匠人的心血和对美的追求。
-          </p>
-
-          <!-- Social Links -->
-          <div class="flex space-x-4 mb-8">
-            <a href="#" class="text-gray-400 hover:text-white transition-colors text-xl">
-              <i class="fab fa-weibo"></i>
-            </a>
-            <a href="#" class="text-gray-400 hover:text-white transition-colors text-xl">
-              <i class="fab fa-wechat"></i>
-            </a>
-            <a href="#" class="text-gray-400 hover:text-white transition-colors text-xl">
-              <i class="fab fa-instagram"></i>
-            </a>
-            <a href="#" class="text-gray-400 hover:text-white transition-colors text-xl">
-              <i class="fab fa-douyin"></i>
-            </a>
-          </div>
-
-          <!-- Recent Works -->
-          <h4 class="text-lg font-semibold mb-4">最新作品</h4>
-          <div class="grid grid-cols-3 gap-2">
-            <div v-for="work in recentWorks" :key="work.id" class="aspect-square">
-              <img 
-                :src="work.thumbnail" 
-                :alt="work.title" 
-                class="w-full h-full object-cover rounded cursor-pointer hover:opacity-80 transition-opacity"
-                @click="openLightbox(work)"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </nav>
-
-    <!-- Overlay -->
-    <div 
-      v-if="sideMenuOpen" 
-      @click="toggleSideMenu" 
-      class="fixed inset-0 bg-black bg-opacity-50 z-40"
-    ></div>
-
-    <!-- Back to Top -->
-    <button 
-      v-if="showBackToTop" 
-      @click="scrollToTop" 
-      class="fixed bottom-8 right-8 bg-blue-600 hover:bg-blue-700 text-white w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110 z-30"
-    >
-      <i class="fa fa-angle-up text-xl"></i>
-    </button>
   </div>
 </template>
 
@@ -223,9 +85,7 @@ useHead({
   ]
 })
 
-const sideMenuOpen = ref(false)
 const currentSlide = ref(0)
-const showBackToTop = ref(false)
 const autoplayInterval = ref(null)
 
 // Generate random animation values for each slide
@@ -285,10 +145,6 @@ const recentWorks = ref([
   { id: 6, title: '几何系列', thumbnail: 'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=300&h=300&fit=crop' }
 ])
 
-const toggleSideMenu = () => {
-  sideMenuOpen.value = !sideMenuOpen.value
-}
-
 const toggleMobileMenu = () => {
   // Mobile menu logic
   console.log('Toggle mobile menu')
@@ -330,27 +186,11 @@ const resetAutoplay = () => {
   startAutoplay()
 }
 
-const scrollToTop = () => {
-  window.scrollTo({ top: 0, behavior: 'smooth' })
-}
-
-const handleScroll = () => {
-  showBackToTop.value = window.scrollY > 300
-}
-
-const openLightbox = (work) => {
-  // Lightbox logic
-  console.log('Open lightbox for:', work.title)
-}
-
 // Lifecycle
 onMounted(() => {
 
   // Start autoplay
   startAutoplay()
-
-  // Add scroll listener
-  window.addEventListener('scroll', handleScroll)
 })
 
 onUnmounted(() => {
