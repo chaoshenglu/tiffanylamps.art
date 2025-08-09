@@ -1,17 +1,5 @@
 <template>
   <div class="whole-layout min-h-screen bg-black text-white font-sans">
-    <!-- Preloader -->
-    <div v-if="isLoading" class="fixed inset-0 z-50 bg-black flex items-center justify-center">
-      <div class="preload-content text-center">
-        <div class="preloader-animation">
-          <div class="w-16 h-16 border-4 border-white border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-        </div>
-        <button @click="skipPreloader" class="text-white hover:text-gray-300 transition-colors">
-          <i class="fa fa-times"></i> Skip
-        </button>
-      </div>
-    </div>
-
     <!-- Header -->
     <AppHeader @toggle-side-menu="toggleSideMenu" @toggle-mobile-menu="toggleMobileMenu" />
 
@@ -235,8 +223,6 @@ useHead({
   ]
 })
 
-// Reactive data
-const isLoading = ref(true)
 const sideMenuOpen = ref(false)
 const currentSlide = ref(0)
 const showBackToTop = ref(false)
@@ -299,11 +285,6 @@ const recentWorks = ref([
   { id: 6, title: '几何系列', thumbnail: 'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=300&h=300&fit=crop' }
 ])
 
-// Methods
-const skipPreloader = () => {
-  isLoading.value = false
-}
-
 const toggleSideMenu = () => {
   sideMenuOpen.value = !sideMenuOpen.value
 }
@@ -364,10 +345,6 @@ const openLightbox = (work) => {
 
 // Lifecycle
 onMounted(() => {
-  // Simulate loading
-  setTimeout(() => {
-    isLoading.value = false
-  }, 2000)
 
   // Start autoplay
   startAutoplay()
