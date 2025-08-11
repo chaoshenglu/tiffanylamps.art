@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <div class="header-container">
-      <div class="logo">蒂凡尼灯<span>的艺术世界</span></div>
+      <div class="logo">蒂凡尼灯的艺术世界</div>
       <nav>
         <div class="hamburger" @click="toggleMenu">
           <i class="fas fa-bars"></i>
@@ -9,10 +9,9 @@
         <ul :class="{ active: isMenuOpen }">
           <li><a href="#home" @click="handleNavClick">首页</a></li>
           <li><a href="#trends" @click="handleNavClick">流行趋势</a></li>
-          <li><a href="#history" @click="handleNavClick">历史文化</a></li>
           <li><a href="#hot" @click="handleNavClick">热卖榜单</a></li>
+          <li><a href="#history" @click="handleNavClick">历史文化</a></li>
           <li><a href="#auction" @click="handleNavClick">拍卖会</a></li>
-          <li><a href="#cases" @click="handleNavClick">装修案例</a></li>
         </ul>
       </nav>
     </div>
@@ -88,10 +87,6 @@ onUnmounted(() => {
   font-family: var(--header-font);
   font-size: 1.8rem;
   font-weight: bold;
-}
-
-.logo span {
-  color: var(--accent-color);
 }
 
 nav ul {

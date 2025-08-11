@@ -22,19 +22,7 @@
         </div>
       </div>
     </section>
-    <section id="history" class="container vintage-border">
-      <h2 class="section-title">历史文化</h2>
-      <p class="ornament">❦</p>
-      <p>蒂凡尼灯由美国艺术家路易斯·康福特·蒂凡尼（Louis Comfort Tiffany）于19世纪末创造，是新艺术运动的杰出代表。蒂凡尼将彩色玻璃艺术与实用功能完美结合，创造出这些永恒的艺术珍品。</p>
-      <div class="timeline">
-        <div class="timeline-item" v-for="(node, i) in timeline" :key="i" :class="i % 2 === 0 ? 'left' : 'right'">
-          <div class="timeline-content">
-            <h3>{{ node.year }}</h3>
-            <p>{{ node.text }}</p>
-          </div>
-        </div>
-      </div>
-    </section>
+
     <section id="hot" class="container">
       <h2 class="section-title">热卖榜单</h2>
       <p class="ornament">❦</p>
@@ -50,6 +38,21 @@
         </div>
       </div>
     </section>
+
+    <section id="history" class="container vintage-border">
+      <h2 class="section-title">历史文化</h2>
+      <p class="ornament">❦</p>
+      <p>蒂凡尼灯由美国艺术家路易斯·康福特·蒂凡尼（Louis Comfort Tiffany）于19世纪末创造，是新艺术运动的杰出代表。蒂凡尼将彩色玻璃艺术与实用功能完美结合，创造出这些永恒的艺术珍品。</p>
+      <div class="timeline">
+        <div class="timeline-item" v-for="(node, i) in timeline" :key="i" :class="i % 2 === 0 ? 'left' : 'right'">
+          <div class="timeline-content">
+            <h3>{{ node.year }}</h3>
+            <p>{{ node.text }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
     <section id="auction" class="container">
       <h2 class="section-title">拍卖会</h2>
       <p class="ornament">❦</p>
