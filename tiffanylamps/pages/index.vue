@@ -27,12 +27,7 @@
       <p class="ornament">❦</p>
       <p>蒂凡尼灯由美国艺术家路易斯·康福特·蒂凡尼（Louis Comfort Tiffany）于19世纪末创造，是新艺术运动的杰出代表。蒂凡尼将彩色玻璃艺术与实用功能完美结合，创造出这些永恒的艺术珍品。</p>
       <div class="timeline">
-        <div
-          class="timeline-item"
-          v-for="(node, i) in timeline"
-          :key="i"
-          :class="i % 2 === 0 ? 'left' : 'right'"
-        >
+        <div class="timeline-item" v-for="(node, i) in timeline" :key="i" :class="i % 2 === 0 ? 'left' : 'right'">
           <div class="timeline-content">
             <h3>{{ node.year }}</h3>
             <p>{{ node.text }}</p>
@@ -69,30 +64,6 @@
         </div>
       </div>
     </section>
-    <section id="cases" class="container">
-      <h2 class="section-title">装修案例</h2>
-      <p class="ornament">❦</p>
-      <div class="case-slider">
-        <div class="case-slides" :style="{ transform: `translateX(-${currentSlide * 100}%)` }">
-          <div class="case-slide" v-for="(c, i) in cases" :key="i">
-            <img :src="c.src" :alt="c.alt" />
-            <div class="case-caption">
-              <h3>{{ c.title }}</h3>
-              <p>{{ c.desc }}</p>
-            </div>
-          </div>
-        </div>
-        <div class="slider-nav">
-          <div
-            v-for="(dot, i) in cases"
-            :key="i"
-            class="slider-dot"
-            :class="{ active: currentSlide === i }"
-            @click="showSlide(i)"
-          ></div>
-        </div>
-      </div>
-    </section>
     <TheFooter />
   </div>
 </template>
@@ -123,45 +94,22 @@ const timeline = [
 const hotList = [
   { src: 'https://images.unsplash.com/photo-1524634126442-357e0eac3c14', alt: '经典蜻蜓台灯', title: '经典蜻蜓台灯', desc: '蒂凡尼最具代表性的设计之一，蜻蜓图案栩栩如生，色彩绚丽。', price: '¥3,980' },
   { src: 'https://images.unsplash.com/photo-1602028915047-37269d1a73f7', alt: '睡莲台灯', title: '睡莲台灯', desc: '以水中睡莲为灵感，柔和的绿色和蓝色调，营造宁静祥和氛围。', price: '¥4,250' },
-  { src: 'https://images.unsplash.com/photo-1524634126442-357e0eac3c14', alt: '紫藤吊灯', title: '紫藤吊灯', desc: '以紫藤花为主题的吊灯设计，流畅的线条与细腻的色彩诠释浪漫与优雅。', price: '¥6,380' }
+  { src: 'https://images.unsplash.com/photo-1524634126442-357e0eac3c14', alt: '紫藤吊灯', title: '紫藤吊灯', desc: '以紫藤花为主题的吊灯设计，流畅的线条与细腻的色彩诠释浪漫与优雅。', price: '¥6,380' },
+  { src: 'https://images.unsplash.com/photo-1602028915047-37269d1a73f7', alt: '睡莲台灯', title: '睡莲台灯', desc: '以水中睡莲为灵感，柔和的绿色和蓝色调，营造宁静祥和氛围。', price: '¥4,250' }
 ]
 
 const auctions = [
-  { src: 'https://images.unsplash.com/photo-1590502593743-0a5b0e88e274', alt: '拍卖会1', title: '纽约佳士得春季艺术品拍卖', date: '2025-05-12', desc: '精选19至20世纪装饰艺术，包含多款珍稀蒂凡尼灯作品。' },
-  { src: 'https://images.unsplash.com/photo-1517191434949-5e90cd67d2b8', alt: '拍卖会2', title: '伦敦苏富比夏季精选拍卖', date: '2025-06-28', desc: '聚焦欧洲装饰艺术传统，蒂凡尼灯与新艺术风格作品成为亮点。' },
+  { src: 'https://images.unsplash.com/photo-1505664194779-8beaceb93744', alt: '拍卖会1', title: '纽约佳士得春季艺术品拍卖', date: '2025-05-12', desc: '精选19至20世纪装饰艺术，包含多款珍稀蒂凡尼灯作品。' },
+  { src: 'https://images.unsplash.com/photo-1505664194779-8beaceb93744', alt: '拍卖会2', title: '伦敦苏富比夏季精选拍卖', date: '2025-06-28', desc: '聚焦欧洲装饰艺术传统，蒂凡尼灯与新艺术风格作品成为亮点。' },
   { src: 'https://images.unsplash.com/photo-1505664194779-8beaceb93744', alt: '拍卖会3', title: '香港保利艺术夜拍', date: '2025-09-03', desc: '亚洲艺术市场盛事，多款顶级蒂凡尼灯具有望刷新成交纪录。' }
 ]
 
-const cases = [
-  { src: 'https://images.unsplash.com/photo-1524634126442-357e0eac3c14', alt: '曼哈顿顶层公寓', title: '曼哈顿顶层公寓', desc: '设计师Kelly Wearstler在这座现代公寓中巧妙融合了多件蒂凡尼灯，为极简空间增添温暖和艺术感。' },
-  { src: 'https://images.unsplash.com/photo-1524634126442-357e0eac3c14', alt: '伦敦维多利亚式住宅', title: '伦敦维多利亚式住宅', desc: '这座历史建筑中，设计师保留了原有的建筑细节，并用蒂凡尼灯作为照明重点，创造新旧交融的和谐氛围。' },
-  { src: 'https://images.unsplash.com/photo-1524634126442-357e0eac3c14', alt: '东京现代餐厅', title: '东京现代餐厅', desc: '日本设计师将蒂凡尼吊灯与现代木质内饰结合，创造出既传统又当代的用餐空间。' }
-]
-
-const currentSlide = ref(0)
-let timer: any
-
-const showSlide = (index: number) => {
-  currentSlide.value = index
-}
-
-const startAuto = () => {
-  stopAuto()
-  timer = setInterval(() => {
-    currentSlide.value = (currentSlide.value + 1) % cases.length
-  }, 5000)
-}
-
-const stopAuto = () => {
-  if (timer) clearInterval(timer)
-}
-
 onMounted(() => {
-  startAuto()
+
 })
 
 onUnmounted(() => {
-  stopAuto()
+
 })
 </script>
 
@@ -169,7 +117,7 @@ onUnmounted(() => {
 .hero {
   height: 100vh;
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-              url('https://images.unsplash.com/photo-1524634126442-357e0eac3c14') no-repeat center center/cover;
+    url('https://images.unsplash.com/photo-1524634126442-357e0eac3c14') no-repeat center center/cover;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -179,7 +127,9 @@ onUnmounted(() => {
   margin-top: 60px;
 }
 
-.hero-content { max-width: 800px; }
+.hero-content {
+  max-width: 800px;
+}
 
 .hero h1 {
   font-family: var(--header-font);
@@ -200,6 +150,7 @@ onUnmounted(() => {
   gap: 20px;
   margin-top: 40px;
 }
+
 .gallery-item {
   position: relative;
   overflow: hidden;
@@ -209,95 +160,299 @@ onUnmounted(() => {
   height: 300px;
   cursor: pointer;
 }
-.gallery-item:hover { transform: translateY(-5px); }
+
+.gallery-item:hover {
+  transform: translateY(-5px);
+}
+
 .gallery-item img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.5s;
 }
-.gallery-item:hover img { transform: scale(1.05); }
+
+.gallery-item:hover img {
+  transform: scale(1.05);
+}
+
 .gallery-caption {
   position: absolute;
-  bottom: 0; left: 0; right: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   background: rgba(15, 76, 117, 0.8);
   color: white;
   padding: 15px;
   transform: translateY(100%);
   transition: transform 0.3s;
 }
-.gallery-item:hover .gallery-caption { transform: translateY(0); }
-.gallery-caption h3 { font-size: 1.3rem; margin-bottom: 5px; }
 
-.timeline { position: relative; max-width: 1200px; margin: 0 auto; }
+.gallery-item:hover .gallery-caption {
+  transform: translateY(0);
+}
+
+.gallery-caption h3 {
+  font-size: 1.3rem;
+  margin-bottom: 5px;
+}
+
+.timeline {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
 .timeline::after {
   content: '';
   position: absolute;
   width: 6px;
   background-color: var(--primary-color);
-  top: 0; bottom: 0; left: 50%;
+  top: 0;
+  bottom: 0;
+  left: 50%;
   margin-left: -3px;
 }
-.timeline-item { padding: 10px 40px; position: relative; background-color: inherit; width: 50%; }
+
+.timeline-item {
+  padding: 10px 40px;
+  position: relative;
+  background-color: inherit;
+  width: 50%;
+}
+
 .timeline-item::after {
   content: '';
   position: absolute;
-  width: 25px; height: 25px; right: -17px;
+  width: 25px;
+  height: 25px;
+  right: -17px;
   background-color: white;
   border: 4px solid var(--secondary-color);
-  top: 15px; border-radius: 50%; z-index: 1;
+  top: 15px;
+  border-radius: 50%;
+  z-index: 1;
 }
-.left { left: 0; }
-.right { left: 50%; }
+
+.left {
+  left: 0;
+}
+
+.right {
+  left: 50%;
+}
+
 .left::before {
-  content: " "; height: 0; position: absolute; top: 22px; width: 0; z-index: 1; right: 30px;
+  content: " ";
+  height: 0;
+  position: absolute;
+  top: 22px;
+  width: 0;
+  z-index: 1;
+  right: 30px;
   border: medium solid var(--primary-color);
   border-width: 10px 0 10px 10px;
   border-color: transparent transparent transparent var(--primary-color);
 }
+
 .right::before {
-  content: " "; height: 0; position: absolute; top: 22px; width: 0; z-index: 1; left: 30px;
+  content: " ";
+  height: 0;
+  position: absolute;
+  top: 22px;
+  width: 0;
+  z-index: 1;
+  left: 30px;
   border: medium solid var(--primary-color);
   border-width: 10px 10px 10px 0;
   border-color: transparent var(--primary-color) transparent transparent;
 }
-.right::after { left: -16px; }
-.timeline-content {
-  padding: 20px 30px; background-color: white; position: relative; border-radius: 6px; box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+
+.right::after {
+  left: -16px;
 }
-.timeline-content h3 { font-family: var(--header-font); color: var(--primary-color); margin-bottom: 10px; }
 
-.hot-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 30px; }
-.hot-item { background-color: white; border-radius: 5px; overflow: hidden; box-shadow: 0 3px 10px rgba(0,0,0,0.1); transition: transform 0.3s; }
-.hot-item:hover { transform: translateY(-5px); }
-.hot-item img { width: 100%; height: 200px; object-fit: cover; }
-.hot-item-content { padding: 20px; }
-.hot-item h3 { font-family: var(--header-font); color: var(--primary-color); margin-bottom: 10px; }
-.price { color: #e63946; font-weight: bold; font-size: 1.2rem; margin: 10px 0; }
+.timeline-content {
+  padding: 20px 30px;
+  background-color: white;
+  position: relative;
+  border-radius: 6px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
 
-.auction-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 30px; }
-.auction-item { background-color: white; border-radius: 5px; overflow: hidden; box-shadow: 0 3px 10px rgba(0,0,0,0.1); }
-.auction-item img { width: 100%; height: 250px; object-fit: cover; }
-.auction-content { padding: 20px; }
-.auction-date { display: inline-block; background-color: var(--primary-color); color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.9rem; margin-bottom: 10px; }
-.auction-item h3 { font-family: var(--header-font); color: var(--primary-color); margin-bottom: 10px; }
+.timeline-content h3 {
+  font-family: var(--header-font);
+  color: var(--primary-color);
+  margin-bottom: 10px;
+}
 
-.case-slider { position: relative; max-width: 1000px; margin: 0 auto; overflow: hidden; }
-.case-slides { display: flex; transition: transform 0.5s ease; }
-.case-slide { min-width: 100%; position: relative; }
-.case-slide img { width: 100%; height: 500px; object-fit: cover; border-radius: 5px; }
-.case-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.7); color: white; padding: 20px; }
-.slider-nav { display: flex; justify-content: center; margin-top: 20px; }
-.slider-dot { width: 12px; height: 12px; background-color: #bbb; border-radius: 50%; margin: 0 5px; cursor: pointer; transition: background-color 0.3s; }
-.slider-dot.active { background-color: var(--primary-color); }
+.hot-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+.hot-item {
+  background-color: white;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.hot-item:hover {
+  transform: translateY(-5px);
+}
+
+.hot-item img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.hot-item-content {
+  padding: 20px;
+}
+
+.hot-item h3 {
+  font-family: var(--header-font);
+  color: var(--primary-color);
+  margin-bottom: 10px;
+}
+
+.price {
+  color: #e63946;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin: 10px 0;
+}
+
+.auction-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 30px;
+}
+
+.auction-item {
+  background-color: white;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.auction-item img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.auction-content {
+  padding: 20px;
+}
+
+.auction-date {
+  display: inline-block;
+  background-color: var(--primary-color);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+.auction-item h3 {
+  font-family: var(--header-font);
+  color: var(--primary-color);
+  margin-bottom: 10px;
+}
+
+.case-slider {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.case-slides {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.case-slide {
+  min-width: 100%;
+  position: relative;
+}
+
+.case-slide img {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.case-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 20px;
+}
+
+.slider-nav {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.slider-dot {
+  width: 12px;
+  height: 12px;
+  background-color: #bbb;
+  border-radius: 50%;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.slider-dot.active {
+  background-color: var(--primary-color);
+}
 
 @media screen and (max-width: 768px) {
-  .hero h1 { font-size: 2.5rem; }
-  .hero p { font-size: 1.2rem; }
-  .timeline::after { left: 31px; }
-  .timeline-item { width: 100%; padding-left: 70px; padding-right: 25px; }
-  .timeline-item::before { left: 60px; border: medium solid var(--primary-color); border-width: 10px 10px 10px 0; border-color: transparent var(--primary-color) transparent transparent; }
-  .left::after, .right::after { left: 15px; }
-  .right { left: 0%; }
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero p {
+    font-size: 1.2rem;
+  }
+
+  .timeline::after {
+    left: 31px;
+  }
+
+  .timeline-item {
+    width: 100%;
+    padding-left: 70px;
+    padding-right: 25px;
+  }
+
+  .timeline-item::before {
+    left: 60px;
+    border: medium solid var(--primary-color);
+    border-width: 10px 10px 10px 0;
+    border-color: transparent var(--primary-color) transparent transparent;
+  }
+
+  .left::after,
+  .right::after {
+    left: 15px;
+  }
+
+  .right {
+    left: 0%;
+  }
 }
 </style>
