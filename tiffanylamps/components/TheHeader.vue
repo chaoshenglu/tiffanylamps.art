@@ -7,11 +7,11 @@
           <i class="fas fa-bars"></i>
         </div>
         <ul :class="{ active: isMenuOpen }">
-          <li><a href="#home" @click="handleNavClick">首页</a></li>
-          <li><a href="#trends" @click="handleNavClick">流行趋势</a></li>
-          <li><a href="#hot" @click="handleNavClick">热卖榜单</a></li>
-          <li><a href="#history" @click="handleNavClick">历史文化</a></li>
-          <li><a href="#auction" @click="handleNavClick">拍卖会</a></li>
+          <li><NuxtLink to="/" @click="closeMenu">首页</NuxtLink></li>
+          <li><NuxtLink to="/trends" @click="closeMenu">流行趋势</NuxtLink></li>
+          <li><NuxtLink to="/hot" @click="closeMenu">热卖榜单</NuxtLink></li>
+          <li><NuxtLink to="/history" @click="closeMenu">历史文化</NuxtLink></li>
+          <li><NuxtLink to="/auction" @click="closeMenu">拍卖会</NuxtLink></li>
         </ul>
       </nav>
     </div>
@@ -27,17 +27,8 @@ const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value
 }
 
-const handleNavClick = (e) => {
-  e.preventDefault()
-  const targetId = e.target.getAttribute('href')
-  const targetElement = document.querySelector(targetId)
-  
-  if (targetElement) {
-    window.scrollTo({
-      top: targetElement.offsetTop - 70,
-      behavior: 'smooth'
-    })
-  }
+// 点击菜单后关闭移动端菜单
+const closeMenu = () => {
   isMenuOpen.value = false
 }
 
@@ -97,7 +88,14 @@ nav ul li {
   margin-left: 30px;
 }
 
-nav ul li a {
+nav ul li a,
+nav ul li :deep(a),
+nav ul li :deep(.router-link-active),
+nav ul li :deep(.router-link-exact-active),
+nav ul li :deep(.nuxt-link-active),
+nav ul li :deep(.nuxt-link-exact-active),
+nav ul li :deep(.router-link),
+nav ul li :deep(.nuxt-link) {
   color: white;
   text-decoration: none;
   font-size: 1.1rem;
@@ -105,7 +103,9 @@ nav ul li a {
   position: relative;
 }
 
-nav ul li a::after {
+nav ul li a::after,
+nav ul li :deep(a)::after,
+nav ul li :deep(.nuxt-link)::after {
   content: '';
   position: absolute;
   width: 0;
@@ -115,7 +115,9 @@ nav ul li a::after {
   transition: width 0.3s;
 }
 
-nav ul li a:hover::after {
+nav ul li a:hover::after,
+nav ul li :deep(a:hover)::after,
+nav ul li :deep(.nuxt-link:hover)::after {
   width: 100%;
 }
 
