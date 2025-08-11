@@ -3,7 +3,7 @@
     <TheHeader />
     <main class="page-container">
       <div class="blog-header">
-        <h1>{{ $t('navigation.blog') }}</h1>
+        <h1>{{ categoryTitle }}</h1>
         <p>{{ $t('hero.subtitle') }}</p>
       </div>
       
@@ -45,15 +45,33 @@
 import TheHeader from '~/components/TheHeader.vue'
 import TheFooter from '~/components/TheFooter.vue'
 
-const { locale } = useI18n()
+const { locale, t } = useI18n()
 const localePath = useLocalePath()
+const route = useRoute()
 
-// 根据当前语言获取文章
+// 获取category查询参数
+const category = computed(() => route.query.category)
+
+// 根据category显示标题
+const categoryTitle = computed(() => {
+  if (category.value) {
+    return category.value
+  }
+  return t('navigation.blog')
+})
+
+// 根据当前语言和类别获取文章
 const { data } = await useAsyncData('blog-list', () => {
-  return queryContent('blog')
-    .where({ _locale: locale.value })
-    .sort({ publishedAt: -1 })
-    .find()
+  let query = queryContent('blog')
+  
+  // 如果有category参数，则按类别筛选
+  if (category.value) {
+    query = query.where({ category: category.value })
+  }
+  
+  return query.sort({ publishedAt: -1 }).find()
+}, {
+  watch: [category]
 })
 
 // 格式化日期
