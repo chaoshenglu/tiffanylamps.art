@@ -44,10 +44,8 @@ const handleNavClick = (e) => {
 const handleScroll = () => {
   const header = document.querySelector('.header')
   if (window.scrollY > 100) {
-    header.style.backgroundColor = 'rgba(15, 76, 117, 0.9)'
     header.style.padding = '10px 0'
   } else {
-    header.style.backgroundColor = 'var(--primary-color)'
     header.style.padding = '20px 0'
   }
 }
@@ -63,14 +61,13 @@ onUnmounted(() => {
 
 <style scoped>
 .header {
-  background-color: var(--primary-color);
+  background-color: rgba(0, 0, 0, 0.7);
   color: white;
   padding: 20px 0;
   position: fixed;
   width: 100%;
   top: 0;
   z-index: 1000;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
 }
 
@@ -119,7 +116,6 @@ nav ul li a::after {
   height: 2px;
   bottom: -5px;
   left: 0;
-  background-color: var(--accent-color);
   transition: width 0.3s;
 }
 
@@ -144,7 +140,6 @@ nav ul li a:hover::after {
     left: -100%;
     width: 100%;
     height: calc(100vh - 70px);
-    background-color: var(--primary-color);
     flex-direction: column;
     align-items: center;
     justify-content: center;

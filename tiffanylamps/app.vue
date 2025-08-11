@@ -32,9 +32,9 @@ useHead({
 <style>
 /* 全局CSS变量 */
 :root {
-  --primary-color: #0f4c75;
-  --secondary-color: #3282b8;
-  --accent-color: #bbe1fa;
+  --primary-color: #000000;
+  --secondary-color: #000000;
+  --accent-color: #000000;
   --text-color: #333;
   --bg-color: #f5f5f5;
   --header-font: 'Playfair Display', serif;

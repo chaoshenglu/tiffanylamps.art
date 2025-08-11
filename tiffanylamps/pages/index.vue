@@ -120,7 +120,7 @@ onUnmounted(() => {
 .hero {
   height: 100vh;
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url('https://images.unsplash.com/photo-1524634126442-357e0eac3c14') no-repeat center center/cover;
+    url('https://r2.tiffanylamps.art/poster/poster1.webp') no-repeat center center/cover;
   display: flex;
   align-items: center;
   justify-content: center;

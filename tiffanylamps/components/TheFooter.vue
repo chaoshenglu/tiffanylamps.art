@@ -12,7 +12,6 @@
         <a href="#history">历史文化</a>
         <a href="#hot">热卖榜单</a>
         <a href="#auction">拍卖会</a>
-        <a href="#cases">装修案例</a>
       </div>
       <div class="footer-col">
         <h3>联系我们</h3>
