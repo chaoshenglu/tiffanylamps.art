@@ -25,7 +25,7 @@
     <section id="hot" class="container">
       <h2 class="section-title">热卖榜单</h2>
       <p class="ornament">❦</p>
-      <p>精选市场上最受欢迎的蒂凡尼灯款式，这些作品因其独特的设计和卓越的品质而备受青睐。</p>
+      <p style="margin-bottom: 20px;">精选市场上最受欢迎的蒂凡尼灯款式，这些作品因其独特的设计和卓越的品质而备受青睐。</p>
       <div class="hot-list">
         <div class="hot-item" v-for="(item, i) in hotList" :key="i">
           <img :src="item.src" :alt="item.alt" />
@@ -41,7 +41,7 @@
     <section id="history" class="container">
       <h2 class="section-title">历史文化</h2>
       <p class="ornament">❦</p>
-      <p>蒂凡尼灯由美国艺术家路易斯·康福特·蒂凡尼（Louis Comfort Tiffany）于19世纪末创造，是新艺术运动的杰出代表。蒂凡尼将彩色玻璃艺术与实用功能完美结合，创造出这些永恒的艺术珍品。</p>
+      <p style="margin-bottom: 20px;">蒂凡尼灯由美国艺术家路易斯·康福特·蒂凡尼（Louis Comfort Tiffany）于19世纪末创造，是新艺术运动的杰出代表。蒂凡尼将彩色玻璃艺术与实用功能完美结合，创造出这些永恒的艺术珍品。</p>
       <div class="timeline">
         <div class="timeline-item" v-for="(node, i) in timeline" :key="i" :class="i % 2 === 0 ? 'left' : 'right'">
           <div class="timeline-content">
