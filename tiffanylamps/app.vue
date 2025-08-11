@@ -68,27 +68,6 @@ body {
   margin: 20px 0;
 }
 
-/* 按钮样式 */
-.btn {
-  display: inline-block;
-  background-color: var(--primary-color);
-  color: white;
-  padding: 12px 30px;
-  border: none;
-  border-radius: 30px;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: all 0.3s;
-  text-decoration: none;
-}
-
-.btn:hover {
-  background-color: var(--secondary-color);
-  transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
-
-/* 主要内容区 */
 .container {
   max-width: 1200px;
   margin: 60px auto;

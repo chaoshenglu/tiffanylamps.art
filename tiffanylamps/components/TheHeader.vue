@@ -105,10 +105,6 @@ nav ul li a {
   position: relative;
 }
 
-nav ul li a:hover {
-  color: var(--accent-color);
-}
-
 nav ul li a::after {
   content: '';
   position: absolute;

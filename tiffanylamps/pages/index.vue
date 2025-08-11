@@ -5,7 +5,6 @@
       <div class="hero-content">
         <h1>蒂凡尼灯的艺术世界</h1>
         <p>探索艺术与光的完美融合，领略百年不朽的经典魅力</p>
-        <a href="#trends" class="btn">开始探索</a>
       </div>
     </section>
     <section id="trends" class="container">
@@ -127,7 +126,6 @@ onUnmounted(() => {
   text-align: center;
   color: white;
   padding: 0 20px;
-  margin-top: 60px;
 }
 
 .hero-content {
