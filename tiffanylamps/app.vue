@@ -54,12 +54,6 @@ body {
   line-height: 1.6;
 }
 
-/* 复古装饰元素 */
-.vintage-border {
-  border: 8px solid transparent;
-  border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='75' height='75' viewBox='0 0 75 75'%3E%3Cg fill='%230f4c75' fill-opacity='0.3'%3E%3Cpath d='M0 0h75v75H0V0zm25 25h25v25H25V25z'/%3E%3C/g%3E%3C/svg%3E") 8 stretch;
-}
-
 .ornament {
   font-family: 'Playfair Display', serif;
   font-size: 1.5rem;

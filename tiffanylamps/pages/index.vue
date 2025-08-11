@@ -38,7 +38,7 @@
       </div>
     </section>
 
-    <section id="history" class="container vintage-border">
+    <section id="history" class="container">
       <h2 class="section-title">历史文化</h2>
       <p class="ornament">❦</p>
       <p>蒂凡尼灯由美国艺术家路易斯·康福特·蒂凡尼（Louis Comfort Tiffany）于19世纪末创造，是新艺术运动的杰出代表。蒂凡尼将彩色玻璃艺术与实用功能完美结合，创造出这些永恒的艺术珍品。</p>
