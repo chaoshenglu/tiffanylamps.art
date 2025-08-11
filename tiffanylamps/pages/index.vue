@@ -251,9 +251,9 @@ onUnmounted(() => {
   width: 0;
   z-index: 1;
   right: 30px;
-  border: medium solid var(--primary-color);
+  border: medium solid var(--text-color);
   border-width: 10px 0 10px 10px;
-  border-color: transparent transparent transparent var(--primary-color);
+  border-color: transparent transparent transparent var(--text-color);
 }
 
 .right::before {
