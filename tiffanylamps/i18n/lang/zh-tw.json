@@ -1,0 +1,30 @@
+{
+  "navigation": {
+    "home": "首頁",
+    "trends": "流行趨勢",
+    "hot": "熱賣榜單",
+    "history": "歷史文化",
+    "auction": "拍賣會",
+    "blog": "文章部落格"
+  },
+  "common": {
+    "readMore": "閱讀更多",
+    "backToList": "返回列表",
+    "publish": "發表",
+    "author": "作者",
+    "publishDate": "發表日期",
+    "category": "分類",
+    "tags": "標籤"
+  },
+  "hero": {
+    "title": "蒂凡尼燈的藝術世界",
+    "subtitle": "探索藝術與光的完美融合，領略百年不朽的經典魅力"
+  },
+  "footer": {
+    "about": "關於我們",
+    "aboutDesc": "我們致力於推廣蒂凡尼燈的藝術與文化，提供精選作品、設計靈感與行業資訊。",
+    "contact": "聯絡我們",
+    "email": "信箱：sale@tiffanylamps.art",
+    "phone": "電話：+86 123 4567 8901"
+  }
+}
