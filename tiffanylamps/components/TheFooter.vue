@@ -10,6 +10,7 @@
       <div class="footer-col">
         <h3>联系我们</h3>
         <p>邮箱：sale@tiffanylamps.art</p>
+        <p>电话：+86 123 4567 8901</p>
         <div class="social-links">
           <a href="#" aria-label="Facebook">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22.675 0h-21.35C.595 0 0 .595 0 1.325v21.351C0 23.405.595 24 1.325 24h11.495v-9.294H9.691V11.08h3.129V8.414c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.794.143v3.24l-1.918.001c-1.504 0-1.796.715-1.796 1.764v2.315h3.59l-.467 3.626h-3.123V24h6.116C23.406 24 24 23.405 24 22.676V1.325C24 .595 23.406 0 22.675 0z"/></svg>
@@ -24,7 +25,7 @@
       </div>
     </div>
     <div class="copyright">
-      &copy; {{ new Date().getFullYear() }} tiffanylamps.art 保留所有权利
+      粤ICP备2025440962号
     </div>
   </footer>
 </template>
