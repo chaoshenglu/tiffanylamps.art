@@ -6,17 +6,10 @@
         <p>我们致力于推广蒂凡尼灯的艺术与文化，提供精选作品、设计灵感与行业资讯。</p>
       </div>
       <div class="footer-col">
-        <h3>快速链接</h3>
-        <a href="#home">首页</a>
-        <a href="#trends">流行趋势</a>
-        <a href="#history">历史文化</a>
-        <a href="#hot">热卖榜单</a>
-        <a href="#auction">拍卖会</a>
       </div>
       <div class="footer-col">
         <h3>联系我们</h3>
-        <p>邮箱：info@tiffanylamps.art</p>
-        <p>电话：+86 123 4567 8901</p>
+        <p>邮箱：sale@tiffanylamps.art</p>
         <div class="social-links">
           <a href="#" aria-label="Facebook">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22.675 0h-21.35C.595 0 0 .595 0 1.325v21.351C0 23.405.595 24 1.325 24h11.495v-9.294H9.691V11.08h3.129V8.414c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.794.143v3.24l-1.918.001c-1.504 0-1.796.715-1.796 1.764v2.315h3.59l-.467 3.626h-3.123V24h6.116C23.406 24 24 23.405 24 22.676V1.325C24 .595 23.406 0 22.675 0z"/></svg>
