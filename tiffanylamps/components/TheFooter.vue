@@ -24,9 +24,6 @@
         </div>
       </div>
     </div>
-    <div class="copyright">
-      粤ICP备2025440962号
-    </div>
   </footer>
 </template>
 
@@ -99,11 +96,5 @@
 
 .social-links a:hover {
   background-color: var(--secondary-color);
-}
-
-.copyright {
-  text-align: center;
-  margin-top: 50px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 </style>
