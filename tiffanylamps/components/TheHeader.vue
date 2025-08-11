@@ -39,8 +39,6 @@ const handleNavClick = (e) => {
       behavior: 'smooth'
     })
   }
-  
-  // 关闭移动端菜单
   isMenuOpen.value = false
 }
 
@@ -140,7 +138,6 @@ nav ul li a:hover::after {
   font-size: 1.5rem;
 }
 
-/* 响应式设计 */
 @media screen and (max-width: 768px) {
   .hamburger {
     display: block;

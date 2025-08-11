@@ -1,8 +1,6 @@
 <template>
   <div>
     <TheHeader />
-
-    <!-- 英雄区 -->
     <section class="hero" id="home">
       <div class="hero-content">
         <h1>蒂凡尼灯的艺术世界</h1>
@@ -10,13 +8,10 @@
         <a href="#trends" class="btn">开始探索</a>
       </div>
     </section>
-
-    <!-- 流行趋势 -->
     <section id="trends" class="container">
       <h2 class="section-title">流行趋势</h2>
       <p class="ornament">❦</p>
       <p>蒂凡尼灯作为装饰艺术的重要代表，近年来在室内设计领域重新焕发光彩。从传统复古到现代简约，从单件展示到系列组合，蒂凡尼灯以其独特的艺术魅力和精湛工艺，成为高端住宅、精品酒店和艺术空间的首选照明装饰。</p>
-
       <div class="gallery">
         <div class="gallery-item" v-for="(item, idx) in trends" :key="idx">
           <img :src="item.src" :alt="item.alt" />
@@ -27,13 +22,10 @@
         </div>
       </div>
     </section>
-
-    <!-- 历史文化 -->
     <section id="history" class="container vintage-border">
       <h2 class="section-title">历史文化</h2>
       <p class="ornament">❦</p>
       <p>蒂凡尼灯由美国艺术家路易斯·康福特·蒂凡尼（Louis Comfort Tiffany）于19世纪末创造，是新艺术运动的杰出代表。蒂凡尼将彩色玻璃艺术与实用功能完美结合，创造出这些永恒的艺术珍品。</p>
-
       <div class="timeline">
         <div
           class="timeline-item"
@@ -48,13 +40,10 @@
         </div>
       </div>
     </section>
-
-    <!-- 热卖榜单 -->
     <section id="hot" class="container">
       <h2 class="section-title">热卖榜单</h2>
       <p class="ornament">❦</p>
       <p>精选市场上最受欢迎的蒂凡尼灯款式，这些作品因其独特的设计和卓越的品质而备受青睐。</p>
-
       <div class="hot-list">
         <div class="hot-item" v-for="(item, i) in hotList" :key="i">
           <img :src="item.src" :alt="item.alt" />
@@ -66,8 +55,6 @@
         </div>
       </div>
     </section>
-
-    <!-- 拍卖会资料 -->
     <section id="auction" class="container">
       <h2 class="section-title">拍卖会</h2>
       <p class="ornament">❦</p>
@@ -82,12 +69,9 @@
         </div>
       </div>
     </section>
-
-    <!-- 装修案例轮播 -->
     <section id="cases" class="container">
       <h2 class="section-title">装修案例</h2>
       <p class="ornament">❦</p>
-
       <div class="case-slider">
         <div class="case-slides" :style="{ transform: `translateX(-${currentSlide * 100}%)` }">
           <div class="case-slide" v-for="(c, i) in cases" :key="i">
@@ -109,7 +93,6 @@
         </div>
       </div>
     </section>
-
     <TheFooter />
   </div>
 </template>
@@ -211,7 +194,6 @@ onUnmounted(() => {
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 
-/* 画廊 */
 .gallery {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -247,7 +229,6 @@ onUnmounted(() => {
 .gallery-item:hover .gallery-caption { transform: translateY(0); }
 .gallery-caption h3 { font-size: 1.3rem; margin-bottom: 5px; }
 
-/* 时间线 */
 .timeline { position: relative; max-width: 1200px; margin: 0 auto; }
 .timeline::after {
   content: '';
@@ -286,7 +267,6 @@ onUnmounted(() => {
 }
 .timeline-content h3 { font-family: var(--header-font); color: var(--primary-color); margin-bottom: 10px; }
 
-/* 热卖榜单 */
 .hot-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 30px; }
 .hot-item { background-color: white; border-radius: 5px; overflow: hidden; box-shadow: 0 3px 10px rgba(0,0,0,0.1); transition: transform 0.3s; }
 .hot-item:hover { transform: translateY(-5px); }
@@ -295,7 +275,6 @@ onUnmounted(() => {
 .hot-item h3 { font-family: var(--header-font); color: var(--primary-color); margin-bottom: 10px; }
 .price { color: #e63946; font-weight: bold; font-size: 1.2rem; margin: 10px 0; }
 
-/* 拍卖会 */
 .auction-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 30px; }
 .auction-item { background-color: white; border-radius: 5px; overflow: hidden; box-shadow: 0 3px 10px rgba(0,0,0,0.1); }
 .auction-item img { width: 100%; height: 250px; object-fit: cover; }
@@ -303,7 +282,6 @@ onUnmounted(() => {
 .auction-date { display: inline-block; background-color: var(--primary-color); color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.9rem; margin-bottom: 10px; }
 .auction-item h3 { font-family: var(--header-font); color: var(--primary-color); margin-bottom: 10px; }
 
-/* 案例轮播 */
 .case-slider { position: relative; max-width: 1000px; margin: 0 auto; overflow: hidden; }
 .case-slides { display: flex; transition: transform 0.5s ease; }
 .case-slide { min-width: 100%; position: relative; }
@@ -313,7 +291,6 @@ onUnmounted(() => {
 .slider-dot { width: 12px; height: 12px; background-color: #bbb; border-radius: 50%; margin: 0 5px; cursor: pointer; transition: background-color 0.3s; }
 .slider-dot.active { background-color: var(--primary-color); }
 
-/* 响应式 */
 @media screen and (max-width: 768px) {
   .hero h1 { font-size: 2.5rem; }
   .hero p { font-size: 1.2rem; }
