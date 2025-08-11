@@ -1,0 +1,30 @@
+{
+  "navigation": {
+    "home": "Home",
+    "trends": "Trends",
+    "hot": "Hot Sales",
+    "history": "History",
+    "auction": "Auctions",
+    "blog": "Blog"
+  },
+  "common": {
+    "readMore": "Read more",
+    "backToList": "Back to list",
+    "publish": "Publish",
+    "author": "Author",
+    "publishDate": "Published on",
+    "category": "Category",
+    "tags": "Tags"
+  },
+  "hero": {
+    "title": "The Artistic World of Tiffany Lamps",
+    "subtitle": "Explore the perfect fusion of art and light, and experience timeless classics"
+  },
+  "footer": {
+    "about": "About Us",
+    "aboutDesc": "We promote the art and culture of Tiffany lamps, offering curated pieces, design inspiration, and industry insights.",
+    "contact": "Contact Us",
+    "email": "Email: sale@tiffanylamps.art",
+    "phone": "Phone: +86 123 4567 8901"
+  }
+}

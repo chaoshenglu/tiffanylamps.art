@@ -1,0 +1,30 @@
+{
+  "navigation": {
+    "home": "ホーム",
+    "trends": "トレンド",
+    "hot": "人気ランキング",
+    "history": "歴史文化",
+    "auction": "オークション",
+    "blog": "ブログ"
+  },
+  "common": {
+    "readMore": "続きを読む",
+    "backToList": "一覧に戻る",
+    "publish": "公開",
+    "author": "著者",
+    "publishDate": "公開日",
+    "category": "カテゴリ",
+    "tags": "タグ"
+  },
+  "hero": {
+    "title": "ティファニーランプの芸術世界",
+    "subtitle": "芸術と光の完璧な融合、時を超えるクラシックを体験"
+  },
+  "footer": {
+    "about": "私たちについて",
+    "aboutDesc": "私たちはティファニーランプの芸術と文化を広め、厳選された作品、デザインのインスピレーション、業界の洞察を提供します。",
+    "contact": "お問い合わせ",
+    "email": "メール: sale@tiffanylamps.art",
+    "phone": "電話: +86 123 4567 8901"
+  }
+}
