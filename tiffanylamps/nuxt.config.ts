@@ -6,6 +6,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
     ['@nuxt/content', {
+      database: { connector: 'native' },
       highlight: { theme: 'github-dark' }
     }],
     ['@nuxtjs/i18n', {
