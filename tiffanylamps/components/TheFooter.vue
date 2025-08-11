@@ -104,7 +104,6 @@
 .copyright {
   text-align: center;
   margin-top: 50px;
-  padding-top: 20px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 </style>
