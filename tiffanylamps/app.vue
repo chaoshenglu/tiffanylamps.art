@@ -81,7 +81,7 @@ section {
 .section-title {
   font-family: var(--header-font);
   font-size: 2.5rem;
-  color: var(--primary-color);
+  color: var(--text-color);
   text-align: center;
   margin-bottom: 40px;
   position: relative;
