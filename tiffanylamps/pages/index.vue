@@ -102,35 +102,14 @@ const slides = ref([
     id: 1,
     title: '经典蒂凡尼艺术',
     description: '传承百年工艺，每一片玻璃都诉说着光影的故事',
-    image: 'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=1920&h=1080&fit=crop',
+    image: 'https://r2.tiffanylamps.art/poster/poster1.webp',
     ...generateRandomAnimation()
   },
   {
     id: 2,
     title: '现代创新设计',
     description: '融合当代美学，重新定义光影艺术的边界',
-    image: 'https://images.unsplash.com/photo-1524484485831-a92ffc0de03f?w=1920&h=1080&fit=crop',
-    ...generateRandomAnimation()
-  },
-  {
-    id: 3,
-    title: '手工精致工艺',
-    description: '每一个细节都体现着匠人的专注与热爱',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1920&h=1080&fit=crop',
-    ...generateRandomAnimation()
-  },
-  {
-    id: 4,
-    title: '色彩斑斓世界',
-    description: '用色彩编织梦想，让光线舞动生命',
-    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&h=1080&fit=crop',
-    ...generateRandomAnimation()
-  },
-  {
-    id: 5,
-    title: '艺术生活美学',
-    description: '将艺术融入生活，让美好触手可及',
-    image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1920&h=1080&fit=crop',
+    image: 'https://r2.tiffanylamps.art/poster/poster2.webp',
     ...generateRandomAnimation()
   }
 ])
