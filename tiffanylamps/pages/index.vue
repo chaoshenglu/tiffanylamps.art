@@ -208,7 +208,7 @@ onUnmounted(() => {
   content: '';
   position: absolute;
   width: 6px;
-  background-color: var(--primary-color);
+  background-color: var(--text-color);
   top: 0;
   bottom: 0;
   left: 50%;
@@ -229,7 +229,7 @@ onUnmounted(() => {
   height: 25px;
   right: -17px;
   background-color: white;
-  border: 4px solid var(--secondary-color);
+  border: 4px solid var(--text-color);
   top: 15px;
   border-radius: 50%;
   z-index: 1;
