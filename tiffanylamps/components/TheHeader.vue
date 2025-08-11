@@ -8,10 +8,10 @@
         </div>
         <ul :class="{ active: isMenuOpen }">
           <li><NuxtLink to="/" @click="closeMenu">首页</NuxtLink></li>
-          <li><NuxtLink to="/blog?category=流行趋势" @click="closeMenu">流行趋势</NuxtLink></li>
-          <li><NuxtLink to="/blog?category=热卖榜单" @click="closeMenu">热卖榜单</NuxtLink></li>
-          <li><NuxtLink to="/blog?category=历史文化" @click="closeMenu">历史文化</NuxtLink></li>
-          <li><NuxtLink to="/blog?category=拍卖会" @click="closeMenu">拍卖会</NuxtLink></li>
+          <li><NuxtLink :to="`/blog?category=${encodeURIComponent('流行趋势')}`" @click="closeMenu">流行趋势</NuxtLink></li>
+          <li><NuxtLink :to="`/blog?category=${encodeURIComponent('热卖榜单')}`" @click="closeMenu">热卖榜单</NuxtLink></li>
+          <li><NuxtLink :to="`/blog?category=${encodeURIComponent('历史文化')}`" @click="closeMenu">历史文化</NuxtLink></li>
+          <li><NuxtLink :to="`/blog?category=${encodeURIComponent('拍卖会')}`" @click="closeMenu">拍卖会</NuxtLink></li>
         </ul>
       </nav>
     </div>

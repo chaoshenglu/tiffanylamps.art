@@ -7,6 +7,8 @@
         <p>{{ $t('hero.subtitle') }}</p>
       </div>
       
+
+      
       <div class="blog-list" v-if="data && data.length > 0">
         <article 
           v-for="article in data" 
@@ -49,8 +51,11 @@ const { locale, t } = useI18n()
 const localePath = useLocalePath()
 const route = useRoute()
 
-// 获取category查询参数
-const category = computed(() => route.query.category)
+// 获取category查询参数并解码
+const category = computed(() => {
+  const cat = route.query.category
+  return cat ? decodeURIComponent(cat) : null
+})
 
 // 根据category显示标题
 const categoryTitle = computed(() => {
@@ -61,7 +66,7 @@ const categoryTitle = computed(() => {
 })
 
 // 根据当前语言和类别获取文章
-const { data } = await useAsyncData('blog-list', () => {
+const { data } = await useAsyncData('blog-list', async () => {
   let query = queryContent('blog')
   
   // 如果有category参数，则按类别筛选
@@ -69,7 +74,7 @@ const { data } = await useAsyncData('blog-list', () => {
     query = query.where({ category: category.value })
   }
   
-  return query.sort({ publishedAt: -1 }).find()
+  return await query.sort({ publishedAt: -1 }).find()
 }, {
   watch: [category]
 })
