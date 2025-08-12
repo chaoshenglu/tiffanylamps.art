@@ -48,12 +48,8 @@
 const route = useRoute()
 const slug = route.params.slug?.[0] || 'first-article'
 
-// 模拟文章数据
-const articleData = {
-  
-}
-
-const data = articleData[slug] || articleData['first-article']
+// 使用Nuxt Content获取文章数据
+const { data } = await queryContent('articles').where({ _path: `/articles/${slug}` }).findOne()
 
 if (!data) {
   throw createError({

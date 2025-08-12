@@ -17,19 +17,7 @@
 </template>
 
 <script setup>
-let articles = []
-try {
-  const response = await $fetch('/api/_content/query', {
-    method: 'GET',
-    query: {
-      _params: JSON.stringify({
-        where: [{ _path: { $regex: '/articles' } }]
-      })
-    }
-  })
-  articles = response || []
-  console.log('找到的文章:', articles)
-} catch (error) {
-  console.error('获取文章失败:', error)
-}
+// 使用Nuxt Content的查询API获取文章
+const { data: articles } = await queryContent('articles').find()
+console.log('找到的文章:', articles)
 </script>
