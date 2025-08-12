@@ -49,7 +49,9 @@ const route = useRoute()
 const slug = route.params.slug?.[0] || 'first-article'
 
 // 使用Nuxt Content获取文章数据
-const { data } = await queryContent('articles').where({ _path: `/articles/${slug}` }).findOne()
+const { data } = await useAsyncData(`article-${slug}`, () => 
+  queryContent('articles', slug).findOne()
+)
 
 if (!data) {
   throw createError({

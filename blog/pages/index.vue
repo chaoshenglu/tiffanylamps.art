@@ -18,6 +18,8 @@
 
 <script setup>
 // 使用Nuxt Content的查询API获取文章
-const { data: articles } = await queryContent('articles').find()
+const { data: articles } = await useAsyncData('articles', () => 
+  queryContent('articles').find()
+)
 console.log('找到的文章:', articles)
 </script>
