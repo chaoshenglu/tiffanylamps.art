@@ -31,24 +31,5 @@ try {
   console.log('找到的文章:', articles)
 } catch (error) {
   console.error('获取文章失败:', error)
-  // 如果API失败，尝试直接读取文件
-  try {
-    articles = [
-      {
-        _path: '/articles/first-article',
-        title: '我的第一篇文章',
-        description: '这是我的第一篇博客文章',
-        date: '2024-01-15'
-      },
-      {
-        _path: '/articles/second-article', 
-        title: 'Vue 3 组合式API详解',
-        description: '深入了解Vue 3的组合式API',
-        date: '2024-01-20'
-      }
-    ]
-  } catch (fallbackError) {
-    articles = []
-  }
 }
 </script>
