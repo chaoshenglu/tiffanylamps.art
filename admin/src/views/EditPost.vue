@@ -96,7 +96,7 @@
 import { ref, reactive, onBeforeUnmount, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
-import { supabaseClient, isConnected } from '../store/supabase.js'
+import { supabaseClient, isConnected, autoReconnect } from '../store/supabase.js'
 import { useRouter, useRoute } from 'vue-router'
 
 // 引入编辑器样式
@@ -212,6 +212,17 @@ const loadPost = async () => {
 
     if (error) {
       console.error('加载文章错误:', error)
+      
+      // 如果是认证错误，尝试重连
+      if (error.code === 'PGRST301' || error.message.includes('JWT') || error.message.includes('authentication')) {
+        const reconnected = await autoReconnect()
+        if (reconnected) {
+          ElMessage.warning('连接已重新建立，正在重新加载...')
+          setTimeout(() => loadPost(), 1000)
+          return
+        }
+      }
+      
       ElMessage.error(`加载失败: ${error.message}`)
       router.push('/list')
       return
@@ -234,29 +245,35 @@ const loadPost = async () => {
 }
 
 // 检查连接状态并加载文章
-onMounted(() => {
+onMounted(async () => {
   if (!isConnected.value) {
-    ElMessageBox.confirm(
-      '请先配置Supabase数据库连接',
-      '提示',
-      {
-        confirmButtonText: '去配置',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }
-    ).then(() => {
-      router.push('/config')
-    })
-  } else {
-    loadPost()
+    const reconnected = await autoReconnect()
+    if (!reconnected) {
+      ElMessageBox.confirm(
+        '数据库连接已断开，请重新配置连接',
+        '连接失效',
+        {
+          confirmButtonText: '去配置',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }
+      ).then(() => {
+        router.push('/config')
+      })
+      return
+    }
   }
+  loadPost()
 })
 
 // 提交表单
 const submitForm = async () => {
   if (!isConnected.value) {
-    ElMessage.error('请先配置数据库连接')
-    return
+    const reconnected = await autoReconnect()
+    if (!reconnected) {
+      ElMessage.error('数据库连接已断开，请重新配置连接')
+      return
+    }
   }
   
   if (!formRef.value) return
@@ -280,6 +297,16 @@ const submitForm = async () => {
         
         if (error) {
           console.error('更新错误:', error)
+          
+          // 如果是认证错误，尝试重连
+          if (error.code === 'PGRST301' || error.message.includes('JWT') || error.message.includes('authentication')) {
+            const reconnected = await autoReconnect()
+            if (reconnected) {
+              ElMessage.warning('连接已重新建立，请重新提交')
+              return
+            }
+          }
+          
           ElMessage.error(`更新失败: ${error.message}`)
         } else {
           ElMessage.success('文章更新成功！')

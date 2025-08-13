@@ -30,12 +30,32 @@ export function initializeSupabase(url, key, router = null) {
 }
 
 // 从localStorage恢复配置
-export function restoreSupabaseConfig(router = null) {
+export async function restoreSupabaseConfig(router = null) {
   const url = localStorage.getItem('supabase_url')
   const key = localStorage.getItem('supabase_key')
   
   if (url && key) {
-    return initializeSupabase(url, key, router)
+    try {
+      supabaseClient.value = createClient(url, key)
+      
+      // 验证连接是否有效
+      const { data, error } = await supabaseClient.value.from('posts').select('count', { count: 'exact', head: true })
+      
+      if (error) {
+        console.error('Supabase连接验证失败:', error)
+        // 如果连接无效，清除配置
+        clearSupabaseConfig()
+        return { success: false, error: error.message }
+      }
+      
+      // 连接有效，更新状态
+      isConnected.value = true
+      return { success: true }
+    } catch (error) {
+      console.error('恢复Supabase配置错误:', error)
+      clearSupabaseConfig()
+      return { success: false, error: error.message }
+    }
   }
   
   return { success: false }
@@ -47,4 +67,44 @@ export function clearSupabaseConfig() {
   isConnected.value = false
   localStorage.removeItem('supabase_url')
   localStorage.removeItem('supabase_key')
+}
+
+// 检查连接健康状态
+export async function checkConnectionHealth() {
+  if (!supabaseClient.value || !isConnected.value) {
+    return false
+  }
+  
+  try {
+    const { error } = await supabaseClient.value.from('posts').select('count', { count: 'exact', head: true })
+    
+    if (error) {
+      console.error('连接健康检查失败:', error)
+      isConnected.value = false
+      return false
+    }
+    
+    return true
+  } catch (error) {
+    console.error('连接健康检查错误:', error)
+    isConnected.value = false
+    return false
+  }
+}
+
+// 自动重连机制
+export async function autoReconnect() {
+  if (isConnected.value) {
+    return true
+  }
+  
+  const url = localStorage.getItem('supabase_url')
+  const key = localStorage.getItem('supabase_key')
+  
+  if (url && key) {
+    const result = await restoreSupabaseConfig()
+    return result.success
+  }
+  
+  return false
 }

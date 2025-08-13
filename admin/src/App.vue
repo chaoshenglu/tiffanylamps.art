@@ -5,9 +5,13 @@ import { restoreSupabaseConfig } from './store/supabase.js'
 
 const router = useRouter()
 
-onMounted(() => {
+onMounted(async () => {
   // 页面加载时尝试恢复Supabase配置
-  restoreSupabaseConfig(router)
+  try {
+    await restoreSupabaseConfig(router)
+  } catch (error) {
+    console.error('恢复配置失败:', error)
+  }
 })
 
 function refresh() {

@@ -93,7 +93,7 @@
 import { ref, reactive, onMounted, computed } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Search } from '@element-plus/icons-vue'
-import { supabaseClient, isConnected } from '../store/supabase.js'
+import { supabaseClient, isConnected, autoReconnect } from '../store/supabase.js'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
@@ -180,19 +180,23 @@ const formatDate = (dateString) => {
 
 // 加载文章列表
 const loadPosts = async () => {
+  // 如果未连接，尝试自动重连
   if (!isConnected.value) {
-    ElMessageBox.confirm(
-      '请先配置Supabase数据库连接',
-      '提示',
-      {
-        confirmButtonText: '去配置',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }
-    ).then(() => {
-      router.push('/config')
-    })
-    return
+    const reconnected = await autoReconnect()
+    if (!reconnected) {
+      ElMessageBox.confirm(
+        '数据库连接已断开，请重新配置连接',
+        '连接失效',
+        {
+          confirmButtonText: '去配置',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }
+      ).then(() => {
+        router.push('/config')
+      })
+      return
+    }
   }
 
   loading.value = true
@@ -224,6 +228,18 @@ const loadPosts = async () => {
 
     if (error) {
       console.error('加载文章错误:', error)
+      
+      // 如果是认证错误，尝试重连
+      if (error.code === 'PGRST301' || error.message.includes('JWT') || error.message.includes('authentication')) {
+        const reconnected = await autoReconnect()
+        if (reconnected) {
+          // 重连成功，重新尝试加载
+          ElMessage.warning('连接已重新建立，正在重新加载...')
+          setTimeout(() => loadPosts(), 1000)
+          return
+        }
+      }
+      
       ElMessage.error(`加载失败: ${error.message}`)
       return
     }
