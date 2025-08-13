@@ -74,9 +74,10 @@
             {{ formatDate(row.created_at) }}
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="150" fixed="right">
+        <el-table-column label="操作" width="200" fixed="right">
           <template #default="{ row }">
             <el-button size="small" @click="viewPost(row)">查看</el-button>
+            <el-button size="small" type="primary" @click="editPost(row)">编辑</el-button>
             <el-button size="small" type="danger" @click="deletePost(row)">删除</el-button>
           </template>
         </el-table-column>
@@ -193,7 +194,9 @@ const getTypeTagType = (type) => {
 
 // 格式化日期
 const formatDate = (dateString) => {
-  return new Date(dateString).toLocaleString('zh-CN')
+  return new Date(dateString).toLocaleString('zh-CN', {
+    timeZone: 'Asia/Shanghai'
+  })
 }
 
 // 加载文章列表
@@ -308,6 +311,11 @@ const handleCurrentChange = (page) => {
 const viewPost = (post) => {
   selectedPost.value = post
   dialogVisible.value = true
+}
+
+// 编辑文章
+const editPost = (post) => {
+  router.push(`/edit/${post.id}`)
 }
 
 // 删除文章
