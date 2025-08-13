@@ -66,10 +66,8 @@ body {
 .header-content {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
   height: 100%;
 }
 
@@ -78,11 +76,14 @@ body {
   font-size: 1.5rem;
   font-weight: 600;
   cursor: pointer;
+  margin-left: 20px;
 }
 
 .nav-menu {
   background: transparent;
   border: none;
+  margin-left: auto;
+  min-width: 300px;
 }
 
 .nav-menu .el-menu-item {
