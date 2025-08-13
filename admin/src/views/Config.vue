@@ -78,7 +78,10 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { ElMessage } from 'element-plus'
+import { useRouter } from 'vue-router'
 import { initializeSupabase, clearSupabaseConfig, isConnected } from '../store/supabase.js'
+
+const router = useRouter()
 
 const form = ref({
   url: '',
@@ -109,6 +112,10 @@ const connectDatabase = async () => {
     
     if (result.success) {
       ElMessage.success('数据库连接成功！')
+      // 连接成功后自动跳转到文章列表页面
+      setTimeout(() => {
+        router.push('/list')
+      }, 1500)
     } else {
       ElMessage.error(`连接失败: ${result.error}`)
     }
