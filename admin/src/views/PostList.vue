@@ -165,8 +165,17 @@ const getTypeTagType = (type) => {
 
 // 格式化日期
 const formatDate = (dateString) => {
-  return new Date(dateString).toLocaleString('zh-CN', {
-    timeZone: 'Asia/Shanghai'
+  // 确保正确解析UTC时间并转换为北京时间
+  const date = new Date(dateString + (dateString.includes('Z') ? '' : 'Z'))
+  return date.toLocaleString('zh-CN', {
+    timeZone: 'Asia/Shanghai',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false
   })
 }
 
