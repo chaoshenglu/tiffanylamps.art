@@ -19,7 +19,7 @@ export function initializeSupabase(url, key, router = null) {
     if (router) {
       setTimeout(() => {
         router.push('/list')
-      }, 1500)
+      }, 500)
     }
     
     return { success: true }
