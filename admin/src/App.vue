@@ -20,14 +20,14 @@ function refresh() {
     <el-container>
       <el-header class="header">
         <div class="header-content">
-          <h1 class="title" @click="refresh">博客管理系统</h1>
+          <h1 class="title" @click="refresh">文章管理</h1>
           <el-menu
             mode="horizontal"
             :default-active="$route.path"
             class="nav-menu"
             router
           >
-            <el-menu-item index="/config">Supabase配置</el-menu-item>
+            <el-menu-item index="/config">数据库配置</el-menu-item>
             <el-menu-item index="/create">发布文章</el-menu-item>
             <el-menu-item index="/list">文章列表</el-menu-item>
           </el-menu>
@@ -83,7 +83,6 @@ body {
 .nav-menu {
   background: transparent;
   border: none;
-  width: 390px;
 }
 
 .nav-menu .el-menu-item {

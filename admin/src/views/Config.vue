@@ -53,24 +53,7 @@
           {{ isConnected ? '已连接' : '未连接' }}
         </el-tag>
       </div>
-      
-      <el-divider />
-      
-      <div class="help-section">
-        <h3>数据库表结构</h3>
-        <p>请确保在Supabase中创建了以下表结构：</p>
-        <el-card class="sql-card">
-          <pre class="sql-code">CREATE TABLE posts (
-  id SERIAL PRIMARY KEY,
-  title TEXT NOT NULL,
-  author TEXT NOT NULL,
-  content TEXT NOT NULL,
-  type TEXT DEFAULT 'article',
-  language TEXT DEFAULT 'zh-CN',
-  created_at TIMESTAMP DEFAULT NOW()
-);</pre>
-        </el-card>
-      </div>
+    
     </el-card>
   </div>
 </template>
@@ -160,29 +143,5 @@ const disconnectDatabase = () => {
 .status-section h3 {
   margin-bottom: 15px;
   color: #2c3e50;
-}
-
-.help-section h3 {
-  margin-bottom: 15px;
-  color: #2c3e50;
-}
-
-.help-section p {
-  margin-bottom: 15px;
-  color: #666;
-}
-
-.sql-card {
-  background: #f8f9fa;
-  border: 1px solid #e9ecef;
-}
-
-.sql-code {
-  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-  font-size: 14px;
-  line-height: 1.5;
-  color: #2c3e50;
-  margin: 0;
-  white-space: pre-wrap;
 }
 </style>
