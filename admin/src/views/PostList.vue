@@ -48,7 +48,6 @@
 
       <!-- 文章表格 -->
       <el-table :data="posts" v-loading="loading" stripe class="posts-table" @sort-change="handleSortChange">
-        <el-table-column prop="id" label="ID" width="80" sortable="custom" />
         <el-table-column prop="title" label="标题" min-width="200" show-overflow-tooltip />
         <el-table-column prop="author" label="作者" width="120" />
         <el-table-column prop="type" label="分类" width="120">
