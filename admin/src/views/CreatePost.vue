@@ -35,12 +35,11 @@
           <el-col :span="12">
             <el-form-item label="文章分类" prop="type">
               <el-select v-model="form.type" placeholder="请选择分类" style="width: 100%">
-                <el-option label="技术文章" value="article" />
-                <el-option label="教程指南" value="tutorial" />
-                <el-option label="产品评测" value="review" />
-                <el-option label="新闻资讯" value="news" />
-                <el-option label="个人思考" value="thoughts" />
-                <el-option label="项目分享" value="project" />
+                <el-option label="历史文化" value="culture" />
+                <el-option label="流行趋势" value="trend" />
+                <el-option label="热卖榜单" value="hot" />
+                <el-option label="拍卖会资料" value="auction" />
+                <el-option label="装修案例" value="case" />
                 <el-option label="其他" value="other" />
               </el-select>
             </el-form-item>

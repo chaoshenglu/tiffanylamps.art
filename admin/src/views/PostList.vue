@@ -7,36 +7,24 @@
           <el-button type="primary" @click="loadPosts">刷新</el-button>
         </div>
       </template>
-      
+
       <!-- 筛选区域 -->
       <div class="filter-section">
         <el-row :gutter="20">
           <el-col :span="6">
-            <el-select
-              v-model="filters.type"
-              placeholder="选择分类"
-              clearable
-              @change="handleFilterChange"
-              style="width: 100%"
-            >
-              <el-option label="全部分类" value="" />
-              <el-option label="技术文章" value="article" />
-              <el-option label="教程指南" value="tutorial" />
-              <el-option label="产品评测" value="review" />
-              <el-option label="新闻资讯" value="news" />
-              <el-option label="个人思考" value="thoughts" />
-              <el-option label="项目分享" value="project" />
+            <el-select v-model="filters.type" placeholder="选择分类" clearable @change="handleFilterChange"
+              style="width: 100%">
+              <el-option label="历史文化" value="culture" />
+              <el-option label="流行趋势" value="trend" />
+              <el-option label="热卖榜单" value="hot" />
+              <el-option label="拍卖会资料" value="auction" />
+              <el-option label="装修案例" value="case" />
               <el-option label="其他" value="other" />
             </el-select>
           </el-col>
           <el-col :span="6">
-            <el-select
-              v-model="filters.language"
-              placeholder="选择语言"
-              clearable
-              @change="handleFilterChange"
-              style="width: 100%"
-            >
+            <el-select v-model="filters.language" placeholder="选择语言" clearable @change="handleFilterChange"
+              style="width: 100%">
               <el-option label="全部语言" value="" />
               <el-option label="简体中文" value="zh-CN" />
               <el-option label="繁體中文" value="zh-TW" />
@@ -45,14 +33,11 @@
             </el-select>
           </el-col>
           <el-col :span="8">
-            <el-input
-              v-model="filters.search"
-              placeholder="搜索标题或作者"
-              clearable
-              @input="handleSearchChange"
-            >
+            <el-input v-model="filters.search" placeholder="搜索标题或作者" clearable @input="handleSearchChange">
               <template #prefix>
-                <el-icon><Search /></el-icon>
+                <el-icon>
+                  <Search />
+                </el-icon>
               </template>
             </el-input>
           </el-col>
@@ -61,15 +46,9 @@
           </el-col>
         </el-row>
       </div>
-      
+
       <!-- 文章表格 -->
-      <el-table
-        :data="posts"
-        v-loading="loading"
-        stripe
-        class="posts-table"
-        @sort-change="handleSortChange"
-      >
+      <el-table :data="posts" v-loading="loading" stripe class="posts-table" @sort-change="handleSortChange">
         <el-table-column prop="id" label="ID" width="80" sortable="custom" />
         <el-table-column prop="title" label="标题" min-width="200" show-overflow-tooltip>
           <template #default="{ row }">
@@ -103,28 +82,17 @@
           </template>
         </el-table-column>
       </el-table>
-      
+
       <!-- 分页 -->
       <div class="pagination-container">
-        <el-pagination
-          v-model:current-page="pagination.currentPage"
-          v-model:page-size="pagination.pageSize"
-          :page-sizes="[10, 20, 50, 100]"
-          :total="pagination.total"
-          layout="total, sizes, prev, pager, next, jumper"
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-        />
+        <el-pagination v-model:current-page="pagination.currentPage" v-model:page-size="pagination.pageSize"
+          :page-sizes="[10, 20, 50, 100]" :total="pagination.total" layout="total, sizes, prev, pager, next, jumper"
+          @size-change="handleSizeChange" @current-change="handleCurrentChange" />
       </div>
     </el-card>
-    
+
     <!-- 文章详情对话框 -->
-    <el-dialog
-      v-model="dialogVisible"
-      :title="selectedPost?.title"
-      width="80%"
-      class="post-dialog"
-    >
+    <el-dialog v-model="dialogVisible" :title="selectedPost?.title" width="80%" class="post-dialog">
       <div v-if="selectedPost" class="post-detail">
         <div class="post-meta">
           <el-descriptions :column="2" border>
@@ -184,12 +152,11 @@ const sort = reactive({
 
 // 分类名称映射
 const typeNames = {
-  'article': '技术文章',
-  'tutorial': '教程指南',
-  'review': '产品评测',
-  'news': '新闻资讯',
-  'thoughts': '个人思考',
-  'project': '项目分享',
+  'culture': '历史文化',
+  'trend': '流行趋势',
+  'hot': '热卖榜单',
+  'auction': '拍卖会资料',
+  'case': '装修案例',
   'other': '其他'
 }
 
@@ -246,12 +213,12 @@ const loadPosts = async () => {
     })
     return
   }
-  
+
   loading.value = true
-  
+
   try {
     let query = supabaseClient.value.from('posts').select('*', { count: 'exact' })
-    
+
     // 应用筛选条件
     if (filters.type) {
       query = query.eq('type', filters.type)
@@ -262,27 +229,27 @@ const loadPosts = async () => {
     if (filters.search) {
       query = query.or(`title.ilike.%${filters.search}%,author.ilike.%${filters.search}%`)
     }
-    
+
     // 应用排序
     const ascending = sort.order === 'ascending'
     query = query.order(sort.prop, { ascending })
-    
+
     // 应用分页
     const from = (pagination.currentPage - 1) * pagination.pageSize
     const to = from + pagination.pageSize - 1
     query = query.range(from, to)
-    
+
     const { data, error, count } = await query
-    
+
     if (error) {
       console.error('加载文章错误:', error)
       ElMessage.error(`加载失败: ${error.message}`)
       return
     }
-    
+
     posts.value = data || []
     pagination.total = count || 0
-    
+
   } catch (error) {
     console.error('加载文章错误:', error)
     ElMessage.error('加载文章时发生错误')
@@ -356,12 +323,12 @@ const deletePost = async (post) => {
         type: 'warning'
       }
     )
-    
+
     const { error } = await supabaseClient.value
       .from('posts')
       .delete()
       .eq('id', post.id)
-    
+
     if (error) {
       ElMessage.error(`删除失败: ${error.message}`)
     } else {
