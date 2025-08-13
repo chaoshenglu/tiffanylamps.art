@@ -60,20 +60,6 @@ body {
   border-bottom: none;
 }
 
-.el-table {
-  background: transparent;
-}
-
-.el-table th.el-table__cell {
-  background: #f8f9fa;
-  color: var(--text-primary);
-  font-weight: 600;
-}
-
-.el-table .el-table__row:hover > td {
-  background-color: #f5f7fa;
-}
-
 .el-pagination {
   justify-content: center;
 }

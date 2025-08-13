@@ -388,9 +388,7 @@ onMounted(() => {
 }
 
 .list-card {
-  background: rgba(255, 255, 255, 0.95);
   border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 .card-header {
@@ -405,7 +403,6 @@ onMounted(() => {
 .filter-section {
   margin-bottom: 20px;
   padding: 20px;
-  background: #f8f9fa;
   border-radius: 8px;
 }
 
@@ -456,19 +453,16 @@ onMounted(() => {
 .post-content :deep(blockquote) {
   margin: 15px 0;
   padding: 10px 15px;
-  background: #f8f9fa;
   border-left: 4px solid #409eff;
 }
 
 .post-content :deep(code) {
-  background: #f1f2f3;
   padding: 2px 4px;
   border-radius: 3px;
   font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
 }
 
 .post-content :deep(pre) {
-  background: #f8f9fa;
   padding: 15px;
   border-radius: 5px;
   overflow-x: auto;
