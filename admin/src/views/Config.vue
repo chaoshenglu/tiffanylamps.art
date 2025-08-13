@@ -78,7 +78,10 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { ElMessage } from 'element-plus'
+import { useRouter } from 'vue-router'
 import { initializeSupabase, clearSupabaseConfig, isConnected } from '../store/supabase.js'
+
+const router = useRouter()
 
 const form = ref({
   url: '',
@@ -105,7 +108,7 @@ const connectDatabase = async () => {
   loading.value = true
   
   try {
-    const result = initializeSupabase(form.value.url, form.value.key)
+    const result = initializeSupabase(form.value.url, form.value.key, router)
     
     if (result.success) {
       ElMessage.success('数据库连接成功！')

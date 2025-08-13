@@ -1,10 +1,13 @@
 <script setup>
 import { onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { restoreSupabaseConfig } from './store/supabase.js'
+
+const router = useRouter()
 
 onMounted(() => {
   // 页面加载时尝试恢复Supabase配置
-  restoreSupabaseConfig()
+  restoreSupabaseConfig(router)
 })
 </script>
 

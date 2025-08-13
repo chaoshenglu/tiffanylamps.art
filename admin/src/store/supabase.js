@@ -1,14 +1,12 @@
 import { ref } from 'vue'
 import { createClient } from '@supabase/supabase-js'
-import { useRouter } from 'vue-router'
-const router = useRouter()
 
 // 全局状态
 export const supabaseClient = ref(null)
 export const isConnected = ref(false)
 
 // 初始化Supabase客户端
-export function initializeSupabase(url, key) {
+export function initializeSupabase(url, key, router = null) {
   try {
     supabaseClient.value = createClient(url, key)
     isConnected.value = true
@@ -18,9 +16,11 @@ export function initializeSupabase(url, key) {
     localStorage.setItem('supabase_key', key)
 
     // 连接成功后自动跳转到文章列表页面
-    setTimeout(() => {
-      router.push('/list')
-    }, 1500)
+    if (router) {
+      setTimeout(() => {
+        router.push('/list')
+      }, 1500)
+    }
     
     return { success: true }
   } catch (error) {
@@ -30,12 +30,12 @@ export function initializeSupabase(url, key) {
 }
 
 // 从localStorage恢复配置
-export function restoreSupabaseConfig() {
+export function restoreSupabaseConfig(router = null) {
   const url = localStorage.getItem('supabase_url')
   const key = localStorage.getItem('supabase_key')
   
   if (url && key) {
-    return initializeSupabase(url, key)
+    return initializeSupabase(url, key, router)
   }
   
   return { success: false }
