@@ -23,6 +23,7 @@ function refresh() {
           <h1 class="title" @click="refresh">文章管理</h1>
           <el-menu
             mode="horizontal"
+            :ellipsis = "false"
             :default-active="$route.path"
             class="nav-menu"
             router
@@ -83,7 +84,6 @@ body {
   background: transparent;
   border: none;
   margin-left: auto;
-  min-width: 300px;
 }
 
 .nav-menu .el-menu-item {
