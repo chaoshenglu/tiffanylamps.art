@@ -49,11 +49,7 @@
       <!-- 文章表格 -->
       <el-table :data="posts" v-loading="loading" stripe class="posts-table" @sort-change="handleSortChange">
         <el-table-column prop="id" label="ID" width="80" sortable="custom" />
-        <el-table-column prop="title" label="标题" min-width="200" show-overflow-tooltip>
-          <template #default="{ row }">
-            <el-link type="primary" @click="viewPost(row)">{{ row.title }}</el-link>
-          </template>
-        </el-table-column>
+        <el-table-column prop="title" label="标题" min-width="200" show-overflow-tooltip />
         <el-table-column prop="author" label="作者" width="120" />
         <el-table-column prop="type" label="分类" width="120">
           <template #default="{ row }">
@@ -74,9 +70,8 @@
             {{ formatDate(row.created_at) }}
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="200" fixed="right">
+        <el-table-column label="操作" width="150" fixed="right">
           <template #default="{ row }">
-            <el-button size="small" @click="viewPost(row)">查看</el-button>
             <el-button size="small" type="primary" @click="editPost(row)">编辑</el-button>
             <el-button size="small" type="danger" @click="deletePost(row)">删除</el-button>
           </template>
@@ -91,29 +86,7 @@
       </div>
     </el-card>
 
-    <!-- 文章详情对话框 -->
-    <el-dialog v-model="dialogVisible" :title="selectedPost?.title" width="80%" class="post-dialog">
-      <div v-if="selectedPost" class="post-detail">
-        <div class="post-meta">
-          <el-descriptions :column="2" border>
-            <el-descriptions-item label="作者">{{ selectedPost.author }}</el-descriptions-item>
-            <el-descriptions-item label="分类">
-              <el-tag :type="getTypeTagType(selectedPost.type)" size="small">
-                {{ getTypeName(selectedPost.type) }}
-              </el-tag>
-            </el-descriptions-item>
-            <el-descriptions-item label="语言">
-              <el-tag type="info" size="small">
-                {{ getLanguageName(selectedPost.language) }}
-              </el-tag>
-            </el-descriptions-item>
-            <el-descriptions-item label="发布时间">{{ formatDate(selectedPost.created_at) }}</el-descriptions-item>
-          </el-descriptions>
-        </div>
-        <el-divider />
-        <div class="post-content" v-html="selectedPost.content"></div>
-      </div>
-    </el-dialog>
+
   </div>
 </template>
 
@@ -127,8 +100,6 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 const loading = ref(false)
 const posts = ref([])
-const dialogVisible = ref(false)
-const selectedPost = ref(null)
 
 // 筛选条件
 const filters = reactive({
@@ -307,12 +278,6 @@ const handleCurrentChange = (page) => {
   loadPosts()
 }
 
-// 查看文章详情
-const viewPost = (post) => {
-  selectedPost.value = post
-  dialogVisible.value = true
-}
-
 // 编辑文章
 const editPost = (post) => {
   router.push(`/edit/${post.id}`)
@@ -390,56 +355,5 @@ onMounted(() => {
   padding: 20px 0;
 }
 
-.post-detail {
-  max-height: 60vh;
-  overflow-y: auto;
-}
 
-.post-meta {
-  margin-bottom: 20px;
-}
-
-.post-content {
-  line-height: 1.8;
-  color: #333;
-}
-
-.post-content :deep(h1),
-.post-content :deep(h2),
-.post-content :deep(h3),
-.post-content :deep(h4),
-.post-content :deep(h5),
-.post-content :deep(h6) {
-  margin: 20px 0 10px 0;
-  color: #2c3e50;
-}
-
-.post-content :deep(p) {
-  margin: 10px 0;
-}
-
-.post-content :deep(ul),
-.post-content :deep(ol) {
-  margin: 10px 0;
-  padding-left: 20px;
-}
-
-.post-content :deep(blockquote) {
-  margin: 15px 0;
-  padding: 10px 15px;
-  border-left: 4px solid #409eff;
-}
-
-.post-content :deep(code) {
-  padding: 2px 4px;
-  border-radius: 3px;
-  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-}
-
-.post-content :deep(pre) {
-  padding: 15px;
-  border-radius: 5px;
-  overflow-x: auto;
-  margin: 15px 0;
-}
 </style>
