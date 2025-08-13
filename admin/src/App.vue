@@ -75,6 +75,7 @@ body {
 .nav-menu {
   background: transparent;
   border: none;
+  width: 390px;
 }
 
 .nav-menu .el-menu-item {
