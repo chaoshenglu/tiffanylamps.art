@@ -9,6 +9,10 @@ onMounted(() => {
   // 页面加载时尝试恢复Supabase配置
   restoreSupabaseConfig(router)
 })
+
+function refresh() {
+  window.location.reload()
+}
 </script>
 
 <template>
@@ -16,7 +20,7 @@ onMounted(() => {
     <el-container>
       <el-header class="header">
         <div class="header-content">
-          <h1 class="title">博客管理系统</h1>
+          <h1 class="title" @click="refresh">博客管理系统</h1>
           <el-menu
             mode="horizontal"
             :default-active="$route.path"
@@ -73,6 +77,7 @@ body {
   color: #fff;
   font-size: 1.5rem;
   font-weight: 600;
+  cursor: pointer;
 }
 
 .nav-menu {
