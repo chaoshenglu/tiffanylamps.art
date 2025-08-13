@@ -25,7 +25,6 @@
           <el-col :span="6">
             <el-select v-model="filters.language" placeholder="选择语言" clearable @change="handleFilterChange"
               style="width: 100%">
-              <el-option label="全部语言" value="" />
               <el-option label="简体中文" value="zh-CN" />
               <el-option label="繁體中文" value="zh-TW" />
               <el-option label="English" value="en-US" />
