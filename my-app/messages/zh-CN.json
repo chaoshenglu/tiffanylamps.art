@@ -1,0 +1,25 @@
+{
+  "blog": {
+    "title": "我的博客",
+    "description": "分享技术知识和经验的个人博客",
+    "searchPlaceholder": "搜索文章...",
+    "allCategories": "全部分类",
+    "noArticles": "没有找到匹配的文章",
+    "noResults": "没有找到匹配的文章",
+    "readMore": "阅读更多",
+    "backToHome": "返回首页",
+    "articleNotFound": "文章未找到",
+    "publishedOn": "发布于",
+    "category": "分类",
+    "categories": {
+      "all": "所有分类"
+    }
+  },
+  "language": {
+    "label": "语言",
+    "zh-CN": "简体中文",
+    "zh-TW": "繁體中文",
+    "en": "English",
+    "ja": "日本語"
+  }
+}

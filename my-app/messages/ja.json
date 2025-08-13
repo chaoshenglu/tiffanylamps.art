@@ -1,0 +1,23 @@
+{
+  "blog": {
+    "title": "私のブログ",
+    "description": "技術知識と経験を共有する個人ブログ",
+    "searchPlaceholder": "記事を検索...",
+    "noResults": "一致する記事が見つかりません",
+    "categories": {
+      "all": "すべてのカテゴリ"
+    },
+    "readMore": "続きを読む",
+    "backToHome": "ホームに戻る",
+    "articleNotFound": "記事が見つかりません",
+    "publishedOn": "公開日",
+    "category": "カテゴリ"
+  },
+  "language": {
+    "label": "言語",
+    "zh-CN": "简体中文",
+    "zh-TW": "繁體中文",
+    "en": "English",
+    "ja": "日本語"
+  }
+}

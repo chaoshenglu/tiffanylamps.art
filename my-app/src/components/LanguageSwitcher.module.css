@@ -1,0 +1,55 @@
+.languageSwitcher {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+.label {
+  font-weight: 600;
+  color: #495057;
+  margin-right: 0.5rem;
+}
+
+.languageLink {
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  color: #6c757d;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+  border: 1px solid transparent;
+}
+
+.languageLink:hover {
+  background-color: #e9ecef;
+  color: #495057;
+}
+
+.languageLink.active {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .languageSwitcher {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .label {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+  
+  .languageLink {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+  }
+}
