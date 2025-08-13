@@ -67,9 +67,10 @@ body {
 .header-content {
   display: flex;
   align-items: center;
-  max-width: 1200px;
+  max-width: 1100px;
   margin: 0 auto;
   height: 100%;
+  padding-right: 20px;
 }
 
 .title {

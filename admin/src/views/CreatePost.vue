@@ -163,6 +163,7 @@ const toolbarConfig = {
 
 const editorConfig = {
   placeholder: '请输入文章内容...',
+  height: 600,
   MENU_CONF: {
     fontSize: {
       fontSizeList: ['12px', '14px', '16px', '18px', '20px', '24px', '28px', '32px']
@@ -269,7 +270,7 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .create-post-page {
-  max-width: 1000px;
+  max-width: 1086px;
   margin: 0 auto;
 }
 
@@ -277,6 +278,7 @@ onBeforeUnmount(() => {
   background: rgba(255, 255, 255, 0.95);
   border-radius: 12px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  padding-right: 20px;
 }
 
 .card-header {
@@ -300,7 +302,7 @@ onBeforeUnmount(() => {
 }
 
 .editor-content {
-  height: 400px;
-  overflow-y: hidden;
+  height: 600px !important;
+  min-height: 600px !important;
 }
 </style>
