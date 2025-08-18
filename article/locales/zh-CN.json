@@ -1,0 +1,32 @@
+{
+  "nav": {
+    "home": "首页",
+    "cases": "装修案例",
+    "trends": "流行趋势", 
+    "hot": "热卖榜单",
+    "auctions": "拍卖会资料",
+    "culture": "历史文化",
+    "search": "搜索"
+  },
+  "home": {
+    "title": "蒂凡尼灯的艺术世界",
+    "subtitle": "探索经典与现代的完美融合",
+    "hotSales": "热卖榜单",
+    "featuredCases": "精选案例",
+    "cultureEntry": "历史文化",
+    "trendsEntry": "流行趋势"
+  },
+  "article": {
+    "author": "作者",
+    "publishTime": "发布时间",
+    "prevArticle": "上一篇",
+    "nextArticle": "下一篇",
+    "backToList": "返回列表"
+  },
+  "footer": {
+    "copyright": "© 2024 蒂凡尼灯艺术世界. 保留所有权利.",
+    "about": "关于我们",
+    "contact": "联系我们",
+    "privacy": "隐私政策"
+  }
+}

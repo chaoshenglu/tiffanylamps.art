@@ -1,0 +1,32 @@
+{
+  "nav": {
+    "home": "Home",
+    "cases": "Cases",
+    "trends": "Trends",
+    "hot": "Hot Sales",
+    "auctions": "Auctions",
+    "culture": "Culture",
+    "search": "Search"
+  },
+  "home": {
+    "title": "Tiffany Lamps Art World",
+    "subtitle": "Explore the Perfect Fusion of Classic and Modern",
+    "hotSales": "Hot Sales",
+    "featuredCases": "Featured Cases",
+    "cultureEntry": "Culture",
+    "trendsEntry": "Trends"
+  },
+  "article": {
+    "author": "Author",
+    "publishTime": "Published",
+    "prevArticle": "Previous",
+    "nextArticle": "Next",
+    "backToList": "Back to List"
+  },
+  "footer": {
+    "copyright": "© 2024 Tiffany Lamps Art World. All rights reserved.",
+    "about": "About Us",
+    "contact": "Contact",
+    "privacy": "Privacy Policy"
+  }
+}
