@@ -21,7 +21,8 @@
     "publishTime": "Published",
     "prevArticle": "Previous",
     "nextArticle": "Next",
-    "backToList": "Back to List"
+    "backToList": "Back to List",
+    "more": "more"
   },
   "footer": {
     "copyright": "© 2024 Tiffany Lamps Art World. All rights reserved.",
