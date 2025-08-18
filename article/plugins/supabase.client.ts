@@ -17,6 +17,16 @@ export default defineNuxtPlugin((nuxtApp) => {
     return
   }
 
+  console.log('[Supabase] 初始化客户端，环境:', process.server ? '服务端' : '客户端')
   const supabase = createClient(url, key)
+  
+  // 提供给应用使用
   nuxtApp.provide('supabase', supabase)
+  
+  // 同时返回，以便在组合式函数中使用
+  return {
+    provide: {
+      supabase
+    }
+  }
 })

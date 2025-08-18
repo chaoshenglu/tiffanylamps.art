@@ -22,6 +22,11 @@ export default defineNuxtConfig({
     '@nuxtjs/robots'
   ],
   
+  // 插件配置
+  plugins: [
+    '~/plugins/supabase.client.ts'
+  ],
+  
   // i18n 配置
   i18n: {
     locales: [
