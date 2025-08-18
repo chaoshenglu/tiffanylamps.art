@@ -125,14 +125,22 @@
 </template>
 
 <script setup>
+import { createClient } from '@supabase/supabase-js'
+
 const localePath = useLocalePath()
-const { $supabase } = useNuxtApp()
+const config = useRuntimeConfig()
+
+// 创建 Supabase 客户端（服务端和客户端通用）
+const supabase = createClient(
+  config.public.supabaseUrl,
+  config.public.supabaseKey
+)
 
 // 在服务端渲染阶段获取热卖文章数据
 const { data: hotArticles, error: hotError } = await useLazyAsyncData('hot-articles', async () => {
   console.log('服务端获取热卖文章数据...')
   try {
-    const { data, error } = await $supabase
+    const { data, error } = await supabase
       .from('posts')
       .select('*')
       .eq('type', 'hot')
@@ -158,7 +166,7 @@ const { data: hotArticles, error: hotError } = await useLazyAsyncData('hot-artic
 const { data: caseArticles, error: caseError } = await useLazyAsyncData('case-articles', async () => {
   console.log('服务端获取案例文章数据...')
   try {
-    const { data, error } = await $supabase
+    const { data, error } = await supabase
       .from('posts')
       .select('*')
       .eq('type', 'case')
