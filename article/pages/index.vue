@@ -203,25 +203,11 @@ const loading = computed(() => {
 // 轮播图数据
 const slides = ref([
   {
-    image: 'https://placehold.co/1200x500/0abab5/ffffff?text=Tiffany+Lamps+Art',
+    image: 'https://r2.tiffanylamps.art/poster/b1.webp',
     title: '蒂凡尼灯的艺术世界',
     description: '探索经典与现代的完美融合',
     link: '/culture',
     buttonText: '了解更多'
-  },
-  {
-    image: 'https://placehold.co/1200x500/d4af37/ffffff?text=Elegant+Design',
-    title: '优雅设计，永恒经典',
-    description: '每一盏灯都是艺术品',
-    link: '/cases',
-    buttonText: '查看案例'
-  },
-  {
-    image: 'https://placehold.co/1200x500/8b4513/ffffff?text=Auction+Highlights',
-    title: '拍卖会精选',
-    description: '收藏家的至爱之选',
-    link: '/auctions',
-    buttonText: '拍卖资讯'
   }
 ])
 
