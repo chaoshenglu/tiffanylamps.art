@@ -40,7 +40,8 @@
 </template>
 
 <script setup>
-const { t, locale, localePath } = useI18n()
+const { t, locale } = useI18n()
+const localePath = useLocalePath()
 const { $supabase } = useNuxtApp()
 
 const articles = ref([])

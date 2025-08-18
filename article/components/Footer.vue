@@ -46,7 +46,7 @@
 </template>
 
 <script setup>
-const { localePath } = useI18n()
+const localePath = useLocalePath()
 </script>
 
 <style scoped>

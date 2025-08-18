@@ -125,7 +125,7 @@
 </template>
 
 <script setup>
-const { localePath } = useI18n()
+const localePath = useLocalePath()
 
 // 轮播图数据
 const slides = ref([

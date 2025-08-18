@@ -46,7 +46,8 @@
 
 <script setup>
 const route = useRoute()
-const { t, locale, localePath } = useI18n()
+const { t, locale } = useI18n()
+const localePath = useLocalePath()
 const { $supabase } = useNuxtApp()
 
 const articleId = computed(() => route.params.id)
