@@ -34,7 +34,7 @@
       <div class="container">
         <div class="section-header">
           <h2>{{ $t('home.hotSales') }}</h2>
-          <NuxtLink :to="localePath('/hot')" class="view-all">{{ $t('article.backToList') }} &rarr;</NuxtLink>
+          <NuxtLink :to="localePath('/hot')" class="view-all">{{ $t('article.more') }} &rarr;</NuxtLink>
         </div>
         
         <div class="hot-sales-grid">
@@ -69,7 +69,7 @@
       <div class="container">
         <div class="section-header">
           <h2>{{ $t('home.featuredCases') }}</h2>
-          <NuxtLink :to="localePath('/cases')" class="view-all">{{ $t('article.backToList') }} &rarr;</NuxtLink>
+          <NuxtLink :to="localePath('/cases')" class="view-all">{{ $t('article.more') }} &rarr;</NuxtLink>
         </div>
         
         <div class="featured-cases-grid">
