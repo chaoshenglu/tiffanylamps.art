@@ -125,43 +125,101 @@
 </template>
 
 <script setup>
+import { createClient } from '@supabase/supabase-js'
+
 const localePath = useLocalePath()
-const { $supabase } = useNuxtApp()
+const config = useRuntimeConfig()
 
-// 使用 useLazyFetch 在服务端获取数据
-const { data: hotArticles, error: hotError } = await useLazyFetch('hot-articles', async () => {
-  const { data, error } = await $supabase
-    .from('posts')
-    .select('*')
-    .eq('type', 'hot')
-    .limit(3)
-  
-  if (error) throw error
-  return data
-})
+// 创建 Supabase 客户端
+const supabase = createClient(
+  config.public.supabaseUrl,
+  config.public.supabaseKey
+)
 
-const { data: caseArticles, error: caseError } = await useLazyFetch('case-articles', async () => {
-  const { data, error } = await $supabase
-    .from('posts')
-    .select('*')
-    .eq('type', 'case')
-    .limit(3)
-  
-  if (error) throw error
-  return data
-})
+// 数据状态
+const loading = ref(true)
+const hotArticles = ref([])
+const caseArticles = ref([])
+const hotError = ref(null)
+const caseError = ref(null)
+
+// 获取热卖榜单文章
+async function fetchHotArticles() {
+  console.log('开始获取热卖文章...')
+  try {
+    const { data, error } = await supabase
+      .from('posts')
+      .select('*')
+      .eq('type', 'hot')
+      .limit(3)
+    
+    console.log('热卖文章查询结果:', { data, error })
+    if (error) {
+      console.error('热卖文章查询错误:', error)
+      hotError.value = '无法加载热卖榜单数据'
+      return
+    }
+    
+    hotArticles.value = data || []
+    console.log('热卖文章设置成功:', hotArticles.value)
+  } catch (err) {
+    console.error('获取热卖文章时发生错误:', err)
+    hotError.value = '无法加载热卖榜单数据'
+  }
+}
+
+// 获取装修案例文章
+async function fetchCaseArticles() {
+  console.log('开始获取案例文章...')
+  try {
+    const { data, error } = await supabase
+      .from('posts')
+      .select('*')
+      .eq('type', 'case')
+      .limit(3)
+    
+    console.log('案例文章查询结果:', { data, error })
+    if (error) {
+      console.error('案例文章查询错误:', error)
+      caseError.value = '无法加载装修案例数据'
+      return
+    }
+    
+    caseArticles.value = data || []
+    console.log('案例文章设置成功:', caseArticles.value)
+  } catch (err) {
+    console.error('获取案例文章时发生错误:', err)
+    caseError.value = '无法加载装修案例数据'
+  }
+}
 
 // 合并错误状态
 const error = computed(() => {
-  if (hotError.value) return '无法加载热卖榜单数据'
-  if (caseError.value) return '无法加载装修案例数据'
+  if (hotError.value) return hotError.value
+  if (caseError.value) return caseError.value
   return null
 })
 
-// 加载状态（useLazyFetch 会自动处理）
-const loading = computed(() => {
-  return !hotArticles.value && !caseArticles.value && !error.value
-})
+// 页面初始化时获取数据
+const initializeData = async () => {
+  console.log('页面已挂载，开始获取数据...')
+  console.log('Supabase配置:', {
+    url: config.public.supabaseUrl,
+    hasKey: !!config.public.supabaseKey
+  })
+  
+  try {
+    await Promise.all([
+      fetchHotArticles(),
+      fetchCaseArticles()
+    ])
+  } catch (err) {
+    console.error('获取数据时发生错误:', err)
+  } finally {
+    loading.value = false
+    console.log('数据获取完成，loading状态:', loading.value)
+  }
+}
 
 // 轮播图数据
 const slides = ref([
@@ -211,8 +269,12 @@ const formatDate = (dateString) => {
 }
 
 // 自动轮播
-onMounted(() => {
+onMounted(async () => {
+  // 启动轮播
   startSlideShow()
+  
+  // 获取数据
+  await initializeData()
 })
 
 onUnmounted(() => {
