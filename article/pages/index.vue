@@ -126,6 +126,42 @@
 
 <script setup>
 const localePath = useLocalePath()
+const { $supabase } = useNuxtApp()
+
+// 使用 useLazyFetch 在服务端获取数据
+const { data: hotArticles, error: hotError } = await useLazyFetch('hot-articles', async () => {
+  const { data, error } = await $supabase
+    .from('posts')
+    .select('*')
+    .eq('type', 'hot')
+    .limit(3)
+  
+  if (error) throw error
+  return data
+})
+
+const { data: caseArticles, error: caseError } = await useLazyFetch('case-articles', async () => {
+  const { data, error } = await $supabase
+    .from('posts')
+    .select('*')
+    .eq('type', 'case')
+    .limit(3)
+  
+  if (error) throw error
+  return data
+})
+
+// 合并错误状态
+const error = computed(() => {
+  if (hotError.value) return '无法加载热卖榜单数据'
+  if (caseError.value) return '无法加载装修案例数据'
+  return null
+})
+
+// 加载状态（useLazyFetch 会自动处理）
+const loading = computed(() => {
+  return !hotArticles.value && !caseArticles.value && !error.value
+})
 
 // 轮播图数据
 const slides = ref([
@@ -168,6 +204,12 @@ const goToSlide = (index) => {
   currentSlide.value = index
 }
 
+// 格式化日期
+const formatDate = (dateString) => {
+  const date = new Date(dateString)
+  return new Intl.DateTimeFormat('zh-CN').format(date)
+}
+
 // 自动轮播
 onMounted(() => {
   startSlideShow()
@@ -186,72 +228,6 @@ const startSlideShow = () => {
 const stopSlideShow = () => {
   clearInterval(slideInterval.value)
 }
-
-// 获取文章数据
-const { $supabase } = useNuxtApp()
-const loading = ref(true)
-const error = ref(null)
-const hotArticles = ref([])
-const caseArticles = ref([])
-
-// 格式化日期
-const formatDate = (dateString) => {
-  const date = new Date(dateString)
-  return new Intl.DateTimeFormat('zh-CN').format(date)
-}
-
-// 获取热卖榜单文章
-async function fetchHotArticles() {
-  try {
-    const { data, error: supabaseError } = await $supabase
-      .from('posts')
-      .select('*')
-      .eq('type', 'hot')
-      .limit(3)
-    
-    if (supabaseError) throw supabaseError
-    
-    hotArticles.value = data
-  } catch (err) {
-    console.error('Error fetching hot articles:', err)
-    error.value = '无法加载热卖榜单数据'
-  }
-}
-
-// 获取装修案例文章
-async function fetchCaseArticles() {
-  try {
-    const { data, error: supabaseError } = await $supabase
-      .from('posts')
-      .select('*')
-      .eq('type', 'case')
-      .limit(3)
-    
-    if (supabaseError) throw supabaseError
-    
-    caseArticles.value = data
-  } catch (err) {
-    console.error('Error fetching case articles:', err)
-    error.value = '无法加载装修案例数据'
-  } finally {
-    loading.value = false
-  }
-}
-
-// 页面加载时获取数据
-onMounted(async () => {
-  try {
-    await Promise.all([
-      fetchHotArticles(),
-      fetchCaseArticles()
-    ])
-  } catch (err) {
-    console.error('Error fetching data:', err)
-    error.value = '加载数据时出错'
-  } finally {
-    loading.value = false
-  }
-})
 </script>
 
 <style scoped>
