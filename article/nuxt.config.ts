@@ -11,6 +11,9 @@ export default defineNuxtConfig({
   // 启用 SSR 模式
   ssr: true,
   
+  // 启用组件自动导入
+  components: true,
+  
   // 配置模块
   modules: [
     '@nuxtjs/i18n',
