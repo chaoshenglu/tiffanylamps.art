@@ -5,6 +5,9 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
   
+  // 明确指定源码目录为项目根目录
+  srcDir: '.',
+  
   // 启用 SSR 模式
   ssr: true,
   
@@ -42,7 +45,7 @@ export default defineNuxtConfig({
   
   // CSS 配置
   css: [
-    '@/assets/css/main.css'
+    '~/assets/css/main.css'
   ],
   
   // Vite 配置
