@@ -71,7 +71,7 @@ const localePath = useLocalePath()
 }
 
 .footer-section h4 {
-  color: var(--tiffany-blue);
+  color: black;
   margin-bottom: 1rem;
   font-size: 1.1rem;
 }
@@ -97,7 +97,7 @@ const localePath = useLocalePath()
 }
 
 .footer-links a:hover {
-  color: var(--tiffany-blue);
+  color: black;
 }
 
 .social-links {
@@ -109,7 +109,7 @@ const localePath = useLocalePath()
   display: inline-block;
   width: 40px;
   height: 40px;
-  background: var(--tiffany-blue);
+  background: black;
   color: white;
   text-align: center;
   line-height: 40px;
@@ -145,7 +145,7 @@ const localePath = useLocalePath()
 }
 
 .footer-bottom-links a:hover {
-  color: var(--tiffany-blue);
+  color: black;
 }
 
 @media (max-width: 768px) {

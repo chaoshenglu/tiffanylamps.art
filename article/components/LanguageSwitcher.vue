@@ -29,7 +29,7 @@ watch(locale, (newLocale) => {
 }
 
 .language-select {
-  background: var(--tiffany-blue);
+  background: black;
   color: white;
   border: none;
   padding: 0.5rem 1rem;

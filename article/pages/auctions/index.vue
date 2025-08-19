@@ -196,7 +196,7 @@ onMounted(() => {
 
 .article-arrow {
   flex-shrink: 0;
-  color: var(--tiffany-blue);
+  color: black;
   font-size: 1.5rem;
   transition: transform 0.3s ease;
 }

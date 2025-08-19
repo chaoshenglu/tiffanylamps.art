@@ -54,7 +54,7 @@ const localePath = useLocalePath()
 
 .logo h1 {
   font-size: 1.5rem;
-  color: var(--tiffany-blue);
+  color: black;
   margin: 0;
   font-weight: 400;
   letter-spacing: 1px;
@@ -72,11 +72,11 @@ const localePath = useLocalePath()
 }
 
 .nav-link:hover {
-  color: var(--tiffany-blue);
+  color: black;
 }
 
 .nav-link.router-link-active {
-  color: var(--tiffany-blue);
+  color: black;
 }
 
 .nav-link.router-link-active::after {
@@ -86,7 +86,7 @@ const localePath = useLocalePath()
   left: 0;
   width: 100%;
   height: 2px;
-  background-color: var(--tiffany-blue);
+  background-color: black;
 }
 
 .nav-right {

@@ -371,7 +371,7 @@ const stopSlideShow = () => {
 }
 
 .view-all {
-  color: var(--tiffany-blue);
+  color: black;
   text-decoration: none;
   font-weight: 500;
   transition: color 0.3s ease;
