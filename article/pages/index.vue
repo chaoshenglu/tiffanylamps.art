@@ -203,7 +203,7 @@ const loading = computed(() => {
 // 轮播图数据
 const slides = ref([
   {
-    image: 'https://r2.tiffanylamps.art/poster/b1.webp',
+    image: 'https://r2.tiffanylamps.art/poster/b2.webp',
     title: '蒂凡尼灯的艺术世界',
     description: '探索经典与现代的完美融合',
     link: '/culture',
