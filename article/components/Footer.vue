@@ -65,13 +65,13 @@ const localePath = useLocalePath()
 }
 
 .footer-section h3 {
-  color: var(--vintage-gold);
+  color: white;
   margin-bottom: 1rem;
   font-size: 1.5rem;
 }
 
 .footer-section h4 {
-  color: black;
+  color: white;
   margin-bottom: 1rem;
   font-size: 1.1rem;
 }
@@ -119,7 +119,7 @@ const localePath = useLocalePath()
 }
 
 .social-link:hover {
-  background: var(--vintage-gold);
+  background: black;
 }
 
 .footer-bottom {

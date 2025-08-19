@@ -55,7 +55,7 @@ body {
 }
 
 .btn-secondary {
-  background-color: var(--vintage-gold);
+  background-color: black;
 }
 
 .btn-secondary:hover {

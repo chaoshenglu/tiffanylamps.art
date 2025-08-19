@@ -139,7 +139,7 @@ onMounted(() => {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border-left: 4px solid var(--vintage-gold);
+  border-left: 4px solid black;
 }
 
 .article-item:hover {
@@ -160,7 +160,7 @@ onMounted(() => {
   flex-shrink: 0;
   width: 60px;
   height: 60px;
-  background: var(--vintage-gold);
+  background: black;
   border-radius: 50%;
   display: flex;
   align-items: center;

@@ -144,7 +144,7 @@ onMounted(() => {
   left: -15px;
   width: 50px;
   height: 50px;
-  background: var(--vintage-gold);
+  background: black;
   border-radius: 50%;
   display: flex;
   align-items: center;
