@@ -466,7 +466,7 @@ const stopSlideShow = () => {
 }
 
 .culture-entry::before {
-  background-image: url('https://placehold.co/800x600/8b4513/ffffff?text=Culture');
+  background-image: url('https://r2.tiffanylamps.art/poster/poster3.webp');
 }
 
 .trends-entry::before {
