@@ -143,7 +143,7 @@ const { data: hotArticles, error: hotError } = await useLazyAsyncData('hot-artic
       .from('posts')
       .select('*')
       .eq('type', 'hot')
-      .limit(3)
+      .limit(4)
     if (error) {
       console.error('热卖文章查询错误:', error)
       throw createError({
@@ -165,7 +165,7 @@ const { data: caseArticles, error: caseError } = await useLazyAsyncData('case-ar
       .from('posts')
       .select('*')
       .eq('type', 'case')
-      .limit(3)
+      .limit(4)
     
     if (error) {
       console.error('案例文章查询错误:', error)
@@ -388,7 +388,7 @@ const stopSlideShow = () => {
 
 .article-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 2rem;
 }
 
