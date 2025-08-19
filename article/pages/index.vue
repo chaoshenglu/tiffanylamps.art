@@ -138,14 +138,12 @@ const supabase = createClient(
 
 // 在服务端渲染阶段获取热卖文章数据
 const { data: hotArticles, error: hotError } = await useLazyAsyncData('hot-articles', async () => {
-  console.log('服务端获取热卖文章数据...')
   try {
     const { data, error } = await supabase
       .from('posts')
       .select('*')
       .eq('type', 'hot')
       .limit(3)
-    
     if (error) {
       console.error('热卖文章查询错误:', error)
       throw createError({
@@ -153,8 +151,6 @@ const { data: hotArticles, error: hotError } = await useLazyAsyncData('hot-artic
         statusMessage: '无法加载热卖榜单数据'
       })
     }
-    
-    console.log('热卖文章数据获取成功:', data)
     return data || []
   } catch (err) {
     console.error('获取热卖文章时发生错误:', err)
@@ -164,7 +160,6 @@ const { data: hotArticles, error: hotError } = await useLazyAsyncData('hot-artic
 
 // 在服务端渲染阶段获取案例文章数据
 const { data: caseArticles, error: caseError } = await useLazyAsyncData('case-articles', async () => {
-  console.log('服务端获取案例文章数据...')
   try {
     const { data, error } = await supabase
       .from('posts')
@@ -179,8 +174,6 @@ const { data: caseArticles, error: caseError } = await useLazyAsyncData('case-ar
         statusMessage: '无法加载装修案例数据'
       })
     }
-    
-    console.log('案例文章数据获取成功:', data)
     return data || []
   } catch (err) {
     console.error('获取案例文章时发生错误:', err)
