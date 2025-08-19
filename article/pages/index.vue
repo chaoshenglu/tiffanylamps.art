@@ -193,26 +193,32 @@ const loading = computed(() => {
   return !hotArticles.value && !caseArticles.value && !error.value
 })
 
-// 轮播图数据
-const slides = ref([
-  {
-    image: 'https://r2.tiffanylamps.art/poster/b1.webp',
-    title: '蒂凡尼灯的艺术世界',
-    description: '探索经典与现代的完美融合',
-    link: '/culture',
-    buttonText: '了解更多'
+// 轮播图数据 - 计算属性，根据当前语言返回对应数据
+const { locale } = useI18n()
+const slides = computed(() => {
+  const slidesData = {
+    'zh-CN': [
+      {
+        image: 'https://r2.tiffanylamps.art/poster/b1.webp',
+        title: '蒂凡尼灯的艺术世界',
+        description: '探索经典与现代的完美融合',
+        link: '/culture',
+        buttonText: '了解更多'
+      }
+    ],
+    'en': [
+      {
+        image: 'https://r2.tiffanylamps.art/poster/b2.webp',
+        title: 'The Art World of Tiffany Lamps',
+        description: 'Discover the perfect fusion of classic and modern',
+        link: '/culture',
+        buttonText: 'Learn More'
+      }
+    ]
   }
-])
-
-/* 这是英文版
-{
-    image: 'https://r2.tiffanylamps.art/poster/b2.webp',
-    title: 'The Art World of Tiffany Lamps',
-    description: 'Discover the perfect fusion of classic and modern',
-    link: '/culture',
-    buttonText: 'Learn More'
-  }
-*/
+  
+  return slidesData[locale.value] || slidesData['zh-CN']
+})
 
 const currentSlide = ref(0)
 const slideInterval = ref(null)
