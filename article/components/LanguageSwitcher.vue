@@ -38,6 +38,17 @@ watch(locale, (newLocale) => {
   font-size: 0.9rem;
   outline: none;
   transition: background-color 0.3s ease;
+  /* Remove native arrow and add custom arrow for better spacing control */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  /* White chevron to match the button text color */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='white' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  /* Keep some gap to the right of the arrow */
+  background-position: right 0.5rem center;
+  /* Ensure text doesn't overlap the arrow */
+  padding-right: 2rem;
 }
 
 .language-select:hover {
