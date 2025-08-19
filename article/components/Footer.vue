@@ -96,10 +96,6 @@ const localePath = useLocalePath()
   transition: color 0.3s ease;
 }
 
-.footer-links a:hover {
-  color: black;
-}
-
 .social-links {
   display: flex;
   gap: 1rem;
@@ -116,10 +112,6 @@ const localePath = useLocalePath()
   border-radius: 50%;
   text-decoration: none;
   transition: background-color 0.3s ease;
-}
-
-.social-link:hover {
-  background: black;
 }
 
 .footer-bottom {
@@ -142,10 +134,6 @@ const localePath = useLocalePath()
   color: #999;
   text-decoration: none;
   font-size: 0.9rem;
-}
-
-.footer-bottom-links a:hover {
-  color: black;
 }
 
 @media (max-width: 768px) {
