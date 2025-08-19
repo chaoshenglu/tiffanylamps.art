@@ -101,7 +101,7 @@ const localePath = useLocalePath()
   border: 1px solid #ddd;
   border-radius: 20px;
   padding: 0.25rem 0.5rem;
-  background: var(--soft-gray);
+  background: #f5f5f5;
 }
 
 .search-input {
