@@ -470,7 +470,7 @@ const stopSlideShow = () => {
 }
 
 .trends-entry::before {
-  background-image: url('https://placehold.co/800x600/0abab5/ffffff?text=Trends');
+  background-image: url('https://r2.tiffanylamps.art/poster/poster1.webp');
 }
 
 .entry-content {
