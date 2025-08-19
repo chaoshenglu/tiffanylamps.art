@@ -51,7 +51,7 @@
                      :to="localePath(`/article/${article.id}`)" 
                      class="article-card card">
               <div class="article-image">
-                <img src="https://placehold.co/600x400/0abab5/ffffff?text=Tiffany+Lamp" :alt="article.title" />
+                <img :src="article.cover_image" :alt="article.title" />
               </div>
               <div class="article-content">
                 <h3>{{ article.title }}</h3>
@@ -86,7 +86,7 @@
                      :to="localePath(`/article/${article.id}`)" 
                      class="article-card card">
               <div class="article-image">
-                <img src="https://placehold.co/600x400/d4af37/ffffff?text=Case+Study" :alt="article.title" />
+                <img :src="article.cover_image" :alt="article.title" />
               </div>
               <div class="article-content">
                 <h3>{{ article.title }}</h3>
@@ -154,7 +154,7 @@ const { data: hotArticles, error: hotError } = await useLazyAsyncData('hot-artic
       })
     }
     
-    console.log('热卖文章数据获取成功:', data?.length || 0, '条')
+    console.log('热卖文章数据获取成功:', data)
     return data || []
   } catch (err) {
     console.error('获取热卖文章时发生错误:', err)
@@ -180,7 +180,7 @@ const { data: caseArticles, error: caseError } = await useLazyAsyncData('case-ar
       })
     }
     
-    console.log('案例文章数据获取成功:', data?.length || 0, '条')
+    console.log('案例文章数据获取成功:', data)
     return data || []
   } catch (err) {
     console.error('获取案例文章时发生错误:', err)
