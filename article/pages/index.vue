@@ -7,7 +7,7 @@
           <div v-for="(slide, index) in slides" :key="index" 
                class="carousel-item" 
                :class="{ active: currentSlide === index }">
-            <img :src="slide.image" :alt="slide.title" class="carousel-image" />
+            <NuxtImg :src="slide.image" :alt="slide.title" class="carousel-image" />
             <div class="carousel-caption">
               <h2>{{ slide.title }}</h2>
               <p>{{ slide.description }}</p>
@@ -51,7 +51,7 @@
                      :to="localePath(`/article/${article.id}`)" 
                      class="article-card card">
               <div class="article-image">
-                <img :src="article.cover_image" :alt="article.title" />
+                <NuxtImg :src="article.cover_image" :alt="article.title" />
               </div>
               <div class="article-content">
                 <h3>{{ article.title }}</h3>
@@ -86,7 +86,7 @@
                      :to="localePath(`/article/${article.id}`)" 
                      class="article-card card">
               <div class="article-image">
-                <img :src="article.cover_image" :alt="article.title" />
+                <NuxtImg :src="article.cover_image" :alt="article.title" />
               </div>
               <div class="article-content">
                 <h3>{{ article.title }}</h3>
