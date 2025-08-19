@@ -51,7 +51,7 @@ const localePath = useLocalePath()
 
 <style scoped>
 .footer {
-  background: var(--deep-brown);
+  background: black;
   color: white;
   padding: 3rem 0 1rem;
   margin-top: 4rem;

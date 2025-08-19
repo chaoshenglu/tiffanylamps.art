@@ -66,7 +66,7 @@ const localePath = useLocalePath()
 }
 
 .nav-link {
-  color: var(--deep-brown);
+  color: black;
   font-weight: 500;
   position: relative;
 }

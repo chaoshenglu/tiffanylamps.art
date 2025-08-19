@@ -193,7 +193,7 @@ onMounted(() => {
 
 .article-header h1 {
   font-size: 2.5rem;
-  color: var(--deep-brown);
+  color: black;
   margin-bottom: 1rem;
 }
 
@@ -219,12 +219,12 @@ onMounted(() => {
 
 .article-body :deep(h2) {
   margin: 2rem 0 1rem;
-  color: var(--deep-brown);
+  color: black;
 }
 
 .article-body :deep(h3) {
   margin: 1.5rem 0 1rem;
-  color: var(--deep-brown);
+  color: black;
 }
 
 .article-body :deep(p) {

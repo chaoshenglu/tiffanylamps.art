@@ -378,7 +378,7 @@ const stopSlideShow = () => {
 }
 
 .view-all:hover {
-  color: var(--deep-brown);
+  color: black;
 }
 
 .hot-sales-section,
@@ -411,7 +411,7 @@ const stopSlideShow = () => {
 
 .article-content h3 {
   margin-bottom: 0.5rem;
-  color: var(--deep-brown);
+  color: black;
   font-size: 1.2rem;
 }
 

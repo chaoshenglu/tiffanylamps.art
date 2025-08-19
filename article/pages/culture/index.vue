@@ -110,7 +110,7 @@ onMounted(() => {
 
 .page-header h1 {
   font-size: 2.5rem;
-  color: var(--deep-brown);
+  color: black;
   margin-bottom: 1rem;
 }
 
@@ -152,7 +152,7 @@ onMounted(() => {
 
 .article-content h2 {
   font-size: 1.8rem;
-  color: var(--deep-brown);
+  color: black;
   margin-bottom: 1rem;
 }
 

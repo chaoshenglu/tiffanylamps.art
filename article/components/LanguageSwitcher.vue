@@ -57,6 +57,6 @@ watch(locale, (newLocale) => {
 
 .language-select option {
   background: white;
-  color: var(--deep-brown);
+  color: black;
 }
 </style>
