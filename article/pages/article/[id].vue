@@ -45,10 +45,17 @@
 </template>
 
 <script setup>
+import { createClient } from '@supabase/supabase-js'
+const config = useRuntimeConfig()
+
+// 创建 Supabase 客户端（服务端和客户端通用）
+const supabase = createClient(
+  config.public.supabaseUrl,
+  config.public.supabaseKey
+)
 const route = useRoute()
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
-const { $supabase } = useNuxtApp()
 
 const articleId = computed(() => route.params.id)
 const article = ref(null)
@@ -92,7 +99,7 @@ const getBackLink = () => {
 // 获取文章详情
 async function fetchArticle() {
   try {
-    const { data, error: supabaseError } = await $supabase
+    const { data, error: supabaseError } = await supabase
       .from('posts')
       .select('*')
       .eq('id', articleId.value)
