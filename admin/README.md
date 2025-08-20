@@ -5,9 +5,9 @@
 CREATE TABLE posts (
   id SERIAL PRIMARY KEY,
   title TEXT NOT NULL,
-  author TEXT NOT NULL,
+  author DEFAULT 'Hauty',
   content TEXT NOT NULL,
-  type TEXT DEFAULT 'article',
+  type TEXT DEFAULT 'culture',
   language TEXT DEFAULT 'zh-CN',
   created_at TIMESTAMP DEFAULT NOW()
 );
