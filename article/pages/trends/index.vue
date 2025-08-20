@@ -30,7 +30,6 @@
                 <span class="article-author">{{ $t('article.author') }}: {{ article.author }}</span>
                 <span class="article-date">{{ formatDate(article.created_at) }}</span>
               </div>
-              <p class="article-excerpt">{{ getExcerpt(article.content) }}</p>
             </div>
           </NuxtLink>
         </div>
@@ -40,9 +39,16 @@
 </template>
 
 <script setup>
+import { createClient } from '@supabase/supabase-js'
+const config = useRuntimeConfig()
+
+// 创建 Supabase 客户端（服务端和客户端通用）
+const supabase = createClient(
+  config.public.supabaseUrl,
+  config.public.supabaseKey
+)
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
-const { $supabase } = useNuxtApp()
 
 const articles = ref([])
 const loading = ref(true)
@@ -62,20 +68,14 @@ const formatDate = (dateString) => {
   return new Intl.DateTimeFormat(locale.value).format(date)
 }
 
-// 获取文章摘要
-const getExcerpt = (content) => {
-  if (!content) return ''
-  return content.length > 120 ? content.substring(0, 120) + '...' : content
-}
-
 // 获取趋势类文章
 async function fetchTrendArticles() {
   try {
-    const { data, error: supabaseError } = await $supabase
+    const { data, error: supabaseError } = await supabase
       .from('posts')
       .select('*')
       .eq('type', 'trend')
-      .eq('language', locale.value)
+      // .eq('language', locale.value)
       .order('created_at', { ascending: false })
     
     if (supabaseError) throw supabaseError
