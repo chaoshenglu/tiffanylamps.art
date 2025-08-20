@@ -107,7 +107,7 @@
             <div class="entry-content">
               <h2>{{ $t('home.cultureEntry') }}</h2>
               <p>{{ $t('home.cultureDesc') }}</p>
-              <NuxtLink :to="localePath('/culture')" class="btn">{{ $t('home.learnMore') }}</NuxtLink>
+              <NuxtLink :to="localePath('/culture')" class="btn" style="background-color: #00000080">{{ $t('home.learnMore') }}</NuxtLink>
             </div>
           </div>
           
@@ -115,7 +115,7 @@
             <div class="entry-content">
               <h2>{{ $t('home.trendsEntry') }}</h2>
               <p>{{ $t('home.trendsDesc') }}</p>
-              <NuxtLink :to="localePath('/trends')" class="btn btn-secondary">{{ $t('home.learnMore') }}</NuxtLink>
+              <NuxtLink :to="localePath('/trends')" class="btn" style="background-color: #00000080">{{ $t('home.learnMore') }}</NuxtLink>
             </div>
           </div>
         </div>
