@@ -21,7 +21,7 @@
           <div class="search-box">
             <input type="text" :placeholder="$t('nav.search')" class="search-input" />
             <button class="search-button">
-              <span class="search-icon">🔍</span>
+              <img src="/assets/searchIcon.svg">
             </button>
           </div>
           
@@ -119,10 +119,7 @@ const localePath = useLocalePath()
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.search-icon {
-  font-size: 1rem;
+  padding: 2px;
 }
 
 @media (max-width: 768px) {
