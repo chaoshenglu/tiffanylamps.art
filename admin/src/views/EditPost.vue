@@ -24,7 +24,14 @@
             show-word-limit
           />
         </el-form-item>
-        
+        <el-form-item label="文章封面" prop="cover_image">
+          <el-input
+            v-model="form.cover_image"
+            placeholder="请输入封面链接"
+            maxlength="100"
+            show-word-limit
+          />
+        </el-form-item>
         <el-row :gutter="20">
           <el-col :span="12">
             <el-form-item label="文章分类" prop="type">
@@ -103,6 +110,7 @@ const loading = ref(false)
 
 const form = reactive({
   title: '',
+  cover_image: '',
   type: '',
   language: 'zh-CN',
   content: ''
@@ -112,6 +120,10 @@ const rules = {
   title: [
     { required: true, message: '请输入文章标题', trigger: 'blur' },
     { min: 1, max: 100, message: '标题长度在 1 到 100 个字符', trigger: 'blur' }
+  ],
+  cover_image: [
+    { required: true, message: '请输入封面链接', trigger: 'blur' },
+    { min: 1, max: 100, message: '链接长度在 1 到 100 个字符', trigger: 'blur' }
   ],
   type: [
     { required: true, message: '请选择文章分类', trigger: 'change' }
@@ -217,6 +229,7 @@ const loadPost = async () => {
 
     if (data) {
       form.title = data.title
+      form.cover_image = data.cover_image
       form.type = data.type
       form.language = data.language
       form.content = data.content
@@ -274,6 +287,7 @@ const submitForm = async () => {
           .from('posts')
           .update({
             title: form.title,
+            cover_image: form.cover_image,
             content: form.content,
             type: form.type,
             language: form.language
