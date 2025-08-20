@@ -39,7 +39,7 @@ const localePath = useLocalePath()
 <style scoped>
 .navbar {
   padding: 1rem 0;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 .navbar-content {
