@@ -22,7 +22,7 @@
         <div v-for="article in articles" :key="article.id" class="article-card card">
           <NuxtLink :to="localePath(`/article/${article.id}`)" class="article-link">
             <div class="article-image">
-              <img src="https://placehold.co/600x400/8b4513/ffffff?text=Case+Study" :alt="article.title" />
+              <img :src="article.cover_image" :alt="article.title" />
               <div class="article-overlay">
                 <span class="view-case">查看案例</span>
               </div>

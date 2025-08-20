@@ -22,7 +22,7 @@
         <div v-for="article in articles" :key="article.id" class="article-card card">
           <NuxtLink :to="localePath(`/article/${article.id}`)" class="article-link">
             <div class="article-image">
-              <img src="https://placehold.co/600x400/0abab5/ffffff?text=Trend" :alt="article.title" />
+              <img :src="article.cover_image" :alt="article.title" />
             </div>
             <div class="article-content">
               <h3>{{ article.title }}</h3>

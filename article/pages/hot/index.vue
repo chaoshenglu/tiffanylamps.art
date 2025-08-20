@@ -25,7 +25,7 @@
               <span class="rank-number">{{ index + 1 }}</span>
             </div>
             <div class="article-image">
-              <img src="https://placehold.co/600x400/d4af37/ffffff?text=Hot+Sale" :alt="article.title" />
+              <img :src="article.cover_image" :alt="article.title" />
             </div>
             <div class="article-content">
               <h3>{{ article.title }}</h3>
