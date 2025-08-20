@@ -51,10 +51,6 @@ watch(locale, (newLocale) => {
   padding-right: 2rem;
 }
 
-.language-select:hover {
-  background-color: #089a96;
-}
-
 .language-select option {
   background: white;
   color: black;
