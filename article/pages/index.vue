@@ -11,7 +11,7 @@
             <div class="carousel-caption">
               <h2>{{ slide.title }}</h2>
               <p>{{ slide.description }}</p>
-              <NuxtLink :to="localePath(slide.link)" class="btn">{{ slide.buttonText }}</NuxtLink>
+              <NuxtLink :to="localePath(slide.link)" class="btn" style="background-color: #FFFFFF26">{{ slide.buttonText }}</NuxtLink>
             </div>
           </div>
           
