@@ -33,7 +33,6 @@
                 <span class="article-author">{{ $t('article.author') }}: {{ article.author }}</span>
                 <span class="article-date">{{ formatDate(article.created_at) }}</span>
               </div>
-              <p class="article-excerpt">{{ getExcerpt(article.content) }}</p>
             </div>
           </NuxtLink>
         </div>
@@ -43,9 +42,15 @@
 </template>
 
 <script setup>
+import { createClient } from '@supabase/supabase-js'
+const config = useRuntimeConfig()
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
-const { $supabase } = useNuxtApp()
+// 创建 Supabase 客户端（服务端和客户端通用）
+const supabase = createClient(
+  config.public.supabaseUrl,
+  config.public.supabaseKey
+)
 
 const articles = ref([])
 const loading = ref(true)
@@ -74,11 +79,11 @@ const getExcerpt = (content) => {
 // 获取案例类文章
 async function fetchCaseArticles() {
   try {
-    const { data, error: supabaseError } = await $supabase
+    const { data, error: supabaseError } = await supabase
       .from('posts')
       .select('*')
       .eq('type', 'case')
-      .eq('language', locale.value)
+      // .eq('language', locale.value)
       .order('created_at', { ascending: false })
     
     if (supabaseError) throw supabaseError
