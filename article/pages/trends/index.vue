@@ -75,7 +75,7 @@ async function fetchTrendArticles() {
       .from('posts')
       .select('*')
       .eq('type', 'trend')
-      // .eq('language', locale.value)
+      .eq('language', locale.value)
       .order('created_at', { ascending: false })
     
     if (supabaseError) throw supabaseError

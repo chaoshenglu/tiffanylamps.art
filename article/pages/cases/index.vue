@@ -77,7 +77,7 @@ async function fetchCaseArticles() {
       .from('posts')
       .select('*')
       .eq('type', 'case')
-      // .eq('language', locale.value)
+      .eq('language', locale.value)
       .order('created_at', { ascending: false })
     
     if (supabaseError) throw supabaseError

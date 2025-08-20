@@ -76,7 +76,7 @@ async function fetchHotArticles() {
       .from('posts')
       .select('*')
       .eq('type', 'hot')
-      // .eq('language', locale.value)
+      .eq('language', locale.value)
       .order('created_at', { ascending: false })
     
     if (supabaseError) throw supabaseError
