@@ -25,14 +25,6 @@
           />
         </el-form-item>
         
-        <el-form-item label="作者" prop="author">
-          <el-input
-            v-model="form.author"
-            placeholder="请输入作者姓名"
-            maxlength="50"
-          />
-        </el-form-item>
-        
         <el-row :gutter="20">
           <el-col :span="12">
             <el-form-item label="文章分类" prop="type">
@@ -111,7 +103,6 @@ const loading = ref(false)
 
 const form = reactive({
   title: '',
-  author: '',
   type: '',
   language: 'zh-CN',
   content: ''
@@ -121,10 +112,6 @@ const rules = {
   title: [
     { required: true, message: '请输入文章标题', trigger: 'blur' },
     { min: 1, max: 100, message: '标题长度在 1 到 100 个字符', trigger: 'blur' }
-  ],
-  author: [
-    { required: true, message: '请输入作者姓名', trigger: 'blur' },
-    { min: 1, max: 50, message: '作者姓名长度在 1 到 50 个字符', trigger: 'blur' }
   ],
   type: [
     { required: true, message: '请选择文章分类', trigger: 'change' }
@@ -230,7 +217,6 @@ const loadPost = async () => {
 
     if (data) {
       form.title = data.title
-      form.author = data.author
       form.type = data.type
       form.language = data.language
       form.content = data.content
@@ -288,7 +274,6 @@ const submitForm = async () => {
           .from('posts')
           .update({
             title: form.title,
-            author: form.author,
             content: form.content,
             type: form.type,
             language: form.language
