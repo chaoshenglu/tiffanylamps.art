@@ -70,12 +70,6 @@ const formatDate = (dateString) => {
   return new Intl.DateTimeFormat(locale.value).format(date)
 }
 
-// 获取文章摘要
-const getExcerpt = (content) => {
-  if (!content) return ''
-  return content.length > 120 ? content.substring(0, 120) + '...' : content
-}
-
 // 获取案例类文章
 async function fetchCaseArticles() {
   try {
