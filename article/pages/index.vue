@@ -106,7 +106,7 @@
           <div class="entry-card culture-entry">
             <div class="entry-content">
               <h2>{{ $t('home.cultureEntry') }}</h2>
-              <p>探索蒂凡尼灯的丰富历史与文化底蕴，了解这一艺术形式的起源与发展。</p>
+              <p>{{ $t('home.cultureDesc') }}</p>
               <NuxtLink :to="localePath('/culture')" class="btn">{{ $t('article.backToList') }}</NuxtLink>
             </div>
           </div>
@@ -114,7 +114,7 @@
           <div class="entry-card trends-entry">
             <div class="entry-content">
               <h2>{{ $t('home.trendsEntry') }}</h2>
-              <p>了解蒂凡尼灯在现代家居装饰中的流行趋势与创新应用。</p>
+              <p>{{ $t('home.trendsDesc') }}</p>
               <NuxtLink :to="localePath('/trends')" class="btn btn-secondary">{{ $t('article.backToList') }}</NuxtLink>
             </div>
           </div>
