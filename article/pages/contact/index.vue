@@ -4,7 +4,7 @@
     <section class="hero-section">
       <div class="hero-overlay">
         <div class="container">
-          <h1 class="hero-title">{{ $t('contact.title') }}</h1>
+          <h1 class="hero-title" :class="{ 'hero-title-en': locale === 'en' }">{{ $t('contact.title') }}</h1>
           <p class="hero-subtitle">{{ $t('contact.subtitle') }}</p>
         </div>
       </div>
@@ -95,6 +95,7 @@
 <script setup>
 import { createClient } from '@supabase/supabase-js'
 const config = useRuntimeConfig()
+const { locale } = useI18n()
 
 // 创建 Supabase 客户端
 const supabase = createClient(
@@ -205,7 +206,7 @@ async function saveToSupabase() {
 }
 
 .hero-overlay {
-  width: 100%;
+  max-width: 900px;
 }
 
 .hero-title {
@@ -215,6 +216,10 @@ async function saveToSupabase() {
   text-transform: uppercase;
   letter-spacing: 2px;
   color:white;
+}
+
+.hero-title-en {
+  font-size: 2rem;
 }
 
 .hero-subtitle {
