@@ -23,9 +23,6 @@
           <NuxtLink :to="localePath(`/article/${article.id}`)" class="article-link">
             <div class="article-image">
               <img :src="article.cover_image" :alt="article.title" />
-              <div class="article-overlay">
-                <span class="view-case">查看案例</span>
-              </div>
             </div>
             <div class="article-content">
               <h3>{{ article.title }}</h3>
@@ -156,37 +153,8 @@ onMounted(() => {
   transition: transform 0.3s ease;
 }
 
-.article-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.view-case {
-  color: white;
-  font-size: 1.2rem;
-  font-weight: 500;
-  padding: 0.5rem 1rem;
-  border: 2px solid white;
-  border-radius: 4px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(5px);
-}
-
 .article-card:hover .article-image img {
   transform: scale(1.05);
-}
-
-.article-card:hover .article-overlay {
-  opacity: 1;
 }
 
 .article-content {
