@@ -37,9 +37,9 @@
       
       <div class="footer-bottom">
         <p>{{ $t('footer.copyright') }}</p>
-        <div class="footer-bottom-links">
+        <!-- <div class="footer-bottom-links">
           <a href="#">{{ $t('footer.privacy') }}</a>
-        </div>
+        </div> -->
       </div>
     </div>
   </footer>
