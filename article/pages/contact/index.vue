@@ -58,10 +58,9 @@
               <div class="form-group">
                 <select v-model="form.budget" required>
                   <option value="">{{ $t('contact.budget') }}</option>
-                  <option value="under-1000">{{ $t('contact.budgetOptions.under1000') }}</option>
-                  <option value="1000-5000">{{ $t('contact.budgetOptions.range1000to5000') }}</option>
-                  <option value="5000-10000">{{ $t('contact.budgetOptions.range5000to10000') }}</option>
-                  <option value="over-10000">{{ $t('contact.budgetOptions.over10000') }}</option>
+                  <option value="bulk">{{ $t('contact.budgetOptions.bulk') }}</option>
+                  <option value="single">{{ $t('contact.budgetOptions.single') }}</option>
+                  <option value="other">{{ $t('contact.budgetOptions.other') }}</option>
                 </select>
               </div>
 
