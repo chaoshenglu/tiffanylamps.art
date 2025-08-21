@@ -167,8 +167,8 @@ async function saveToSupabase() {
       .from('contact_msg')
       .insert([
         {
-          firstName: form.value.firstName,
-          lastName: form.value.lastName,
+          firstname: form.value.firstName,
+          lastname: form.value.lastName,
           budget: form.value.budget,
           email: form.value.email,
           message: form.value.message
