@@ -195,7 +195,7 @@ async function saveToSupabase() {
 
 .hero-section {
   height: 400px;
-  background: url('https://r2.tiffanylamps.art/about_us/about_us.webp');
+  background:linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url('https://r2.tiffanylamps.art/about_us/about_us.webp');
   background-size: cover;
   background-position: center;
   display: flex;
