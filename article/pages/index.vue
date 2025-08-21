@@ -376,7 +376,6 @@ const stopSlideShow = () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
 }
 
 .view-all {
@@ -532,5 +531,13 @@ const stopSlideShow = () => {
   .carousel-caption p {
     font-size: 1rem;
   }
+}
+
+.hot-sales-grid {
+  margin-top: -20px;
+}
+
+.featured-cases-grid {
+  margin-top: -20px;
 }
 </style>
