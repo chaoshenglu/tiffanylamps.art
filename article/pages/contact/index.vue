@@ -119,11 +119,17 @@ const form = ref({
 })
 
 // 提交表单
-const submitForm = () => {
+const submitForm = async () => {
   console.log('Form submitted:', form.value)
+  
+  // 同时执行保存到Supabase和发送微信消息
+  await Promise.all([
+    saveToSupabase(),
+    sendMessageToWechat()
+  ]);
+  
   alert('Thank you for your message! We will get back to you soon.')
-  sendMessageToWechat()
-  saveToSupabase()
+  
   // 重置表单
   form.value = {
     firstName: '',
@@ -134,12 +140,49 @@ const submitForm = () => {
   }
 }
 
-function sendMessageToWechat() {
-
+async function sendMessageToWechat() {
+  try {
+    const response = await fetch("https://tiffanylamps-wechat-msg.lx271896700.workers.dev", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ 
+        name: `${form.value.firstName} ${form.value.lastName}`, 
+        content: `预算: ${form.value.budget}\n邮箱: ${form.value.email}\n留言: ${form.value.message}` 
+      })
+    });
+    
+    if (response.ok) {
+      console.log('微信消息发送成功');
+    } else {
+      console.error('微信消息发送失败:', response.statusText);
+    }
+  } catch (error) {
+    console.error('发送微信消息时出错:', error);
+  }
 }
 
-function saveToSupabase() {
-
+async function saveToSupabase() {
+  try {
+    const { data, error } = await supabase
+      .from('contact_msg')
+      .insert([
+        {
+          firstName: form.value.firstName,
+          lastName: form.value.lastName,
+          budget: form.value.budget,
+          email: form.value.email,
+          message: form.value.message
+        }
+      ]);
+    
+    if (error) {
+      console.error('保存到Supabase失败:', error);
+    } else {
+      console.log('成功保存到Supabase:', data);
+    }
+  } catch (error) {
+    console.error('保存到Supabase时出错:', error);
+  }
 }
 
 </script>
