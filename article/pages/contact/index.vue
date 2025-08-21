@@ -26,8 +26,8 @@
               <p>{{ $t('contact.address1') }}</p>
               <p>{{ $t('contact.address2') }}</p>
               <h3>{{ $t('contact.phoneEmail') }}</h3>
-              <p>(96) 323-4560</p>
-              <p>info@domain.com</p>
+              <p>sale@tiffanylamps.art</p>
+              <p>hauty@tiffanylamps.com.cn</p>
             </div>
           </div>
 
