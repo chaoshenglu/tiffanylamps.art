@@ -20,7 +20,7 @@
           <h4>{{ $t('footer.about') }}</h4>
           <ul class="footer-links">
             <li><NuxtLink :to="localePath('/culture')">{{ $t('nav.culture') }}</NuxtLink></li>
-            <li><NuxtLink :to="localePath('/auctions')">{{ $t('nav.auctions') }}</NuxtLink></li>
+            <!-- <li><NuxtLink :to="localePath('/auctions')">{{ $t('nav.auctions') }}</NuxtLink></li> -->
             <li><a href="#">{{ $t('footer.contact') }}</a></li>
           </ul>
         </div>

@@ -87,8 +87,6 @@ const getBackLink = () => {
       return '/trends'
     case 'hot':
       return '/hot'
-    case 'auction':
-      return '/auctions'
     case 'case':
       return '/cases'
     default:
