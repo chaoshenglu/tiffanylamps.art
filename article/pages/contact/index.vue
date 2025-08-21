@@ -112,10 +112,10 @@ const form = ref({
 
 // 提交表单
 const submitForm = () => {
-  // 这里可以添加表单提交逻辑
   console.log('Form submitted:', form.value)
   alert('Thank you for your message! We will get back to you soon.')
-  
+  sendMessageToWechat()
+  saveToSupabase()
   // 重置表单
   form.value = {
     firstName: '',
@@ -125,6 +125,15 @@ const submitForm = () => {
     message: ''
   }
 }
+
+function sendMessageToWechat() {
+
+}
+
+function saveToSupabase() {
+
+}
+
 </script>
 
 <style scoped>
