@@ -4,7 +4,7 @@
       <div class="navbar-content">
         <div class="logo">
           <NuxtLink to="/" class="logo-link">
-            <img src="/assets/logo.svg" style="width: 150px;">
+            <img src="/assets/logo.svg" style="width: 160px;">
           </NuxtLink>
         </div>
         
