@@ -14,3 +14,4 @@ CREATE TABLE contact_msg (
  message TEXT NOT NULL,
  created_at TIMESTAMP DEFAULT NOW()
 );
+# 注意：使用这个建表语句，supabase会自动将firstName改成firstname，将lastName改成lastname
