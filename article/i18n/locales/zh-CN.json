@@ -2,7 +2,7 @@
   "nav": {
     "home": "首页",
     "cases": "装修案例",
-    "trends": "流行趋势", 
+    "trends": "流行趋势",
     "hot": "热卖榜单",
     "culture": "历史文化",
     "contact": "联系我们",
@@ -36,12 +36,11 @@
     "formTitle": "联系表单",
     "firstName": "名字*",
     "lastName": "姓氏*",
-    "budget": "合作意向",
-     "budgetOptions": {
-       "bulk": "批量采购",
-       "single": "单件购买",
-       "other": "其他"
-     },
+    "budgetOptions": {
+      "bulk": "批量采购",
+      "single": "单件购买",
+      "other": "其他"
+    },
     "email": "邮箱*",
     "message": "留言*",
     "submit": "提交"

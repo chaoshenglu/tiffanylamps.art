@@ -36,12 +36,11 @@
     "formTitle": "Contact Form",
     "firstName": "First Name*",
     "lastName": "Last Name*",
-    "budget": "Cooperation Intention",
-     "budgetOptions": {
-       "bulk": "Bulk Purchase",
-       "single": "Single Purchase",
-       "other": "Other"
-     },
+    "budgetOptions": {
+      "bulk": "Bulk Purchase",
+      "single": "Single Purchase",
+      "other": "Other"
+    },
     "email": "Email*",
     "message": "Message*",
     "submit": "SUBMIT"

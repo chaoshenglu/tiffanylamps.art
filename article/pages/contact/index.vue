@@ -57,7 +57,6 @@
 
               <div class="form-group">
                 <select v-model="form.budget" required>
-                  <option value="">{{ $t('contact.budget') }}</option>
                   <option value="bulk">{{ $t('contact.budgetOptions.bulk') }}</option>
                   <option value="single">{{ $t('contact.budgetOptions.single') }}</option>
                   <option value="other">{{ $t('contact.budgetOptions.other') }}</option>
@@ -106,7 +105,7 @@ useHead({
 const form = ref({
   firstName: '',
   lastName: '',
-  budget: '',
+  budget: 'bulk',
   email: '',
   message: ''
 })
@@ -121,7 +120,7 @@ const submitForm = () => {
   form.value = {
     firstName: '',
     lastName: '',
-    budget: '',
+    budget: 'bulk',
     email: '',
     message: ''
   }
