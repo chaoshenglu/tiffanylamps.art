@@ -16,7 +16,7 @@
         <div class="contact-grid">
           <!-- Left Side - Contact Info -->
           <div class="contact-info">
-            <h2>{{ $t('contact.sayHello') }}</h2>
+            <h2>{{ $t('nav.contact') }}</h2>
             <p class="contact-description">
               {{ $t('contact.description') }}
             </p>
