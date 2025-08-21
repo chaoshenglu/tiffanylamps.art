@@ -14,6 +14,7 @@
           <NuxtLink :to="localePath('/trends')" class="nav-link">{{ $t('nav.trends') }}</NuxtLink>
           <NuxtLink :to="localePath('/hot')" class="nav-link">{{ $t('nav.hot') }}</NuxtLink>
           <NuxtLink :to="localePath('/culture')" class="nav-link">{{ $t('nav.culture') }}</NuxtLink>
+          <NuxtLink :to="localePath('/contact')" class="nav-link">{{ $t('nav.contact') }}</NuxtLink>
         </div>
         
         <div class="nav-right">

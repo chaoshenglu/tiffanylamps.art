@@ -5,6 +5,7 @@
     "trends": "流行趋势", 
     "hot": "热卖榜单",
     "culture": "历史文化",
+    "contact": "联系我们",
     "search": "搜索"
   },
   "home": {
@@ -25,6 +26,27 @@
     "nextArticle": "下一篇",
     "backToList": "返回列表",
     "more": "查看更多"
+  },
+  "contact": {
+    "title": "我们如何帮助您？",
+    "subtitle": "如果您想说声你好！",
+    "sayHello": "说声你好",
+    "description": "如果您对我们的产品或服务有任何疑问，我们的团队随时准备回答您的所有问题。请随时与我们联系。",
+    "address": "地址",
+    "phoneEmail": "电话和邮箱",
+    "formTitle": "联系表单",
+    "firstName": "名字*",
+    "lastName": "姓氏*",
+    "budget": "预算",
+    "budgetOptions": {
+      "under1000": "1000元以下",
+      "range1000to5000": "1000-5000元",
+      "range5000to10000": "5000-10000元",
+      "over10000": "10000元以上"
+    },
+    "email": "邮箱*",
+    "message": "留言*",
+    "submit": "提交"
   },
   "footer": {
     "copyright": "© 2025 蒂凡尼灯艺术. 保留所有权利.",
