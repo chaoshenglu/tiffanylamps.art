@@ -23,9 +23,8 @@
 
             <div class="contact-details">
               <h3>{{ $t('contact.address') }}</h3>
-              <p>409 Broadway</p>
-              <p>New York, NY 1233</p>
-
+              <p>{{ $t('contact.address1') }}</p>
+              <p>{{ $t('contact.address2') }}</p>
               <h3>{{ $t('contact.phoneEmail') }}</h3>
               <p>(96) 323-4560</p>
               <p>info@domain.com</p>

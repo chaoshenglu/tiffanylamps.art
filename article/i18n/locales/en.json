@@ -32,6 +32,8 @@
     "subtitle": "If you have any questions, please feel free to contact us",
     "description": "To ensure a timely response, please use the contact form on the right. We are currently experiencing high email volumes but will respond to form submissions within 10 minutes.",
     "address": "Address",
+    "address1": "Building 13,10th floor, Alex Technology Industrial Park",
+    "address2": "Huichen District, HuiZhou city, GuangDong Province, China",
     "phoneEmail": "Phone & Email",
     "formTitle": "Contact Form",
     "firstName": "First Name*",
