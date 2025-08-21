@@ -13,7 +13,6 @@
           <NuxtLink :to="localePath('/cases')" class="nav-link">{{ $t('nav.cases') }}</NuxtLink>
           <NuxtLink :to="localePath('/trends')" class="nav-link">{{ $t('nav.trends') }}</NuxtLink>
           <NuxtLink :to="localePath('/hot')" class="nav-link">{{ $t('nav.hot') }}</NuxtLink>
-          <NuxtLink :to="localePath('/auctions')" class="nav-link">{{ $t('nav.auctions') }}</NuxtLink>
           <NuxtLink :to="localePath('/culture')" class="nav-link">{{ $t('nav.culture') }}</NuxtLink>
         </div>
         
