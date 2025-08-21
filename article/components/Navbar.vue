@@ -4,7 +4,7 @@
       <div class="navbar-content">
         <div class="logo">
           <NuxtLink to="/" class="logo-link">
-            <h1>Tiffany Lamps Art</h1>
+            <img src="/assets/logo.svg" style="width: 150px;">
           </NuxtLink>
         </div>
         
