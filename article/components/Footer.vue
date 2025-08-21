@@ -3,8 +3,8 @@
     <div class="container">
       <div class="footer-content">
         <div class="footer-section">
-          <h3>Tiffany Lamps Art</h3>
-          <p>{{ $t('home.subtitle') }}</p>
+          <img src="/assets/logoWhite.svg" style="width: 180px;">
+          <p style="margin-top: 16px;">{{ $t('home.subtitle') }}</p>
         </div>
         
         <div class="footer-section">
