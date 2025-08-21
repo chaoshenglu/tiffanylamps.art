@@ -209,7 +209,7 @@ const slides = computed(() => {
     'en': [
       {
         image: 'https://r2.tiffanylamps.art/poster/b2.webp',
-        title: 'The Art World of Tiffany Lamps',
+        title: 'The Art of Tiffany Lamps',
         description: 'Discover the perfect fusion of classic and modern',
         link: '/culture',
         buttonText: 'Learn More'
