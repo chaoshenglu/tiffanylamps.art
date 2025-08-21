@@ -93,6 +93,14 @@
 </template>
 
 <script setup>
+import { createClient } from '@supabase/supabase-js'
+const config = useRuntimeConfig()
+
+// 创建 Supabase 客户端
+const supabase = createClient(
+  config.public.supabaseUrl,
+  config.public.supabaseKey
+)
 // 设置页面 meta
 useHead({
   title: 'Contact Us - Tiffany Lamps Art',
