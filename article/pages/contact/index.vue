@@ -136,8 +136,7 @@ const submitForm = () => {
 
 .hero-section {
   height: 400px;
-  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
-              url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400"><rect fill="%23228B22" width="1200" height="400"/><circle fill="%23FFD700" cx="200" cy="100" r="30" opacity="0.7"/><circle fill="%23FF6347" cx="800" cy="150" r="25" opacity="0.6"/><circle fill="%2332CD32" cx="1000" cy="80" r="35" opacity="0.5"/></svg>');
+  background: url('https://r2.tiffanylamps.art/about_us/about_us.webp');
   background-size: cover;
   background-position: center;
   display: flex;
@@ -157,6 +156,7 @@ const submitForm = () => {
   margin-bottom: 1rem;
   text-transform: uppercase;
   letter-spacing: 2px;
+  color:white;
 }
 
 .hero-subtitle {
