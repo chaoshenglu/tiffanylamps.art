@@ -241,7 +241,7 @@ const submitForm = () => {
 .form-group select:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #007bff;
+  border-color: #000000;
 }
 
 .form-group select {
