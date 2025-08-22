@@ -3,11 +3,11 @@
     <el-card class="post-card">
       <template #header>
         <div class="card-header">
-          <span>发布新文章</span>
+          <span>{{ isEditMode ? '编辑文章' : '发布新文章' }}</span>
         </div>
       </template>
 
-      <el-form ref="formRef" :model="form" :rules="rules" label-width="100px" class="post-form">
+      <el-form ref="formRef" :model="form" :rules="rules" label-width="100px" class="post-form" v-loading="loading">
         <el-form-item label="文章标题" prop="title">
           <el-input v-model="form.title" placeholder="请输入文章标题" maxlength="100" show-word-limit />
         </el-form-item>
@@ -89,7 +89,7 @@
 
         <el-form-item>
           <el-button type="primary" @click="submitForm" :loading="submitting" size="large">
-            发布文章
+            {{ isEditMode ? '更新文章' : '发布文章' }}
           </el-button>
           <el-button @click="resetForm" size="large">
             重置
@@ -101,21 +101,27 @@
 </template>
 
 <script setup>
-import { ref,shallowRef, reactive, onBeforeUnmount, onMounted } from 'vue'
+import { ref,shallowRef, reactive, onBeforeUnmount, onMounted, computed } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
 import { supabaseClient, isConnected, autoReconnect } from '../store/supabase.js'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 
 // 引入编辑器样式
 import '@wangeditor/editor/dist/css/style.css'
 
 const router = useRouter()
+const route = useRoute()
 const formRef = ref()
 const editorRef = shallowRef()
 const submitting = ref(false)
 const isHtmlMode = ref(false)
 const htmlContent = ref('')
+const loading = ref(false)
+
+// 编辑模式判断
+const isEditMode = computed(() => !!route.params.id)
+const postId = computed(() => route.params.id)
 
 const form = reactive({
   title: '',
@@ -200,6 +206,11 @@ const editorConfig = {
 // 编辑器实例
 const handleCreated = (editor) => {
   editorRef.value = editor
+  
+  // 如果是编辑模式且已有内容，设置编辑器内容
+  if (isEditMode.value && form.content) {
+    editor.setHtml(form.content)
+  }
 }
 
 // 切换HTML模式
@@ -239,7 +250,54 @@ const updateContentFromHtml = () => {
   }
 }
 
-// 检查连接状态
+// 加载文章数据（编辑模式）
+const loadPost = async () => {
+  if (!isEditMode.value) return
+  
+  loading.value = true
+  
+  try {
+    const { data, error } = await supabaseClient.value
+      .from('posts')
+      .select('*')
+      .eq('id', postId.value)
+      .single()
+    
+    if (error) {
+      console.error('加载文章错误:', error)
+      ElMessage.error(`加载文章失败: ${error.message}`)
+      router.push('/posts')
+      return
+    }
+    
+    if (data) {
+      // 填充表单数据
+      form.title = data.title || ''
+      form.post_group_id = data.post_group_id || ''
+      form.product_link = data.product_link || ''
+      form.cover_image = data.cover_image || ''
+      form.type = data.type || ''
+      form.language = data.language || 'zh-CN'
+      form.content = data.content || ''
+      
+      // 设置编辑器内容
+      if (editorRef.value && data.content) {
+        editorRef.value.setHtml(data.content)
+      }
+      
+      // 设置HTML内容
+      htmlContent.value = data.content || ''
+    }
+  } catch (error) {
+    console.error('加载文章错误:', error)
+    ElMessage.error('加载文章时发生错误')
+    router.push('/posts')
+  } finally {
+    loading.value = false
+  }
+}
+
+// 检查连接状态和加载数据
 onMounted(async () => {
   if (!isConnected.value) {
     const reconnected = await autoReconnect()
@@ -255,7 +313,13 @@ onMounted(async () => {
       ).then(() => {
         router.push('/config')
       })
+      return
     }
+  }
+  
+  // 如果是编辑模式，加载文章数据
+  if (isEditMode.value) {
+    await loadPost()
   }
 })
 
@@ -276,20 +340,34 @@ const submitForm = async () => {
       submitting.value = true
 
       try {
-        const { data, error } = await supabaseClient.value
-          .from('posts')
-          .insert([{
-            title: form.title,
-            post_group_id: form.post_group_id,
-            product_link: form.product_link,
-            cover_image: form.cover_image,
-            content: form.content,
-            type: form.type,
-            language: form.language
-          }])
+        const postData = {
+          title: form.title,
+          post_group_id: form.post_group_id,
+          product_link: form.product_link,
+          cover_image: form.cover_image,
+          content: form.content,
+          type: form.type,
+          language: form.language
+        }
+
+        let result
+        if (isEditMode.value) {
+          // 更新文章
+          result = await supabaseClient.value
+            .from('posts')
+            .update(postData)
+            .eq('id', postId.value)
+        } else {
+          // 创建新文章
+          result = await supabaseClient.value
+            .from('posts')
+            .insert([postData])
+        }
+
+        const { data, error } = result
 
         if (error) {
-          console.error('发布错误:', error)
+          console.error(isEditMode.value ? '更新错误:' : '发布错误:', error)
 
           // 如果是认证错误，尝试重连
           if (error.code === 'PGRST301' || error.message.includes('JWT') || error.message.includes('authentication')) {
@@ -300,16 +378,32 @@ const submitForm = async () => {
             }
           }
 
-          ElMessage.error(`发布失败: ${error.message}`)
+          ElMessage.error(`${isEditMode.value ? '更新' : '发布'}失败: ${error.message}`)
         } else {
-          ElMessageBox.confirm(
-            '你可以点击翻译，然后用其他语言再次发布此文章',
-            '文章发布成功'
-          )
+          if (isEditMode.value) {
+            ElMessage.success('文章更新成功')
+            router.push('/posts')
+          } else {
+            ElMessageBox.confirm(
+              '你可以点击翻译，然后用其他语言再次发布此文章',
+              '文章发布成功',
+              {
+                confirmButtonText: '继续发布',
+                cancelButtonText: '返回列表',
+                type: 'success'
+              }
+            ).then(() => {
+              // 用户选择继续发布，重置表单
+              resetForm()
+            }).catch(() => {
+              // 用户选择返回列表
+              router.push('/posts')
+            })
+          }
         }
       } catch (error) {
-        console.error('发布错误:', error)
-        ElMessage.error('发布时发生错误')
+        console.error(isEditMode.value ? '更新错误:' : '发布错误:', error)
+        ElMessage.error(`${isEditMode.value ? '更新' : '发布'}时发生错误`)
       } finally {
         submitting.value = false
       }

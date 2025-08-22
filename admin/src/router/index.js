@@ -19,9 +19,18 @@ const routes = [
     component: CreatePost
   },
   {
-    path: '/list',
+    path: '/create/:id',
+    name: 'EditPost',
+    component: CreatePost
+  },
+  {
+    path: '/posts',
     name: 'PostList',
     component: PostList
+  },
+  {
+    path: '/list',
+    redirect: '/posts'
   }
 ]
 
