@@ -209,6 +209,8 @@ const submitForm = async () => {
           .from('posts')
           .insert([{
             title: form.title,
+            post_group_id: form.post_group_id,
+            product_link: form.product_link,
             cover_image: form.cover_image,
             content: form.content,
             type: form.type,
