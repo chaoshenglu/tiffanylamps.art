@@ -74,9 +74,7 @@ const formattedContent = computed(() => {
 })
 
 const author = computed(() => {
-  if (locale.value == 'zh-CN') {
-    return '豪蒂灯饰'
-  } else if (locale.value == 'en') {
+  if (locale.value == 'en') {
     return 'HT'
   } else {
     return 'Hauty'
