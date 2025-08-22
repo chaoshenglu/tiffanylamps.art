@@ -12,3 +12,15 @@ CREATE TABLE posts (
   created_at TIMESTAMP DEFAULT NOW()
 );
 ```
+
+CREATE TABLE posts (
+  id SERIAL PRIMARY KEY,
+  post_group_id TEXT NOT NULL,
+  title TEXT NOT NULL,
+  product_link TEXT NOT NULL,
+  content TEXT NOT NULL,
+  coverImage TEXT NOT NULL,
+  type TEXT NOT NULL,
+  language TEXT DEFAULT 'zh-CN',
+  created_at TIMESTAMP DEFAULT NOW()
+);
