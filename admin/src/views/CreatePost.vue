@@ -101,7 +101,7 @@
 </template>
 
 <script setup>
-import { ref,shallowRef, reactive, onBeforeUnmount, onMounted, computed } from 'vue'
+import { ref,shallowRef, reactive, onBeforeUnmount, onMounted, computed, nextTick } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
 import { supabaseClient, isConnected, autoReconnect } from '../store/supabase.js'
@@ -207,9 +207,15 @@ const editorConfig = {
 const handleCreated = (editor) => {
   editorRef.value = editor
   
-  // 如果是编辑模式且已有内容，设置编辑器内容
+  // 如果是编辑模式且已有内容，延迟设置编辑器内容
   if (isEditMode.value && form.content) {
-    editor.setHtml(form.content)
+    setTimeout(() => {
+      try {
+        editor.setHtml(form.content)
+      } catch (error) {
+        console.warn('设置编辑器内容失败:', error)
+      }
+    }, 100)
   }
 }
 
@@ -280,13 +286,33 @@ const loadPost = async () => {
       form.language = data.language || 'zh-CN'
       form.content = data.content || ''
       
-      // 设置编辑器内容
-      if (editorRef.value && data.content) {
-        editorRef.value.setHtml(data.content)
-      }
-      
       // 设置HTML内容
       htmlContent.value = data.content || ''
+      
+      // 延迟设置编辑器内容，避免Slate DOM错误
+      if (data.content) {
+        await nextTick()
+        setTimeout(() => {
+          if (editorRef.value) {
+            try {
+              editorRef.value.setHtml(data.content)
+            } catch (error) {
+              console.warn('设置编辑器内容失败:', error)
+              // 如果设置失败，尝试清空后重新设置
+              setTimeout(() => {
+                if (editorRef.value) {
+                  try {
+                    editorRef.value.clear()
+                    editorRef.value.setHtml(data.content)
+                  } catch (retryError) {
+                    console.warn('重试设置编辑器内容失败:', retryError)
+                  }
+                }
+              }, 200)
+            }
+          }
+        }, 200)
+      }
     }
   } catch (error) {
     console.error('加载文章错误:', error)
