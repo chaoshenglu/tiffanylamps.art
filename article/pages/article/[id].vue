@@ -4,36 +4,32 @@
       <div v-if="loading" class="loading">
         <div class="spinner"></div>
       </div>
-      
+
       <div v-else-if="error" class="error-message">
         {{ error }}
       </div>
-      
+
       <div v-else class="article-content">
         <div class="article-header">
           <h1>{{ article.title }}</h1>
           <div class="article-meta">
-            <span class="article-author">{{ $t('article.author') }}: {{ article.author }}</span>
+            <span class="article-author">{{ $t('article.author') }}: {{ author }}</span>
             <span class="article-date">{{ $t('article.publishTime') }}: {{ formatDate(article.created_at) }}</span>
           </div>
         </div>
-        
+
         <div class="article-body" v-html="formattedContent"></div>
-        
+
         <div class="article-navigation">
-          <NuxtLink v-if="prevArticle" 
-                   :to="localePath(`/article/${prevArticle.id}`)" 
-                   class="article-nav-link prev">
+          <NuxtLink v-if="prevArticle" :to="localePath(`/article/${prevArticle.id}`)" class="article-nav-link prev">
             &larr; {{ $t('article.prevArticle') }}: {{ prevArticle.title }}
           </NuxtLink>
-          
-          <NuxtLink v-if="nextArticle" 
-                   :to="localePath(`/article/${nextArticle.id}`)" 
-                   class="article-nav-link next">
+
+          <NuxtLink v-if="nextArticle" :to="localePath(`/article/${nextArticle.id}`)" class="article-nav-link next">
             {{ $t('article.nextArticle') }}: {{ nextArticle.title }} &rarr;
           </NuxtLink>
         </div>
-        
+
         <div class="article-back">
           <NuxtLink :to="getBackLink()" class="btn">
             {{ $t('article.backToList') }}
@@ -77,10 +73,20 @@ const formattedContent = computed(() => {
   return article.value.content.replace(/\n/g, '<br>')
 })
 
+const auther = computed(() => {
+  if (locale == 'zh-CN') {
+    return '豪蒂灯饰'
+  } else if (locale == 'en') {
+    return 'HT'
+  } else {
+    return 'Hauty'
+  }
+})
+
 // 获取返回链接
 const getBackLink = () => {
   if (!article.value) return '/'
-  
+
   switch (article.value.type) {
     case 'culture':
       return '/culture'
@@ -103,13 +109,13 @@ async function fetchArticle() {
       .select('*')
       .eq('id', articleId.value)
       .single()
-    
+
     if (supabaseError) throw supabaseError
-    
+
     if (!data) {
       throw new Error('文章不存在')
     }
-    
+
     article.value = data
     post_group_id.value = data.post_group_id
     // 设置页面元数据
@@ -119,13 +125,13 @@ async function fetchArticle() {
         { name: 'description', content: data.content.substring(0, 160) }
       ]
     })
-    
+
     // 获取上一篇和下一篇文章
     await Promise.all([
       fetchPrevArticle(data.id, data.type),
       fetchNextArticle(data.id, data.type)
     ])
-    
+
   } catch (err) {
     console.error('Error fetching article:', err)
     error.value = t('获取文章详情失败')
@@ -145,7 +151,7 @@ async function fetchPrevArticle(currentId, type) {
       .order('id', { ascending: false })
       .limit(1)
       .single()
-    
+
     prevArticle.value = data
   } catch (err) {
     console.error('Error fetching previous article:', err)
@@ -165,7 +171,7 @@ async function fetchNextArticle(currentId, type) {
       .order('id', { ascending: true })
       .limit(1)
       .single()
-    
+
     nextArticle.value = data
   } catch (err) {
     console.error('Error fetching next article:', err)
@@ -271,17 +277,17 @@ onMounted(() => {
   .article-header h1 {
     font-size: 2rem;
   }
-  
+
   .article-meta {
     flex-direction: column;
     gap: 0.5rem;
   }
-  
+
   .article-navigation {
     flex-direction: column;
     gap: 1rem;
   }
-  
+
   .article-nav-link {
     max-width: 100%;
   }
