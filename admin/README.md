@@ -4,8 +4,8 @@
 ```
 CREATE TABLE posts (
   id SERIAL PRIMARY KEY,
-  post_group_id TEXT UNIQUE,
-  title TEXT NOT NULL,
+  post_group_id TEXT NOT NULL,
+  title TEXT UNIQUE,
   product_link TEXT NOT NULL,
   content TEXT NOT NULL,
   coverImage TEXT NOT NULL,
