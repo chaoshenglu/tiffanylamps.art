@@ -184,6 +184,12 @@ const toolbarConfig = {
 const editorConfig = {
   placeholder: '请输入文章内容...',
   height: 600,
+  // 添加更稳定的配置选项
+  readOnly: false,
+  autoFocus: false,
+  scroll: true,
+  // 禁用一些可能导致问题的功能
+  excludeKeys: [],
   MENU_CONF: {
     fontSize: {
       fontSizeList: ['12px', '14px', '16px', '18px', '20px', '24px', '28px', '32px']
@@ -201,6 +207,13 @@ const editorConfig = {
         'Verdana'
       ]
     },
+    // 配置上传功能避免节点解析问题
+    uploadImage: {
+      server: '',
+      fieldName: 'file',
+      maxFileSize: 5 * 1024 * 1024,
+      allowedFileTypes: ['image/*']
+    }
   }
 }
 
@@ -210,21 +223,34 @@ const handleCreated = (editor) => {
   
   // 如果有待设置的内容，现在设置
   if (pendingContent.value) {
-    try {
-      editor.setHtml(pendingContent.value)
-      pendingContent.value = '' // 清除待处理内容
-    } catch (error) {
-      console.warn('编辑器创建后设置内容失败:', error)
-      // 如果仍然失败，使用 setTimeout 延迟重试
-      setTimeout(() => {
-        try {
-          editor.setHtml(pendingContent.value)
-          pendingContent.value = ''
-        } catch (retryError) {
-          console.error('延迟重试设置编辑器内容仍然失败:', retryError)
+    // 使用更长的延迟确保编辑器完全就绪
+    setTimeout(() => {
+      try {
+        // 先清空编辑器内容
+        editor.clear()
+        // 清理内容后再设置
+        const cleanContent = sanitizeContent(pendingContent.value)
+        if (cleanContent.trim()) {
+          editor.setHtml(cleanContent)
         }
-      }, 100)
-    }
+        pendingContent.value = '' // 清除待处理内容
+      } catch (error) {
+        console.warn('编辑器创建后设置内容失败:', error)
+        // 如果HTML设置失败，尝试设置纯文本
+        try {
+          editor.clear()
+          // 移除HTML标签，设置为纯文本
+          const textContent = pendingContent.value.replace(/<[^>]*>/g, '')
+          if (textContent.trim()) {
+            editor.insertText(textContent)
+          }
+          pendingContent.value = ''
+        } catch (textError) {
+          console.error('设置纯文本内容也失败:', textError)
+          pendingContent.value = ''
+        }
+      }
+    }, 500) // 进一步增加延迟时间
   }
 }
 
@@ -248,16 +274,32 @@ const toggleHtmlMode = () => {
   }
 }
 
+// 安全的内容清理函数
+const sanitizeContent = (content) => {
+  if (!content || typeof content !== 'string') return ''
+  
+  // 移除可能导致Slate解析问题的标签和属性
+  return content
+    .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '') // 移除script标签
+    .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '') // 移除style标签
+    .replace(/on\w+="[^"]*"/gi, '') // 移除事件处理器
+    .replace(/javascript:/gi, '') // 移除javascript协议
+    .trim()
+}
+
 // 从HTML源码更新内容
 const updateContentFromHtml = () => {
   if (!editorRef.value || !isHtmlMode.value) return
   
   try {
-    // 更新表单内容
-    form.content = htmlContent.value
+    // 清理和验证HTML内容
+    const cleanContent = sanitizeContent(htmlContent.value)
+    form.content = cleanContent
+    
     // 同步到编辑器（但不显示，因为在HTML模式下）
-    if (htmlContent.value.trim()) {
-      editorRef.value.setHtml(htmlContent.value)
+    if (cleanContent.trim()) {
+      editorRef.value.clear()
+      editorRef.value.setHtml(cleanContent)
     }
   } catch (error) {
     console.warn('HTML内容格式可能有误:', error)
@@ -308,22 +350,27 @@ const loadPost = async () => {
         content: data.content || ''
       })
       
-      // 设置编辑器内容 - 延迟设置以确保编辑器完全初始化
-      htmlContent.value = data.content || ''
-      if (data.content) {
-        // 使用 nextTick 确保 DOM 更新完成后再设置编辑器内容
-        await nextTick()
+      // 设置编辑器内容 - 统一通过pendingContent机制处理
+      const cleanContent = sanitizeContent(data.content || '')
+      htmlContent.value = cleanContent
+      if (cleanContent) {
+        // 始终通过pendingContent设置内容，避免直接操作编辑器
+        pendingContent.value = cleanContent
+        
+        // 如果编辑器已经存在，触发内容设置
         if (editorRef.value) {
-          try {
-            editorRef.value.setHtml(data.content)
-          } catch (error) {
-            console.warn('设置编辑器内容失败，将在编辑器创建后重试:', error)
-            // 如果设置失败，标记需要重试
-            pendingContent.value = data.content
-          }
-        } else {
-          // 编辑器还未创建，保存内容待后续设置
-          pendingContent.value = data.content
+          setTimeout(() => {
+            try {
+              editorRef.value.clear()
+              if (cleanContent.trim()) {
+                editorRef.value.setHtml(cleanContent)
+              }
+              pendingContent.value = ''
+            } catch (error) {
+              console.warn('直接设置编辑器内容失败，保持pendingContent等待重试:', error)
+              // 保持pendingContent，等待编辑器重新创建时处理
+            }
+          }, 300)
         }
       }
     } else {
