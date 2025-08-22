@@ -233,11 +233,7 @@ const submitForm = async () => {
         } else {
           ElMessageBox.confirm(
             '你可以点击翻译，然后用其他语言再次发布此文章',
-            '文章发布成功',
-            {
-              confirmButtonText: '知道了',
-              type: 'warning'
-            }
+            '文章发布成功'
           )
         }
       } catch (error) {
