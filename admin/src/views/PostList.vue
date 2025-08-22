@@ -32,7 +32,7 @@
             </el-select>
           </el-col>
           <el-col :span="8">
-            <el-input v-model="filters.search" placeholder="搜索标题或作者" clearable @input="handleSearchChange">
+            <el-input v-model="filters.search" placeholder="搜索标题" clearable @input="handleSearchChange">
               <template #prefix>
                 <el-icon>
                   <Search />
@@ -49,7 +49,6 @@
       <!-- 文章表格 -->
       <el-table :data="posts" v-loading="loading" stripe class="posts-table" @sort-change="handleSortChange">
         <el-table-column prop="title" label="标题" min-width="200" show-overflow-tooltip />
-        <el-table-column prop="author" label="作者" width="120" />
         <el-table-column prop="type" label="分类" width="120">
           <template #default="{ row }">
             <el-tag :type="getTypeTagType(row.type)" size="small">
