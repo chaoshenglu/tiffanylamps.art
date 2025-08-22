@@ -68,7 +68,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, onBeforeUnmount, onMounted } from 'vue'
+import { ref,shallowRef, reactive, onBeforeUnmount, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
 import { supabaseClient, isConnected, autoReconnect } from '../store/supabase.js'
@@ -79,7 +79,7 @@ import '@wangeditor/editor/dist/css/style.css'
 
 const router = useRouter()
 const formRef = ref()
-const editorRef = ref()
+const editorRef = shallowRef()
 const submitting = ref(false)
 
 const form = reactive({
@@ -160,30 +160,6 @@ const editorConfig = {
         'Verdana'
       ]
     },
-    insertImage: {
-      onInsertedImage(imageNode) {
-        if (imageNode == null) return
-      },
-      checkImage: (src, alt, url) => {
-        // 检查图片链接是否有效
-        if (!src) {
-          return false
-        }
-        // 检查是否为有效的URL格式
-        try {
-          new URL(src)
-          return true
-        } catch {
-          return false
-        }
-      },
-      parseImageSrc: (src) => {
-        if (src.indexOf('http') !== 0) {
-          return `http://${src}`
-        }
-        return src
-      }
-    }
   }
 }
 
