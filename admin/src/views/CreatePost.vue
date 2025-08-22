@@ -22,6 +22,22 @@
             show-word-limit
           />
         </el-form-item>
+        <el-form-item label="群组ID" prop="post_group_id">
+          <el-input
+            v-model="form.post_group_id"
+            placeholder="请输入文章的群组ID"
+            maxlength="100"
+            show-word-limit
+          />
+        </el-form-item>
+        <el-form-item label="商品链接" prop="product_link">
+          <el-input
+            v-model="form.product_link"
+            placeholder="请输入商品链接"
+            maxlength="100"
+            show-word-limit
+          />
+        </el-form-item>
         <el-form-item label="文章封面" prop="cover_image">
           <el-input
             v-model="form.cover_image"
@@ -107,6 +123,8 @@ const submitting = ref(false)
 
 const form = reactive({
   title: '',
+  post_group_id: '',
+  product_link: '',
   cover_image: '',
   type: '',
   language: 'zh-CN',
@@ -251,9 +269,6 @@ const submitForm = async () => {
           ElMessage.error(`发布失败: ${error.message}`)
         } else {
           ElMessage.success('文章发布成功！')
-          resetForm()
-          // 可选择跳转到文章列表
-          router.push('/list')
         }
       } catch (error) {
         console.error('发布错误:', error)
