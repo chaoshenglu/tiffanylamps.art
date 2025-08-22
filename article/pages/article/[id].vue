@@ -73,10 +73,10 @@ const formattedContent = computed(() => {
   return article.value.content.replace(/\n/g, '<br>')
 })
 
-const auther = computed(() => {
-  if (locale == 'zh-CN') {
+const author = computed(() => {
+  if (locale.value == 'zh-CN') {
     return '豪蒂灯饰'
-  } else if (locale == 'en') {
+  } else if (locale.value == 'en') {
     return 'HT'
   } else {
     return 'Hauty'
@@ -143,7 +143,7 @@ async function fetchArticle() {
 // 获取上一篇文章
 async function fetchPrevArticle(currentId, type) {
   try {
-    const { data } = await $supabase
+    const { data } = await supabase
       .from('posts')
       .select('id, title')
       .eq('type', type)
@@ -163,7 +163,7 @@ async function fetchPrevArticle(currentId, type) {
 // 获取下一篇文章
 async function fetchNextArticle(currentId, type) {
   try {
-    const { data } = await $supabase
+    const { data } = await supabase
       .from('posts')
       .select('id, title')
       .eq('type', type)
