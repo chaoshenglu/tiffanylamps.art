@@ -154,6 +154,7 @@ const toolbarConfig = {
     'bold',
     'italic',
     'underline',
+    'through',
     '|',
     'color',
     'bgColor',
@@ -364,6 +365,7 @@ onBeforeUnmount(() => {
   border: 1px solid #ccc;
   border-radius: 4px;
   overflow: hidden;
+  width: 1000px;
 }
 
 .editor-header {
@@ -394,8 +396,7 @@ onBeforeUnmount(() => {
 }
 
 .mode-switch {
-  margin-left: 20px;
-  margin-right: 6px;
+  margin-left: 16px;
 }
 
 .editor-content {
