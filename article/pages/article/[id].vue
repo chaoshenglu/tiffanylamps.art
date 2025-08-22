@@ -63,6 +63,7 @@ const prevArticle = ref(null)
 const nextArticle = ref(null)
 const loading = ref(true)
 const error = ref(null)
+const post_group_id = ref('')
 
 // 格式化日期
 const formatDate = (dateString) => {
@@ -110,7 +111,7 @@ async function fetchArticle() {
     }
     
     article.value = data
-    
+    post_group_id.value = data.post_group_id
     // 设置页面元数据
     useHead({
       title: data.title,
