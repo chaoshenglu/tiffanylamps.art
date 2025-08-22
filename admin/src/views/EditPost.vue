@@ -104,7 +104,7 @@
 </template>
 
 <script setup>
-import { ref, shallowRef, reactive, onBeforeUnmount, onMounted } from 'vue'
+import { ref, shallowRef, reactive, onBeforeUnmount, onMounted, nextTick } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
 import { supabaseClient, isConnected, autoReconnect } from '../store/supabase.js'
@@ -122,6 +122,7 @@ const loading = ref(false)
 const isHtmlMode = ref(false)
 const htmlContent = ref('')
 const postId = ref(route.params.id)
+const pendingContent = ref('')
 
 const form = reactive({
   title: '',
@@ -206,6 +207,25 @@ const editorConfig = {
 // 编辑器实例
 const handleCreated = (editor) => {
   editorRef.value = editor
+  
+  // 如果有待设置的内容，现在设置
+  if (pendingContent.value) {
+    try {
+      editor.setHtml(pendingContent.value)
+      pendingContent.value = '' // 清除待处理内容
+    } catch (error) {
+      console.warn('编辑器创建后设置内容失败:', error)
+      // 如果仍然失败，使用 setTimeout 延迟重试
+      setTimeout(() => {
+        try {
+          editor.setHtml(pendingContent.value)
+          pendingContent.value = ''
+        } catch (retryError) {
+          console.error('延迟重试设置编辑器内容仍然失败:', retryError)
+        }
+      }, 100)
+    }
+  }
 }
 
 // 切换HTML模式
@@ -288,11 +308,24 @@ const loadPost = async () => {
         content: data.content || ''
       })
       
-      // 设置编辑器内容
-      if (editorRef.value && data.content) {
-        editorRef.value.setHtml(data.content)
-      }
+      // 设置编辑器内容 - 延迟设置以确保编辑器完全初始化
       htmlContent.value = data.content || ''
+      if (data.content) {
+        // 使用 nextTick 确保 DOM 更新完成后再设置编辑器内容
+        await nextTick()
+        if (editorRef.value) {
+          try {
+            editorRef.value.setHtml(data.content)
+          } catch (error) {
+            console.warn('设置编辑器内容失败，将在编辑器创建后重试:', error)
+            // 如果设置失败，标记需要重试
+            pendingContent.value = data.content
+          }
+        } else {
+          // 编辑器还未创建，保存内容待后续设置
+          pendingContent.value = data.content
+        }
+      }
     } else {
       ElMessage.error('文章不存在')
       router.push('/posts')
@@ -389,7 +422,10 @@ const submitForm = async () => {
 
 // 重置表单
 const resetForm = () => {
-  loadPost() // 重新加载原始数据
+  // 清除待处理内容
+  pendingContent.value = ''
+  // 重新加载原始数据
+  loadPost()
 }
 
 // 返回列表
