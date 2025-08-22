@@ -4,7 +4,7 @@
       <template #header>
         <div class="card-header">
           <span>文章列表</span>
-          <el-button type="primary" @click="loadPosts">刷新</el-button>
+          <el-button type="primary" @click="createPost">发布文章</el-button>
         </div>
       </template>
 
@@ -299,6 +299,11 @@ const handleSizeChange = (size) => {
 const handleCurrentChange = (page) => {
   pagination.currentPage = page
   loadPosts()
+}
+
+// 发布文章
+const createPost = (post) => {
+  router.push(`/create`)
 }
 
 // 编辑文章
