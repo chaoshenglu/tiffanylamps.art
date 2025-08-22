@@ -5,6 +5,22 @@
 2. node 22.18.0
 3. npm 10.9.3
 
+# 文章数据储存在supabase(https://supabase.com/)
+# 建表语句如下：
+```
+CREATE TABLE posts (
+  id SERIAL PRIMARY KEY,
+  post_group_id TEXT NOT NULL,
+  title TEXT NOT NULL,
+  product_link TEXT NOT NULL,
+  content TEXT NOT NULL,
+  coverImage TEXT NOT NULL,
+  type TEXT NOT NULL,
+  language TEXT DEFAULT 'zh-CN',
+  created_at TIMESTAMP DEFAULT NOW()
+);
+```
+
 CREATE TABLE contact_msg (
  id SERIAL PRIMARY KEY,
  firstName TEXT NOT NULL,
@@ -14,4 +30,4 @@ CREATE TABLE contact_msg (
  message TEXT NOT NULL,
  created_at TIMESTAMP DEFAULT NOW()
 );
-# 注意：使用这个建表语句，supabase会自动将firstName改成firstname，将lastName改成lastname
+# 注意：supabase会自动将firstName改成firstname，将lastName改成lastname
