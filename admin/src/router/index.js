@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Config from '../views/Config.vue'
 import CreatePost from '../views/CreatePost.vue'
-import EditPost from '../views/EditPost.vue'
 import PostList from '../views/PostList.vue'
 
 const routes = [
@@ -18,11 +17,6 @@ const routes = [
     path: '/create',
     name: 'CreatePost',
     component: CreatePost
-  },
-  {
-    path: '/edit/:id',
-    name: 'EditPost',
-    component: EditPost
   },
   {
     path: '/list',

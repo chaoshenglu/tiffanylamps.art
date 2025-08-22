@@ -308,7 +308,7 @@ const createPost = (post) => {
 
 // 编辑文章
 const editPost = (post) => {
-  router.push(`/edit/${post.id}`)
+  router.push(`/create/${post.id}`)
 }
 
 // 删除文章
