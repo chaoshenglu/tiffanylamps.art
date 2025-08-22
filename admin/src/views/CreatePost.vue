@@ -48,9 +48,42 @@
 
         <el-form-item label="文章内容" prop="content">
           <div class="editor-container">
-            <Toolbar class="editor-toolbar" :editor="editorRef" :defaultConfig="toolbarConfig" />
-            <Editor class="editor-content" v-model="form.content" :defaultConfig="editorConfig"
-              @onCreated="handleCreated" />
+            <!-- 编辑器工具栏和HTML源码切换按钮 -->
+            <div class="editor-header">
+              <Toolbar class="editor-toolbar" :editor="editorRef" :defaultConfig="toolbarConfig" v-show="!isHtmlMode" />
+              <div class="html-mode-toolbar" v-show="isHtmlMode">
+                <span class="html-mode-title">HTML</span>
+              </div>
+              <div class="mode-switch">
+                <el-button 
+                  :type="isHtmlMode ? 'primary' : 'default'" 
+                  size="small" 
+                  @click="toggleHtmlMode"
+                >
+                  {{ isHtmlMode ? '富文本' : 'HTML' }}
+                </el-button>
+              </div>
+            </div>
+            
+            <!-- 富文本编辑器 -->
+            <Editor 
+              class="editor-content" 
+              v-model="form.content" 
+              :defaultConfig="editorConfig"
+              @onCreated="handleCreated" 
+              v-show="!isHtmlMode"
+            />
+            
+            <!-- HTML源码编辑器 -->
+            <el-input
+              v-show="isHtmlMode"
+              v-model="htmlContent"
+              type="textarea"
+              :rows="25"
+              class="html-editor"
+              placeholder="请输入HTML源码..."
+              @blur="updateContentFromHtml"
+            />
           </div>
         </el-form-item>
 
@@ -81,6 +114,8 @@ const router = useRouter()
 const formRef = ref()
 const editorRef = shallowRef()
 const submitting = ref(false)
+const isHtmlMode = ref(false)
+const htmlContent = ref('')
 
 const form = reactive({
   title: '',
@@ -119,12 +154,10 @@ const toolbarConfig = {
     'bold',
     'italic',
     'underline',
-    'through',
     '|',
     'color',
     'bgColor',
     'fontSize',
-    'fontFamily',
     '|',
     'bulletedList',
     'numberedList',
@@ -166,6 +199,43 @@ const editorConfig = {
 // 编辑器实例
 const handleCreated = (editor) => {
   editorRef.value = editor
+}
+
+// 切换HTML模式
+const toggleHtmlMode = () => {
+  if (!editorRef.value) return
+  
+  if (isHtmlMode.value) {
+    // 从HTML模式切换到富文本模式
+    isHtmlMode.value = false
+    // 将HTML内容设置到编辑器中
+    if (htmlContent.value.trim()) {
+      editorRef.value.setHtml(htmlContent.value)
+      form.content = htmlContent.value
+    }
+  } else {
+    // 从富文本模式切换到HTML模式
+    isHtmlMode.value = true
+    // 获取编辑器的HTML内容
+    htmlContent.value = editorRef.value.getHtml()
+  }
+}
+
+// 从HTML源码更新内容
+const updateContentFromHtml = () => {
+  if (!editorRef.value || !isHtmlMode.value) return
+  
+  try {
+    // 更新表单内容
+    form.content = htmlContent.value
+    // 同步到编辑器（但不显示，因为在HTML模式下）
+    if (htmlContent.value.trim()) {
+      editorRef.value.setHtml(htmlContent.value)
+    }
+  } catch (error) {
+    console.warn('HTML内容格式可能有误:', error)
+    ElMessage.warning('HTML格式可能有误，请检查语法')
+  }
 }
 
 // 检查连接状态
@@ -252,6 +322,8 @@ const resetForm = () => {
     formRef.value.resetFields()
   }
   form.content = ''
+  htmlContent.value = ''
+  isHtmlMode.value = false
   if (editorRef.value) {
     editorRef.value.clear()
   }
@@ -294,12 +366,57 @@ onBeforeUnmount(() => {
   overflow: hidden;
 }
 
-.editor-toolbar {
+.editor-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f8f9fa;
   border-bottom: 1px solid #ccc;
+  padding: 8px 12px;
+}
+
+.editor-toolbar {
+  flex: 1;
+  border: none;
+  background: transparent;
+}
+
+.html-mode-toolbar {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.html-mode-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: #606266;
+}
+
+.mode-switch {
+  margin-left: 20px;
+  margin-right: 6px;
 }
 
 .editor-content {
   height: 600px !important;
   min-height: 600px !important;
+}
+
+.html-editor {
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.html-editor :deep(.el-textarea__inner) {
+  height: 600px !important;
+  min-height: 600px !important;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  border: none;
+  border-radius: 0;
+  resize: none;
 }
 </style>
