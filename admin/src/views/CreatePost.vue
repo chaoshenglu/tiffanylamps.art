@@ -6,47 +6,21 @@
           <span>发布新文章</span>
         </div>
       </template>
-      
-      <el-form
-        ref="formRef"
-        :model="form"
-        :rules="rules"
-        label-width="100px"
-        class="post-form"
-      >
+
+      <el-form ref="formRef" :model="form" :rules="rules" label-width="100px" class="post-form">
         <el-form-item label="文章标题" prop="title">
-          <el-input
-            v-model="form.title"
-            placeholder="请输入文章标题"
-            maxlength="100"
-            show-word-limit
-          />
+          <el-input v-model="form.title" placeholder="请输入文章标题" maxlength="100" show-word-limit />
         </el-form-item>
         <el-form-item label="群组ID" prop="post_group_id">
-          <el-input
-            v-model="form.post_group_id"
-            placeholder="请输入文章的群组ID"
-            maxlength="100"
-            show-word-limit
-          />
+          <el-input v-model="form.post_group_id" placeholder="请输入文章的群组ID" maxlength="100" show-word-limit />
         </el-form-item>
         <el-form-item label="商品链接" prop="product_link">
-          <el-input
-            v-model="form.product_link"
-            placeholder="请输入商品链接"
-            maxlength="100"
-            show-word-limit
-          />
+          <el-input v-model="form.product_link" placeholder="请输入商品链接" maxlength="100" show-word-limit />
         </el-form-item>
         <el-form-item label="文章封面" prop="cover_image">
-          <el-input
-            v-model="form.cover_image"
-            placeholder="请输入封面链接"
-            maxlength="100"
-            show-word-limit
-          />
+          <el-input v-model="form.cover_image" placeholder="请输入封面链接" maxlength="100" show-word-limit />
         </el-form-item>
-        
+
         <el-row :gutter="20">
           <el-col :span="12">
             <el-form-item label="文章分类" prop="type">
@@ -71,30 +45,17 @@
             </el-form-item>
           </el-col>
         </el-row>
-        
+
         <el-form-item label="文章内容" prop="content">
           <div class="editor-container">
-            <Toolbar
-              class="editor-toolbar"
-              :editor="editorRef"
-              :defaultConfig="toolbarConfig"
-            />
-            <Editor
-              class="editor-content"
-              v-model="form.content"
-              :defaultConfig="editorConfig"
-              @onCreated="handleCreated"
-            />
+            <Toolbar class="editor-toolbar" :editor="editorRef" :defaultConfig="toolbarConfig" />
+            <Editor class="editor-content" v-model="form.content" :defaultConfig="editorConfig"
+              @onCreated="handleCreated" />
           </div>
         </el-form-item>
-        
+
         <el-form-item>
-          <el-button
-            type="primary"
-            @click="submitForm"
-            :loading="submitting"
-            size="large"
-          >
+          <el-button type="primary" @click="submitForm" :loading="submitting" size="large">
             发布文章
           </el-button>
           <el-button @click="resetForm" size="large">
@@ -236,13 +197,13 @@ const submitForm = async () => {
       return
     }
   }
-  
+
   if (!formRef.value) return
-  
+
   await formRef.value.validate(async (valid) => {
     if (valid) {
       submitting.value = true
-      
+
       try {
         const { data, error } = await supabaseClient.value
           .from('posts')
@@ -253,10 +214,10 @@ const submitForm = async () => {
             type: form.type,
             language: form.language
           }])
-        
+
         if (error) {
           console.error('发布错误:', error)
-          
+
           // 如果是认证错误，尝试重连
           if (error.code === 'PGRST301' || error.message.includes('JWT') || error.message.includes('authentication')) {
             const reconnected = await autoReconnect()
@@ -265,10 +226,17 @@ const submitForm = async () => {
               return
             }
           }
-          
+
           ElMessage.error(`发布失败: ${error.message}`)
         } else {
-          ElMessage.success('文章发布成功！')
+          ElMessageBox.confirm(
+            '你可以点击翻译，然后用其他语言再次发布此文章',
+            '文章发布成功',
+            {
+              confirmButtonText: '知道了',
+              type: 'warning'
+            }
+          )
         }
       } catch (error) {
         console.error('发布错误:', error)
