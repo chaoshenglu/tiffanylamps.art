@@ -7,30 +7,13 @@
           <el-button @click="$router.go(-1)">返回</el-button>
         </div>
       </template>
-      
-      <el-form
-        ref="formRef"
-        :model="form"
-        :rules="rules"
-        label-width="100px"
-        class="post-form"
-        v-loading="loading"
-      >
+
+      <el-form ref="formRef" :model="form" :rules="rules" label-width="100px" class="post-form" v-loading="loading">
         <el-form-item label="文章标题" prop="title">
-          <el-input
-            v-model="form.title"
-            placeholder="请输入文章标题"
-            maxlength="100"
-            show-word-limit
-          />
+          <el-input v-model="form.title" placeholder="请输入文章标题" maxlength="100" show-word-limit />
         </el-form-item>
         <el-form-item label="文章封面" prop="cover_image">
-          <el-input
-            v-model="form.cover_image"
-            placeholder="请输入封面链接"
-            maxlength="100"
-            show-word-limit
-          />
+          <el-input v-model="form.cover_image" placeholder="请输入封面链接" maxlength="100" show-word-limit />
         </el-form-item>
         <el-row :gutter="20">
           <el-col :span="12">
@@ -56,30 +39,17 @@
             </el-form-item>
           </el-col>
         </el-row>
-        
+
         <el-form-item label="文章内容" prop="content">
           <div class="editor-container">
-            <Toolbar
-              class="editor-toolbar"
-              :editor="editorRef"
-              :defaultConfig="toolbarConfig"
-            />
-            <Editor
-              class="editor-content"
-              v-model="form.content"
-              :defaultConfig="editorConfig"
-              @onCreated="handleCreated"
-            />
+            <Toolbar class="editor-toolbar" :editor="editorRef" :defaultConfig="toolbarConfig" />
+            <Editor class="editor-content" v-model="form.content" :defaultConfig="editorConfig"
+              @onCreated="handleCreated" />
           </div>
         </el-form-item>
-        
+
         <el-form-item>
-          <el-button
-            type="primary"
-            @click="submitForm"
-            :loading="submitting"
-            size="large"
-          >
+          <el-button type="primary" @click="submitForm" :loading="submitting" size="large">
             更新文章
           </el-button>
           <el-button @click="resetForm" size="large">
@@ -92,7 +62,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, onBeforeUnmount, onMounted } from 'vue'
+import { ref, shallowRef, reactive, onBeforeUnmount, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
 import { supabaseClient, isConnected, autoReconnect } from '../store/supabase.js'
@@ -104,7 +74,7 @@ import '@wangeditor/editor/dist/css/style.css'
 const router = useRouter()
 const route = useRoute()
 const formRef = ref()
-const editorRef = ref()
+const editorRef = shallowRef()
 const submitting = ref(false)
 const loading = ref(false)
 
@@ -148,14 +118,13 @@ const toolbarConfig = {
     'color',
     'bgColor',
     'fontSize',
-    'fontFamily',
     '|',
     'bulletedList',
     'numberedList',
     'todo',
     '|',
-    'emotion',
     'insertLink',
+    'insertImage',
     'insertTable',
     'codeBlock',
     '|',
@@ -211,7 +180,7 @@ const loadPost = async () => {
 
     if (error) {
       console.error('加载文章错误:', error)
-      
+
       // 如果是认证错误，尝试重连
       if (error.code === 'PGRST301' || error.message.includes('JWT') || error.message.includes('authentication')) {
         const reconnected = await autoReconnect()
@@ -221,7 +190,7 @@ const loadPost = async () => {
           return
         }
       }
-      
+
       ElMessage.error(`加载失败: ${error.message}`)
       router.push('/list')
       return
@@ -274,13 +243,13 @@ const submitForm = async () => {
       return
     }
   }
-  
+
   if (!formRef.value) return
-  
+
   await formRef.value.validate(async (valid) => {
     if (valid) {
       submitting.value = true
-      
+
       try {
         const postId = route.params.id
         const { data, error } = await supabaseClient.value
@@ -293,10 +262,10 @@ const submitForm = async () => {
             language: form.language
           })
           .eq('id', postId)
-        
+
         if (error) {
           console.error('更新错误:', error)
-          
+
           // 如果是认证错误，尝试重连
           if (error.code === 'PGRST301' || error.message.includes('JWT') || error.message.includes('authentication')) {
             const reconnected = await autoReconnect()
@@ -305,7 +274,7 @@ const submitForm = async () => {
               return
             }
           }
-          
+
           ElMessage.error(`更新失败: ${error.message}`)
         } else {
           ElMessage.success('文章更新成功！')
