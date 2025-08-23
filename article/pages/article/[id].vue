@@ -242,6 +242,55 @@ async function fetchArticle() {
   }
 }
 
+// 根据语言获取文章详情
+async function fetchArticleByLanguage() {
+  if (!post_group_id.value) {
+    // 如果没有post_group_id，先获取初始文章
+    await fetchArticle()
+    return
+  }
+
+  try {
+    const { data, error: supabaseError } = await supabase
+      .from('posts')
+      .select('*')
+      .eq('post_group_id', post_group_id.value)
+      .eq('language', locale.value)
+      .single()
+
+    if (supabaseError) throw supabaseError
+
+    if (!data) {
+      throw new Error('该语言版本的文章不存在')
+    }
+
+    article.value = data
+    // 设置页面元数据
+    useHead({
+      title: data.title,
+      meta: [
+        { name: 'description', content: data.content.substring(0, 160) }
+      ]
+    })
+
+    // 获取上一篇和下一篇文章
+    await Promise.all([
+      fetchPrevArticle(data.id, data.type),
+      fetchNextArticle(data.id, data.type)
+    ])
+
+  } catch (err) {
+    console.error('Error fetching article by language:', err)
+    error.value = t('获取文章详情失败')
+  } finally {
+    loading.value = false
+    // 在数据加载完成后绑定点击事件
+    nextTick(() => {
+      bindImageClickEvents()
+    })
+  }
+}
+
 // 绑定图片点击事件
 function bindImageClickEvents() {
   const imageWrappers = document.querySelectorAll('.image-link-wrapper')
@@ -305,7 +354,16 @@ async function fetchNextArticle(currentId, type) {
 // 监听路由变化，重新获取文章
 watch(() => route.params.id, () => {
   loading.value = true
+  post_group_id.value = '' // 重置post_group_id
   fetchArticle()
+})
+
+// 监听语言变化，重新获取对应语言的文章
+watch(() => locale.value, () => {
+  if (post_group_id.value) {
+    loading.value = true
+    fetchArticleByLanguage()
+  }
 })
 
 // 页面加载时获取文章
