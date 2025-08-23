@@ -263,7 +263,7 @@ async function fetchArticleByLanguage() {
     if (!data) {
       throw new Error('该语言版本的文章不存在')
     }
-
+    articleId.value = data.id
     article.value = data
     // 设置页面元数据
     useHead({
