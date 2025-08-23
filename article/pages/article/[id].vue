@@ -264,11 +264,7 @@ async function fetchArticleByLanguage() {
       throw new Error('该语言版本的文章不存在')
     }
 
-    // 如果文章ID不同，需要跳转到正确的URL
-    if (data.id !== parseInt(articleId.value)) {
-      await navigateTo(localePath(`/article/${data.id}`))
-      return
-    }
+    navigateTo(localePath(`/article/${data.id}`))
 
   } catch (err) {
     console.error('Error fetching article by language:', err)
