@@ -90,8 +90,43 @@ const preprocessImageCaptions = (html) => {
   const images = tempDiv.querySelectorAll('img')
   
   images.forEach(img => {
-    // 获取img的父元素（通常是p标签）
-    const imgParent = img.parentElement
+    // 如果文章有商品链接，为图片添加点击跳转功能
+    if (article.value && article.value.product_link) {
+      // 创建包装链接元素
+      const linkWrapper = document.createElement('div')
+      linkWrapper.className = 'image-link-wrapper'
+      linkWrapper.setAttribute('data-product-link', article.value.product_link)
+      
+      // 创建遮罩元素
+      const overlay = document.createElement('div')
+      overlay.className = 'image-overlay'
+      
+      // 创建文字元素
+      const overlayText = document.createElement('span')
+      overlayText.className = 'overlay-text'
+      overlayText.textContent = locale.value === 'en' ? 'Shop This Look' : '购买同款'
+      
+      overlay.appendChild(overlayText)
+      
+      // 将img从原位置移除并添加到wrapper中
+      const imgParent = img.parentElement
+      const imgClone = img.cloneNode(true)
+      
+      linkWrapper.appendChild(imgClone)
+      linkWrapper.appendChild(overlay)
+      
+      // 替换原来的img
+      imgParent.replaceChild(linkWrapper, img)
+      
+      // 更新img引用为克隆的元素
+      img = imgClone
+    }
+    
+    // 获取img的父元素（可能是p标签或wrapper）
+    let imgParent = img.parentElement
+    if (imgParent.classList.contains('image-link-wrapper')) {
+      imgParent = imgParent.parentElement
+    }
     if (!imgParent) return
     
     // 查找紧跟在img父元素后面的下一个兄弟元素
@@ -247,11 +282,37 @@ async function fetchNextArticle(currentId, type) {
 watch(() => route.params.id, () => {
   loading.value = true
   fetchArticle()
+  
+  // 重新添加图片点击事件监听
+  nextTick(() => {
+    const imageWrappers = document.querySelectorAll('.image-link-wrapper')
+    imageWrappers.forEach(wrapper => {
+      wrapper.addEventListener('click', () => {
+        const productLink = wrapper.getAttribute('data-product-link')
+        if (productLink) {
+          window.open(productLink, '_blank')
+        }
+      })
+    })
+  })
 })
 
 // 页面加载时获取文章
 onMounted(() => {
   fetchArticle()
+  
+  // 添加图片点击事件监听
+  nextTick(() => {
+    const imageWrappers = document.querySelectorAll('.image-link-wrapper')
+    imageWrappers.forEach(wrapper => {
+      wrapper.addEventListener('click', () => {
+        const productLink = wrapper.getAttribute('data-product-link')
+        if (productLink) {
+          window.open(productLink, '_blank')
+        }
+      })
+    })
+  })
 })
 </script>
 
@@ -289,6 +350,55 @@ onMounted(() => {
   max-width: 100%;
   height: auto;
   border-radius: 8px;
+}
+
+/* 图片链接包装器样式 */
+.article-body :deep(.image-link-wrapper) {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* 图片遮罩样式 */
+.article-body :deep(.image-overlay) {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 8px;
+}
+
+/* 遮罩文字样式 */
+.article-body :deep(.overlay-text) {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: center;
+  pointer-events: none;
+}
+
+/* 悬停效果 */
+.article-body :deep(.image-link-wrapper:hover .image-overlay) {
+  opacity: 1;
+}
+
+/* 图片在wrapper中的样式 */
+.article-body :deep(.image-link-wrapper img) {
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.article-body :deep(.image-link-wrapper:hover img) {
+  transform: scale(1.02);
 }
 
 /* 图片与说明文字的特殊样式 */
