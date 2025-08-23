@@ -136,8 +136,41 @@ const supabase = createClient(
   config.public.supabaseKey
 )
 
-// 在服务端渲染阶段获取热卖文章数据
-const { data: hotArticles, error: hotError } = await useLazyAsyncData('hot-articles', async () => {
+// 缓存配置
+const HOT_ARTICLES_CACHE_KEY = 'hot-articles-cache'
+const CASE_ARTICLES_CACHE_KEY = 'case-articles-cache'
+
+// 缓存工具函数
+const getCachedData = (key) => {
+  if (process.client) {
+    try {
+      const cached = localStorage.getItem(key)
+      if (cached) {
+        const { data } = JSON.parse(cached)
+        return data
+      }
+    } catch (error) {
+      console.error('读取缓存失败:', error)
+    }
+  }
+  return null
+}
+
+const setCachedData = (key, data) => {
+  if (process.client) {
+    try {
+      localStorage.setItem(key, JSON.stringify({
+        data,
+        timestamp: Date.now()
+      }))
+    } catch (error) {
+      console.error('设置缓存失败:', error)
+    }
+  }
+}
+
+// 获取热卖文章的函数
+const fetchHotArticles = async () => {
   try {
     const { data, error } = await supabase
       .from('posts')
@@ -156,10 +189,10 @@ const { data: hotArticles, error: hotError } = await useLazyAsyncData('hot-artic
     console.error('获取热卖文章时发生错误:', err)
     throw err
   }
-})
+}
 
-// 在服务端渲染阶段获取案例文章数据
-const { data: caseArticles, error: caseError } = await useLazyAsyncData('case-articles', async () => {
+// 获取案例文章的函数
+const fetchCaseArticles = async () => {
   try {
     const { data, error } = await supabase
       .from('posts')
@@ -179,7 +212,70 @@ const { data: caseArticles, error: caseError } = await useLazyAsyncData('case-ar
     console.error('获取案例文章时发生错误:', err)
     throw err
   }
-})
+}
+
+// 热卖文章数据状态
+const hotArticles = ref([])
+const hotError = ref(null)
+
+// 案例文章数据状态
+const caseArticles = ref([])
+const caseError = ref(null)
+
+// 初始化数据加载
+const initializeData = async () => {
+  // 先从缓存加载数据
+  const cachedHotArticles = getCachedData(HOT_ARTICLES_CACHE_KEY)
+  const cachedCaseArticles = getCachedData(CASE_ARTICLES_CACHE_KEY)
+  
+  if (cachedHotArticles) {
+    hotArticles.value = cachedHotArticles
+  }
+  
+  if (cachedCaseArticles) {
+    caseArticles.value = cachedCaseArticles
+  }
+  
+  // 无论是否有缓存，都从服务器获取最新数据
+  try {
+    // 并行获取最新数据
+    const [latestHotArticles, latestCaseArticles] = await Promise.all([
+      fetchHotArticles(),
+      fetchCaseArticles()
+    ])
+    
+    // 更新数据和缓存
+    hotArticles.value = latestHotArticles
+    caseArticles.value = latestCaseArticles
+    
+    setCachedData(HOT_ARTICLES_CACHE_KEY, latestHotArticles)
+    setCachedData(CASE_ARTICLES_CACHE_KEY, latestCaseArticles)
+    
+  } catch (error) {
+    console.error('获取最新数据失败:', error)
+    // 如果没有缓存数据且获取失败，设置错误状态
+    if (!cachedHotArticles && !cachedCaseArticles) {
+      hotError.value = '无法加载数据'
+      caseError.value = '无法加载数据'
+    }
+  }
+}
+
+// 服务端渲染时的初始数据加载
+if (process.server) {
+  try {
+    const [serverHotArticles, serverCaseArticles] = await Promise.all([
+      fetchHotArticles(),
+      fetchCaseArticles()
+    ])
+    hotArticles.value = serverHotArticles
+    caseArticles.value = serverCaseArticles
+  } catch (error) {
+    console.error('服务端数据获取失败:', error)
+    hotError.value = '无法加载热卖榜单数据'
+    caseError.value = '无法加载装修案例数据'
+  }
+}
 
 // 合并错误状态
 const error = computed(() => {
@@ -270,9 +366,10 @@ const formatDate = (dateString) => {
   return new Intl.DateTimeFormat('zh-CN').format(date)
 }
 
-// 自动轮播
+// 自动轮播和数据初始化
 onMounted(() => {
   startSlideShow()
+  initializeData()
 })
 
 onUnmounted(() => {
