@@ -502,11 +502,11 @@ const stopSlideShow = () => {
 }
 
 .culture-entry::before {
-  background-image: url('https://r2.tiffanylamps.art/poster/poster3.webp');
+  background-image: url('https://r2.tiffanylamps.art/poster/p3.webp');
 }
 
 .trends-entry::before {
-  background-image: url('https://r2.tiffanylamps.art/poster/poster1.webp');
+  background-image: url('https://r2.tiffanylamps.art/poster/p1.webp');
 }
 
 .entry-content {
