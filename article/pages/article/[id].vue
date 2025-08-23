@@ -219,7 +219,9 @@ async function fetchArticle() {
     // 检查localStorage中是否存在该文章的语言信息
     const storedLanguage = localStorage.getItem(`article_${articleId.value}_language`)
     if (storedLanguage && storedLanguage !== locale.value) {
-      return // 如果存储的语言与当前语言不匹配，停止执行
+      // 如果存储的语言与当前语言不匹配，自动切换到存储的语言
+      await navigateTo(localePath(`/article/${articleId.value}`, storedLanguage))
+      return
     }
 
     const { data, error: supabaseError } = await supabase
