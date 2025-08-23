@@ -202,6 +202,12 @@ const getBackLink = () => {
 // 获取文章详情
 async function fetchArticle() {
   try {
+    // 检查localStorage中是否存在该文章的语言信息
+    const storedLanguage = localStorage.getItem(`article_${articleId.value}_language`)
+    if (storedLanguage && storedLanguage !== locale.value) {
+      return // 如果存储的语言与当前语言不匹配，停止执行
+    }
+
     const { data, error: supabaseError } = await supabase
       .from('posts')
       .select('*')
@@ -216,6 +222,9 @@ async function fetchArticle() {
 
     article.value = data
     post_group_id.value = data.post_group_id
+    
+    // 将文章id和language存储到localStorage
+    localStorage.setItem(`article_${data.id}_language`, data.language)
     // 设置页面元数据
     useHead({
       title: data.title,
