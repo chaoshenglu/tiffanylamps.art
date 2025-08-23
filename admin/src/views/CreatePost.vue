@@ -91,6 +91,9 @@
           <el-button type="primary" @click="submitForm" :loading="submitting" size="large">
             {{ isEditMode ? '更新文章' : '发布文章' }}
           </el-button>
+          <el-button v-if="isEditMode" type="primary" @click="submitForm2" :loading="submitting" size="large">
+            二次发布
+          </el-button>
           <el-button @click="resetForm" size="large">
             重置
           </el-button>
@@ -430,6 +433,73 @@ const submitForm = async () => {
       } catch (error) {
         console.error(isEditMode.value ? '更新错误:' : '发布错误:', error)
         ElMessage.error(`${isEditMode.value ? '更新' : '发布'}时发生错误`)
+      } finally {
+        submitting.value = false
+      }
+    }
+  })
+}
+
+// 二次提交表单（在编辑模式下，方便发布第二种语言的文章）
+const submitForm2 = async () => {
+  if (!isConnected.value) {
+    const reconnected = await autoReconnect()
+    if (!reconnected) {
+      ElMessage.error('数据库连接已断开，请重新配置连接')
+      return
+    }
+  }
+
+  if (!formRef.value) return
+
+  await formRef.value.validate(async (valid) => {
+    if (valid) {
+      submitting.value = true
+
+      try {
+        const postData = {
+          title: form.title,
+          post_group_id: form.post_group_id,
+          product_link: form.product_link,
+          cover_image: form.cover_image,
+          content: form.content,
+          type: form.type,
+          language: form.language
+        }
+
+        // 创建新文章(通常是翻译后的文章)
+        let result = await supabaseClient.value
+            .from('posts')
+            .insert([postData])
+
+        const { data, error } = result
+
+        if (error) {
+          console.error('发布错误:', error)
+
+          // 如果是认证错误，尝试重连
+          if (error.code === 'PGRST301' || error.message.includes('JWT') || error.message.includes('authentication')) {
+            const reconnected = await autoReconnect()
+            if (reconnected) {
+              ElMessage.warning('连接已重新建立，请重新提交')
+              return
+            }
+          }
+
+          ElMessage.error(`发布失败: ${error.message}`)
+        } else {
+          ElMessageBox.confirm(
+              '你可以点击翻译，然后用其他语言再次发布此文章',
+              '文章发布成功',
+              {
+                confirmButtonText: '我知道了',
+                type: 'success'
+              }
+            )
+        }
+      } catch (error) {
+        console.error('发布错误:', error)
+        ElMessage.error(`发布时发生错误`)
       } finally {
         submitting.value = false
       }
