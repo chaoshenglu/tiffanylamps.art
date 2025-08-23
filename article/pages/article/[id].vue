@@ -90,6 +90,10 @@ const preprocessImageCaptions = (html) => {
   const images = tempDiv.querySelectorAll('img')
   
   images.forEach(img => {
+    // 先记录原始的父元素，用于后续的样式处理
+    const originalParent = img.parentElement
+    let targetParent = originalParent // 默认目标父元素
+    
     // 如果文章有商品链接，为图片添加点击跳转功能
     if (article.value && article.value.product_link) {
       // 创建包装链接元素
@@ -109,26 +113,32 @@ const preprocessImageCaptions = (html) => {
       overlay.appendChild(overlayText)
       
       // 将img从原位置移除并添加到wrapper中
-      const imgParent = img.parentElement
       const imgClone = img.cloneNode(true)
       
       linkWrapper.appendChild(imgClone)
       linkWrapper.appendChild(overlay)
       
-      // 替换原来的img
-      imgParent.replaceChild(linkWrapper, img)
+      // 如果原始父元素是空的p标签，移除它以避免多余的空白段落
+      if (originalParent.tagName === 'P' && originalParent.textContent.trim() === '') {
+        const grandParent = originalParent.parentElement
+        if (grandParent) {
+          grandParent.replaceChild(linkWrapper, originalParent)
+          targetParent = grandParent // 更新目标父元素为祖父元素
+        } else {
+          originalParent.replaceChild(linkWrapper, img)
+          targetParent = originalParent
+        }
+      } else {
+        // 替换原来的img
+        originalParent.replaceChild(linkWrapper, img)
+        targetParent = originalParent
+      }
       
       // 更新img引用为克隆的元素
       img = imgClone
-    }
-    
-    // 获取img的父元素（可能是p标签或wrapper）
-    let imgParent = img.parentElement
-    let targetParent = imgParent // 用于添加class的目标父元素
-    
-    // 如果图片被包装在image-link-wrapper中，需要向上查找真正的父元素
-    if (imgParent.classList.contains('image-link-wrapper')) {
-      targetParent = imgParent.parentElement
+    } else {
+      // 如果没有商品链接，目标父元素就是图片的直接父元素
+      targetParent = img.parentElement
     }
     
     if (!targetParent) return
