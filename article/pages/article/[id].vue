@@ -373,7 +373,7 @@ onMounted(() => {
   align-items: center;
   justify-content: center;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  /* transition: opacity 0.3s ease; */
   border-radius: 8px;
 }
 
@@ -384,6 +384,11 @@ onMounted(() => {
   font-weight: 600;
   text-align: center;
   pointer-events: none;
+  padding: 0.5rem 1rem;
+  border: 2px solid white;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(2px);
 }
 
 /* 悬停效果 */
