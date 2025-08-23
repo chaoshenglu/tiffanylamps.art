@@ -67,11 +67,76 @@ const formatDate = (dateString) => {
   return new Intl.DateTimeFormat(locale.value).format(date)
 }
 
-// 格式化文章内容（将\n转换为<br>）
+// 格式化文章内容（将\n转换为<br>，并处理图片说明文字样式）
 const formattedContent = computed(() => {
   if (!article.value || !article.value.content) return ''
-  return article.value.content.replace(/\n/g, '<br>')
+  
+  // 先将换行符转换为<br>
+  let content = article.value.content.replace(/\n/g, '<br>')
+  
+  // 预处理HTML：为图片后的14px文字添加特殊样式
+  content = preprocessImageCaptions(content)
+  
+  return content
 })
+
+// 预处理图片说明文字
+const preprocessImageCaptions = (html) => {
+  // 创建一个临时DOM元素来解析HTML
+  const tempDiv = document.createElement('div')
+  tempDiv.innerHTML = html
+  
+  // 查找所有img标签
+  const images = tempDiv.querySelectorAll('img')
+  
+  images.forEach(img => {
+    // 获取img的父元素（通常是p标签）
+    const imgParent = img.parentElement
+    if (!imgParent) return
+    
+    // 查找紧跟在img父元素后面的下一个兄弟元素
+    let nextElement = imgParent.nextElementSibling
+    
+    // 检查下一个元素是否包含14px的文字
+    if (nextElement && isImageCaption(nextElement)) {
+      // 为图片父元素添加特殊class
+      imgParent.classList.add('image-with-caption')
+      // 为说明文字元素添加特殊class
+      nextElement.classList.add('image-caption')
+    }
+  })
+  
+  return tempDiv.innerHTML
+}
+
+// 检查元素是否为图片说明文字（字体大小为14px）
+const isImageCaption = (element) => {
+  // 检查元素本身或其子元素是否有14px的字体大小
+  const checkFontSize = (el) => {
+    if (el.style && el.style.fontSize === '14px') {
+      return true
+    }
+    
+    // 检查内联样式中是否包含font-size: 14px
+    if (el.getAttribute && el.getAttribute('style')) {
+      const style = el.getAttribute('style')
+      if (style.includes('font-size: 14px') || style.includes('font-size:14px')) {
+        return true
+      }
+    }
+    
+    // 递归检查子元素
+    for (let child of el.children || []) {
+      if (checkFontSize(child)) {
+        return true
+      }
+    }
+    
+    return false
+  }
+  
+  return checkFontSize(element)
+}
 
 const author = computed(() => {
   if (locale.value == 'en') {
@@ -224,6 +289,18 @@ onMounted(() => {
   max-width: 100%;
   height: auto;
   border-radius: 8px;
+}
+
+/* 图片与说明文字的特殊样式 */
+.article-body :deep(.image-with-caption) {
+  margin-bottom: 0.2rem; /* 减少图片段落的下边距 */
+}
+
+.article-body :deep(.image-caption) {
+  margin-top: 0.2rem; /* 减少说明文字段落的上边距 */
+  margin-bottom: 1.5rem; /* 保持与下一段落的正常间距 */
+  font-style: italic; /* 可选：为说明文字添加斜体样式 */
+  text-align: center; /* 可选：居中显示说明文字 */
 }
 
 .article-body :deep(h2) {
