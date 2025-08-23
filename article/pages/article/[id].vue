@@ -235,6 +235,30 @@ async function fetchArticle() {
     error.value = t('获取文章详情失败')
   } finally {
     loading.value = false
+    // 在数据加载完成后绑定点击事件
+    nextTick(() => {
+      bindImageClickEvents()
+    })
+  }
+}
+
+// 绑定图片点击事件
+function bindImageClickEvents() {
+  const imageWrappers = document.querySelectorAll('.image-link-wrapper')
+  imageWrappers.forEach(wrapper => {
+    // 移除之前的事件监听器（如果存在）
+    wrapper.removeEventListener('click', handleImageClick)
+    // 添加新的事件监听器
+    wrapper.addEventListener('click', handleImageClick)
+  })
+}
+
+// 处理图片点击事件
+function handleImageClick(event) {
+  const wrapper = event.currentTarget
+  const productLink = wrapper.getAttribute('data-product-link')
+  if (productLink) {
+    window.open(productLink, '_blank')
   }
 }
 
@@ -282,37 +306,11 @@ async function fetchNextArticle(currentId, type) {
 watch(() => route.params.id, () => {
   loading.value = true
   fetchArticle()
-  
-  // 重新添加图片点击事件监听
-  nextTick(() => {
-    const imageWrappers = document.querySelectorAll('.image-link-wrapper')
-    imageWrappers.forEach(wrapper => {
-      wrapper.addEventListener('click', () => {
-        const productLink = wrapper.getAttribute('data-product-link')
-        if (productLink) {
-          window.open(productLink, '_blank')
-        }
-      })
-    })
-  })
 })
 
 // 页面加载时获取文章
 onMounted(() => {
   fetchArticle()
-  
-  // 添加图片点击事件监听
-  nextTick(() => {
-    const imageWrappers = document.querySelectorAll('.image-link-wrapper')
-    imageWrappers.forEach(wrapper => {
-      wrapper.addEventListener('click', () => {
-        const productLink = wrapper.getAttribute('data-product-link')
-        if (productLink) {
-          window.open(productLink, '_blank')
-        }
-      })
-    })
-  })
 })
 </script>
 
