@@ -124,18 +124,22 @@ const preprocessImageCaptions = (html) => {
     
     // 获取img的父元素（可能是p标签或wrapper）
     let imgParent = img.parentElement
-    if (imgParent.classList.contains('image-link-wrapper')) {
-      imgParent = imgParent.parentElement
-    }
-    if (!imgParent) return
+    let targetParent = imgParent // 用于添加class的目标父元素
     
-    // 查找紧跟在img父元素后面的下一个兄弟元素
-    let nextElement = imgParent.nextElementSibling
+    // 如果图片被包装在image-link-wrapper中，需要向上查找真正的父元素
+    if (imgParent.classList.contains('image-link-wrapper')) {
+      targetParent = imgParent.parentElement
+    }
+    
+    if (!targetParent) return
+    
+    // 查找紧跟在目标父元素后面的下一个兄弟元素
+    let nextElement = targetParent.nextElementSibling
     
     // 检查下一个元素是否包含14px的文字
     if (nextElement && isImageCaption(nextElement)) {
-      // 为图片父元素添加特殊class
-      imgParent.classList.add('image-with-caption')
+      // 为目标父元素添加特殊class
+      targetParent.classList.add('image-with-caption')
       // 为说明文字元素添加特殊class
       nextElement.classList.add('image-caption')
     }
