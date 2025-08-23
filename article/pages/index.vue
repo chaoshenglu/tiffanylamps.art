@@ -214,68 +214,62 @@ const fetchCaseArticles = async () => {
   }
 }
 
-// 热卖文章数据状态
-const hotArticles = ref([])
-const hotError = ref(null)
-
-// 案例文章数据状态
-const caseArticles = ref([])
-const caseError = ref(null)
-
-// 初始化数据加载
-const initializeData = async () => {
-  // 先从缓存加载数据
-  const cachedHotArticles = getCachedData(HOT_ARTICLES_CACHE_KEY)
-  const cachedCaseArticles = getCachedData(CASE_ARTICLES_CACHE_KEY)
-  
-  if (cachedHotArticles) {
-    hotArticles.value = cachedHotArticles
+// 使用useLazyAsyncData确保SSR和客户端数据一致性
+const { data: hotArticles, error: hotError } = await useLazyAsyncData('hot-articles', async () => {
+  // 在服务端直接获取数据
+  if (process.server) {
+    return await fetchHotArticles()
   }
   
-  if (cachedCaseArticles) {
-    caseArticles.value = cachedCaseArticles
+  // 在客户端先尝试从缓存获取
+  const cachedData = getCachedData(HOT_ARTICLES_CACHE_KEY)
+  if (cachedData) {
+    // 后台更新数据
+    nextTick(async () => {
+      try {
+        const latestData = await fetchHotArticles()
+        hotArticles.value = latestData
+        setCachedData(HOT_ARTICLES_CACHE_KEY, latestData)
+      } catch (error) {
+        console.error('后台更新热卖文章失败:', error)
+      }
+    })
+    return cachedData
   }
   
-  // 无论是否有缓存，都从服务器获取最新数据
-  try {
-    // 并行获取最新数据
-    const [latestHotArticles, latestCaseArticles] = await Promise.all([
-      fetchHotArticles(),
-      fetchCaseArticles()
-    ])
-    
-    // 更新数据和缓存
-    hotArticles.value = latestHotArticles
-    caseArticles.value = latestCaseArticles
-    
-    setCachedData(HOT_ARTICLES_CACHE_KEY, latestHotArticles)
-    setCachedData(CASE_ARTICLES_CACHE_KEY, latestCaseArticles)
-    
-  } catch (error) {
-    console.error('获取最新数据失败:', error)
-    // 如果没有缓存数据且获取失败，设置错误状态
-    if (!cachedHotArticles && !cachedCaseArticles) {
-      hotError.value = '无法加载数据'
-      caseError.value = '无法加载数据'
-    }
-  }
-}
+  // 没有缓存时直接获取
+  const data = await fetchHotArticles()
+  setCachedData(HOT_ARTICLES_CACHE_KEY, data)
+  return data
+})
 
-// 服务端渲染时的初始数据加载
-if (process.server) {
-  try {
-    const [serverHotArticles, serverCaseArticles] = await Promise.all([
-      fetchHotArticles(),
-      fetchCaseArticles()
-    ])
-    hotArticles.value = serverHotArticles
-    caseArticles.value = serverCaseArticles
-  } catch (error) {
-    console.error('服务端数据获取失败:', error)
-    hotError.value = '无法加载热卖榜单数据'
-    caseError.value = '无法加载装修案例数据'
+const { data: caseArticles, error: caseError } = await useLazyAsyncData('case-articles', async () => {
+  // 在服务端直接获取数据
+  if (process.server) {
+    return await fetchCaseArticles()
   }
-}
+  
+  // 在客户端先尝试从缓存获取
+  const cachedData = getCachedData(CASE_ARTICLES_CACHE_KEY)
+  if (cachedData) {
+    // 后台更新数据
+    nextTick(async () => {
+      try {
+        const latestData = await fetchCaseArticles()
+        caseArticles.value = latestData
+        setCachedData(CASE_ARTICLES_CACHE_KEY, latestData)
+      } catch (error) {
+        console.error('后台更新案例文章失败:', error)
+      }
+    })
+    return cachedData
+  }
+  
+  // 没有缓存时直接获取
+  const data = await fetchCaseArticles()
+  setCachedData(CASE_ARTICLES_CACHE_KEY, data)
+  return data
+})
 
 // 合并错误状态
 const error = computed(() => {
@@ -366,10 +360,9 @@ const formatDate = (dateString) => {
   return new Intl.DateTimeFormat('zh-CN').format(date)
 }
 
-// 自动轮播和数据初始化
+// 自动轮播
 onMounted(() => {
   startSlideShow()
-  initializeData()
 })
 
 onUnmounted(() => {
