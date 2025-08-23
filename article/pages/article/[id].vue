@@ -293,14 +293,12 @@ onMounted(() => {
 
 /* 图片与说明文字的特殊样式 */
 .article-body :deep(.image-with-caption) {
-  margin-bottom: 0.2rem; /* 减少图片段落的下边距 */
+  margin-bottom: 0.1rem; /* 减少图片段落的下边距 */
 }
 
 .article-body :deep(.image-caption) {
-  margin-top: 0.2rem; /* 减少说明文字段落的上边距 */
+  margin-top: 0.1rem; /* 减少说明文字段落的上边距 */
   margin-bottom: 1.5rem; /* 保持与下一段落的正常间距 */
-  font-style: italic; /* 可选：为说明文字添加斜体样式 */
-  text-align: center; /* 可选：居中显示说明文字 */
 }
 
 .article-body :deep(h2) {
