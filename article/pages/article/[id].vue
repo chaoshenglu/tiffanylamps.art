@@ -80,7 +80,7 @@ const formattedContent = computed(() => {
   return content
 })
 
-// 预处理图片说明文字
+// 预处理图片和图片说明文字
 const preprocessImageCaptions = (html) => {
   // 创建一个临时DOM元素来解析HTML
   const tempDiv = document.createElement('div')
