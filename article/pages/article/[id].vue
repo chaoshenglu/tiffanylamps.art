@@ -266,6 +266,7 @@ async function fetchArticleByLanguage() {
 
     // 如果文章ID不同，需要跳转到正确的URL
     if (data.id !== parseInt(articleId.value)) {
+      isLanguageSwitching.value = true
       await navigateTo(localePath(`/article/${data.id}`))
       return
     }
@@ -342,8 +343,16 @@ async function fetchNextArticle(currentId, type) {
   }
 }
 
+// 标记是否正在进行语言切换导航
+const isLanguageSwitching = ref(false)
+
 // 监听路由变化，重新获取文章
 watch(() => route.params.id, () => {
+  // 如果是语言切换导航，跳过重新获取
+  if (isLanguageSwitching.value) {
+    isLanguageSwitching.value = false
+    return
+  }
   loading.value = true
   post_group_id.value = '' // 重置post_group_id
   fetchArticle()
