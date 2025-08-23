@@ -103,6 +103,7 @@ onMounted(() => {
 <style scoped>
 .cases-page {
   padding: 2rem 0;
+  min-height: 93vh;
 }
 
 .page-header {
