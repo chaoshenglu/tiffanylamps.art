@@ -263,21 +263,12 @@ async function fetchArticleByLanguage() {
     if (!data) {
       throw new Error('该语言版本的文章不存在')
     }
-    articleId.value = data.id
-    article.value = data
-    // 设置页面元数据
-    useHead({
-      title: data.title,
-      meta: [
-        { name: 'description', content: data.content.substring(0, 160) }
-      ]
-    })
 
-    // 获取上一篇和下一篇文章
-    await Promise.all([
-      fetchPrevArticle(data.id, data.type),
-      fetchNextArticle(data.id, data.type)
-    ])
+    // 如果文章ID不同，需要跳转到正确的URL
+    if (data.id !== parseInt(articleId.value)) {
+      await navigateTo(localePath(`/article/${data.id}`))
+      return
+    }
 
   } catch (err) {
     console.error('Error fetching article by language:', err)
