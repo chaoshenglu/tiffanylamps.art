@@ -54,7 +54,6 @@ const localePath = useLocalePath()
   background: black;
   color: white;
   padding: 3rem 0 1rem;
-  margin-top: 4rem;
 }
 
 .footer-content {

@@ -190,6 +190,7 @@ async function saveToSupabase() {
 <style scoped>
 .contact-page {
   min-height: 100vh;
+  background: #f8f9fa;
 }
 
 .hero-section {
