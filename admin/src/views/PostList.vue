@@ -27,8 +27,8 @@
               style="width: 100%">
               <el-option label="简体中文" value="zh-CN" />
               <el-option label="繁體中文" value="zh-TW" />
-              <el-option label="English" value="en-US" />
-              <el-option label="日本語" value="ja-JP" />
+              <el-option label="English" value="en" />
+              <el-option label="日本語" value="ja" />
             </el-select>
           </el-col>
           <el-col :span="8">
@@ -133,8 +133,8 @@ const typeNames = {
 const languageNames = {
   'zh-CN': '简体中文',
   'zh-TW': '繁體中文',
-  'en-US': 'English',
-  'ja-JP': '日本語'
+  'en': 'English',
+  'ja': '日本語'
 }
 
 // 获取分类名称

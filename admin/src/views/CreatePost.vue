@@ -39,8 +39,8 @@
               <el-select v-model="form.language" placeholder="请选择语言" style="width: 100%">
                 <el-option label="简体中文" value="zh-CN" />
                 <el-option label="繁體中文" value="zh-TW" />
-                <el-option label="English" value="en-US" />
-                <el-option label="日本語" value="ja-JP" />
+                <el-option label="English" value="en" />
+                <el-option label="日本語" value="ja" />
               </el-select>
             </el-form-item>
           </el-col>
