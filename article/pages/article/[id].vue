@@ -223,7 +223,6 @@ onMounted(() => {
 .article-body :deep(img) {
   max-width: 100%;
   height: auto;
-  margin: 1.5rem 0;
   border-radius: 8px;
 }
 
