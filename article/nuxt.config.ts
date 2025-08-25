@@ -79,17 +79,17 @@ export default defineNuxtConfig({
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { name: 'description', content: '探索蒂凡尼灯的艺术世界，了解历史文化、流行趋势、装修案例和拍卖资讯' },
-        { name: 'keywords', content: '蒂凡尼灯,Tiffany灯,艺术灯具,彩色玻璃,装修案例,拍卖,收藏' },
+        { name: 'description', content: '探索蒂凡尼灯的艺术世界，了解历史文化、流行趋势、空间搭配案例和拍卖资讯' },
+        { name: 'keywords', content: '蒂凡尼灯,Tiffany灯,艺术灯具,彩色玻璃,空间搭配案例,拍卖,收藏' },
         { name: 'author', content: 'Tiffany Lamps Art' },
         { property: 'og:title', content: '蒂凡尼灯的艺术世界 - Tiffany Lamps Art' },
-        { property: 'og:description', content: '探索蒂凡尼灯的艺术世界，了解历史文化、流行趋势、装修案例和拍卖资讯' },
+        { property: 'og:description', content: '探索蒂凡尼灯的艺术世界，了解历史文化、流行趋势、空间搭配案例和拍卖资讯' },
         { property: 'og:type', content: 'website' },
         { property: 'og:url', content: 'https://tiffanylamps.art' },
         { property: 'og:image', content: 'https://tiffanylamps.art/og-image.jpg' },
         { name: 'twitter:card', content: 'summary_large_image' },
         { name: 'twitter:title', content: '蒂凡尼灯的艺术世界 - Tiffany Lamps Art' },
-        { name: 'twitter:description', content: '探索蒂凡尼灯的艺术世界，了解历史文化、流行趋势、装修案例和拍卖资讯' },
+        { name: 'twitter:description', content: '探索蒂凡尼灯的艺术世界，了解历史文化、流行趋势、空间搭配案例和拍卖资讯' },
         { name: 'twitter:image', content: 'https://tiffanylamps.art/og-image.jpg' }
       ],
       link: [

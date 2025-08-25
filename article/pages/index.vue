@@ -64,7 +64,7 @@
       </div>
     </section>
     
-    <!-- 装修案例精选部分 -->
+    <!-- 精选案例部分 -->
     <section class="featured-cases-section">
       <div class="container">
         <div class="section-header">
@@ -204,7 +204,7 @@ const fetchCaseArticles = async () => {
       console.error('案例文章查询错误:', error)
       throw createError({
         statusCode: 500,
-        statusMessage: '无法加载装修案例数据'
+        statusMessage: '无法加载精选案例数据'
       })
     }
     return data || []
@@ -274,7 +274,7 @@ const { data: caseArticles, error: caseError } = await useLazyAsyncData('case-ar
 // 合并错误状态
 const error = computed(() => {
   if (hotError.value) return '无法加载热卖榜单数据'
-  if (caseError.value) return '无法加载装修案例数据'
+  if (caseError.value) return '无法加载精选案例数据'
   return null
 })
 
@@ -489,7 +489,7 @@ const stopSlideShow = () => {
   background: white;
 }
 
-/* 热卖榜单和装修案例部分 */
+/* 热卖榜单和精选案例部分 */
 .section-header {
   display: flex;
   justify-content: space-between;
