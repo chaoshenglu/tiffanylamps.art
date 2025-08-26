@@ -3,9 +3,9 @@ module.exports = {
     name: 'tiffanylamps-art',
     port: '3000',
     exec_mode: 'cluster',
-    instances: 'max', // 或者指定具体数量，如 2
+    instances: 'max',
     script: './.output/server/index.mjs',
-    cwd: '/var/www/tiffanylamps.art', // 生产环境的项目路径
+    cwd: '/root/tiffanylamps.art/article', // 修改为正确的项目路径
     env: {
       NODE_ENV: 'production',
       NUXT_HOST: '0.0.0.0',
@@ -25,7 +25,7 @@ module.exports = {
     max_restarts: 10,
     min_uptime: '10s',
     // 监控配置
-    watch: false, // 生产环境建议关闭
+    watch: false,
     ignore_watch: ['node_modules', 'logs']
   }]
 }
