@@ -20,7 +20,9 @@
           <div v-for="moment in moments" :key="moment.id" class="moment-card">
             <div class="moment-header">
               <div class="user-info">
-                <div class="avatar">{{ moment.nickname?.charAt(0) || 'T' }}</div>
+                <div class="avatar">
+                    <img src="/assets/head.svg">
+                </div>
                 <div class="user-details">
                   <h4>{{ moment.nickname || '匿名用户' }}</h4>
                   <span class="time">{{ formatDate(moment.created_at) }}</span>
@@ -360,9 +362,8 @@ onMounted(() => {
 .moment-card {
   background: white;
   border-radius: 12px;
-  padding: 1rem;
+  padding: 1.5rem;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  /* border: 1px solid #f0f0f0; */
 }
 
 .moment-header {
@@ -378,8 +379,6 @@ onMounted(() => {
 .avatar {
   width: 40px;
   height: 40px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -694,10 +693,8 @@ onMounted(() => {
   }
   
   .moment-card {
-    padding: 1rem;
+    padding: 1.5rem;
   }
-  
-  /* 移动端图片网格样式已删除，使用默认flexbox布局 */
   
   .form-container {
     padding: 0 1rem;
