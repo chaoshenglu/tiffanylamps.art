@@ -3,7 +3,7 @@
     <div class="container">
       <div class="page-header">
         <h1>{{ $t('nav.culture') }}</h1>
-        <p class="page-description">探索蒂凡尼灯的丰富历史与文化底蕴，了解这一艺术形式的起源与发展。</p>
+        <p class="page-description">{{ $t('nav.cultureDesc') }}</p>
       </div>
       
       <div v-if="loading" class="loading">
