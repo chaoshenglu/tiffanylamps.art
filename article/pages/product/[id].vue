@@ -19,7 +19,7 @@ async function fetchProduct() {
   try {
 
     const { data, error: supabaseError } = await supabase
-      .from('posts')
+      .from('product')
       .select('*')
       .eq('id', productId.value)
       .single()
