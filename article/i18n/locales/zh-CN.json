@@ -15,11 +15,9 @@
     "hotSales": "热卖榜单",
     "featuredCases": "精选案例",
     "cultureEntry": "历史文化",
-    "trendsEntry": "流行趋势",
     "moment": "你的蒂凡尼时刻",
     "momentDesc": "分享你与蒂凡尼灯的独特瞬间",
-    "cultureDesc": "探索蒂凡尼灯的历史与文化底蕴，了解这一艺术形式的起源与发展。",
-    "trendsDesc": "了解蒂凡尼灯在现代家居装饰中的流行趋势与创新应用。"
+    "cultureDesc": "探索蒂凡尼灯的历史与文化底蕴"
   },
   "article": {
     "author": "作者",

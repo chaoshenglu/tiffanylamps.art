@@ -113,8 +113,8 @@
           
           <div class="entry-card trends-entry">
             <div class="entry-content">
-              <h2>{{ $t('home.trendsEntry') }}</h2>
-              <p>{{ $t('home.trendsDesc') }}</p>
+              <h2>{{ $t('home.moment') }}</h2>
+              <p>{{ $t('home.momentDesc') }}</p>
               <NuxtLink :to="localePath('/trends')" class="btn" style="background-color: #00000080">{{ $t('home.learnMore') }}</NuxtLink>
             </div>
           </div>
