@@ -4,7 +4,6 @@
       <!-- 页面标题 -->
       <div class="page-header">
         <h1>{{ $t('home.moment') }}</h1>
-        <p class="page-subtitle">{{ $t('home.momentDesc') }}</p>
       </div>
 
       <!-- 展示区域 -->
@@ -47,8 +46,7 @@
       <!-- 投稿表单 -->
       <section class="submit-form">
         <div class="form-container">
-          <h3>分享你的蒂凡尼时刻</h3>
-          
+          <h3>{{ $t('home.momentDesc') }}</h3>
           <form @submit.prevent="submitMoment" class="moment-form">
             <div class="form-group">
               <label for="nickname">昵称（可选）</label>
