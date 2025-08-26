@@ -128,7 +128,7 @@ onMounted(() => {
 
 .articles-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
 }
 
@@ -167,14 +167,13 @@ onMounted(() => {
 
 .article-image img {
   width: 100%;
-  height: 200px;
+  aspect-ratio: 1;
   object-fit: cover;
   border-radius: 8px 8px 0 0;
 }
 
 .article-content {
   padding: 1.5rem;
-  height: calc(100% - 200px);
   display: flex;
   flex-direction: column;
 }
@@ -217,6 +216,12 @@ onMounted(() => {
   margin: 2rem 0;
 }
 
+@media (max-width: 1200px) {
+  .articles-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 @media (max-width: 768px) {
   .page-header h1 {
     font-size: 2rem;
@@ -227,12 +232,18 @@ onMounted(() => {
   }
   
   .articles-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
   
   .article-meta {
     flex-direction: column;
     gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .articles-grid {
+    grid-template-columns: 1fr;
   }
 }
 </style>
