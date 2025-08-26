@@ -56,7 +56,6 @@
               <div class="article-content">
                 <h3>{{ article.title_zh }}</h3>
                 <p class="article-author">{{ $t('product.price') }}: {{ article.price_zh }}</p>
-                <!-- <p class="article-date">{{ formatDate(article.created_at) }}</p> -->
               </div>
             </NuxtLink>
           </div>
@@ -170,7 +169,7 @@ const setCachedData = (key, data) => {
 }
 
 // 获取热卖产品的函数
-const fetchproducts = async () => {
+const fetchProducts = async () => {
   try {
     const { data, error } = await supabase
       .from('product')
@@ -218,7 +217,7 @@ const fetchCaseArticles = async () => {
 const { data: products, error: hotError } = await useLazyAsyncData('hot-articles', async () => {
   // 在服务端直接获取数据
   if (process.server) {
-    return await fetchproducts()
+    return await fetchProducts()
   }
   
   // 在客户端先尝试从缓存获取
@@ -227,7 +226,7 @@ const { data: products, error: hotError } = await useLazyAsyncData('hot-articles
     // 后台更新数据
     nextTick(async () => {
       try {
-        const latestData = await fetchproducts()
+        const latestData = await fetchProducts()
         products.value = latestData
         setCachedData(HOT_ARTICLES_CACHE_KEY, latestData)
       } catch (error) {
@@ -238,7 +237,7 @@ const { data: products, error: hotError } = await useLazyAsyncData('hot-articles
   }
   
   // 没有缓存时直接获取
-  const data = await fetchproducts()
+  const data = await fetchProducts()
   setCachedData(HOT_ARTICLES_CACHE_KEY, data)
   return data
 })
