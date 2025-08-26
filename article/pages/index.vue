@@ -215,11 +215,23 @@ const fetchCaseArticles = async () => {
   }
 }
 
+// 数据本地化处理函数
+const processProductData = (data) => {
+  if (!data) return data
+  return data.map(element => ({
+    ...element,
+    price: locale.value === 'zh-CN' ? `￥${element.price_zh}` : `$${element.price_en}`,
+    title: locale.value === 'zh-CN' ? element.title_zh : element.title_en,
+    html: locale.value === 'zh-CN' ? element.html_zh : element.html_en
+  }))
+}
+
 // 使用useLazyAsyncData确保SSR和客户端数据一致性
 const { data: products, error: hotError } = await useLazyAsyncData('hot-articles', async () => {
   // 在服务端直接获取数据
   if (process.server) {
-    return await fetchProducts()
+    const data = await fetchProducts()
+    return processProductData(data)
   }
   
   // 在客户端先尝试从缓存获取
@@ -228,25 +240,22 @@ const { data: products, error: hotError } = await useLazyAsyncData('hot-articles
     // 后台更新数据
     nextTick(async () => {
       try {
-        let latestData = await fetchProducts()
-        latestData.forEach(element => {
-          element.price = locale.value === 'zh-CN' ? `￥${element.price_zh}` : `$${element.price_en}`
-          element.title = locale.value === 'zh-CN' ? element.title_zh : element.title_en
-          element.html = locale.value === 'zh-CN' ? element.html_zh : element.html_en
-        });
-        products.value = latestData
-        setCachedData(HOT_ARTICLES_CACHE_KEY, latestData)
+        const latestData = await fetchProducts()
+        const processedData = processProductData(latestData)
+        products.value = processedData
+        setCachedData(HOT_ARTICLES_CACHE_KEY, latestData) // 缓存原始数据
       } catch (error) {
         console.error('后台更新热卖文章失败:', error)
       }
     })
-    return cachedData
+    // 对缓存数据也进行本地化处理
+    return processProductData(cachedData)
   }
   
   // 没有缓存时直接获取
   const data = await fetchProducts()
-  setCachedData(HOT_ARTICLES_CACHE_KEY, data)
-  return data
+  setCachedData(HOT_ARTICLES_CACHE_KEY, data) // 缓存原始数据
+  return processProductData(data)
 })
 
 const { data: caseArticles, error: caseError } = await useLazyAsyncData('case-articles', async () => {
