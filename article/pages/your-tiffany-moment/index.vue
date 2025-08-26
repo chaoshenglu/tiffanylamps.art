@@ -453,6 +453,7 @@ onMounted(() => {
   text-align: center;
   margin-bottom: 2rem;
   color: #333;
+  font-weight: normal;
 }
 
 .moment-form {
