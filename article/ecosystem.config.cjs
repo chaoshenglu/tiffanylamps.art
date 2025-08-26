@@ -1,7 +1,7 @@
 module.exports = {
   apps: [{
     name: 'tiffanylamps-art',
-    port: '3000',
+    port: '3001',
     exec_mode: 'cluster',
     instances: 'max',
     script: './.output/server/index.mjs',
@@ -9,12 +9,12 @@ module.exports = {
     env: {
       NODE_ENV: 'production',
       NUXT_HOST: '0.0.0.0',
-      NUXT_PORT: 3000
+      NUXT_PORT: 3001
     },
     env_development: {
       NODE_ENV: 'development',
       NUXT_HOST: 'localhost',
-      NUXT_PORT: 3000
+      NUXT_PORT: 3001
     },
     // 日志配置
     log_file: './logs/combined.log',
