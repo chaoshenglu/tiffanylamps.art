@@ -105,7 +105,7 @@ async function fetchProduct() {
     if (!data) {
       throw new Error('商品不存在')
     }
-    product.value = data
+    product.value = data    
     useHead({
       title: productTitle.value,
     })
@@ -119,19 +119,19 @@ async function fetchProduct() {
 // 计算属性
 const productTitle = computed(() => {
   if (!product.value) return ''
-  return locale.value === 'zh-CN' ? product.value['title-zh'] : product.value['title-en']
+  return locale.value === 'zh-CN' ? product.value['title_zh'] : product.value['title_en']
 })
 
 const productPrice = computed(() => {
   if (!product.value) return ''
-  const price = locale.value === 'zh-CN' ? product.value['price-zh'] : product.value['price-en']
+  const price = locale.value === 'zh-CN' ? product.value['price_zh'] : product.value['price_en']
   const currency = locale.value === 'zh-CN' ? '¥' : '$'
   return `${currency}${price}`
 })
 
 const productHtml = computed(() => {
   if (!product.value) return ''
-  return locale.value === 'zh-CN' ? product.value['html-zh'] : product.value['html-en']
+  return locale.value === 'zh-CN' ? product.value['html_zh'] : product.value['html_en']
 })
 
 const currentImage = computed(() => {
@@ -142,7 +142,7 @@ const currentImage = computed(() => {
 // 方法
 function goToPurchase() {
   // 跳转到购买链接，这里可以根据实际需求修改
-  window.open('https://www.amazon.com/s?k=tiffany+lamp', '_blank')
+  window.open('https://www.amazon.com', '_blank')
 }
 
 // 页面加载时获取产品数据
