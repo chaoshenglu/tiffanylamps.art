@@ -216,7 +216,14 @@ const uploadImages = async () => {
   for (const imageData of previewImages.value) {
     try {
       const fileExt = imageData.file.name.split('.').pop()
-      const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`
+      let fileName
+      try {
+        fileName = `${crypto.randomUUID()}.${fileExt}`
+      } catch (error) {
+        // 如果crypto.randomUUID()失败，使用16位随机数
+        const randomId = Math.random().toString(36).substring(2, 18)
+        fileName = `${randomId}.${fileExt}`
+      }
       
       const { data, error } = await supabase.storage
         .from('images')
