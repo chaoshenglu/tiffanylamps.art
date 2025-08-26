@@ -51,7 +51,7 @@
                      :to="localePath(`/article/${article.id}`)" 
                      class="article-card card">
               <div class="article-image hot-sales-image">
-                <NuxtImg :src="article.cover_image" :alt="article.title" />
+                <NuxtImg :src="article.images[0]" :alt="article.title-zh" />
               </div>
               <div class="article-content">
                 <h3>{{ article.title }}</h3>
@@ -169,17 +169,16 @@ const setCachedData = (key, data) => {
   }
 }
 
-// 获取热卖文章的函数
+// 获取热卖产品的函数
 const fetchHotArticles = async () => {
   try {
     const { data, error } = await supabase
-      .from('posts')
+      .from('product')
       .select('*')
       .eq('type', 'hot')
-      .eq('language', locale.value || 'zh-CN')
       .limit(4)
     if (error) {
-      console.error('热卖文章查询错误:', error)
+      console.error('热卖产品查询错误:', error)
       throw createError({
         statusCode: 500,
         statusMessage: '无法加载热卖榜单数据'
@@ -187,7 +186,7 @@ const fetchHotArticles = async () => {
     }
     return data || []
   } catch (err) {
-    console.error('获取热卖文章时发生错误:', err)
+    console.error('获取热卖产品时发生错误:', err)
     throw err
   }
 }

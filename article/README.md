@@ -43,10 +43,10 @@ CREATE TABLE tiffany_moments (
 CREATE TABLE product (
  id SERIAL PRIMARY KEY,
  images TEXT[],
- "title-en" TEXT,
- "title-zh" TEXT,
- "html-en" TEXT,
- "html-zh" TEXT,
- "price-en" NUMERIC,
- "price-zh" NUMERIC
+ "title_en" TEXT,
+ "title_zh" TEXT,
+ "html_en" TEXT,
+ "html_zh" TEXT,
+ "price_en" NUMERIC,
+ "price_zh" NUMERIC
 );
