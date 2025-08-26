@@ -51,10 +51,10 @@
                      :to="localePath(`/article/${article.id}`)" 
                      class="article-card card">
               <div class="article-image hot-sales-image">
-                <NuxtImg :src="article.images[0]" :alt="article.title-zh" />
+                <NuxtImg :src="article.images[0]" :alt="article.title_zh" />
               </div>
               <div class="article-content">
-                <h3>{{ article.title }}</h3>
+                <h3>{{ article.title_zh }}</h3>
                 <p class="article-author">{{ $t('article.author') }}: Hauty</p>
                 <p class="article-date">{{ formatDate(article.created_at) }}</p>
               </div>

@@ -51,6 +51,7 @@
   },
   "product": {
     "specifications": "Specifications",
+    "price":"Reference Price",
     "material": "Material",
     "style": "Style",
     "category": "Category",
