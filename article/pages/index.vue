@@ -55,7 +55,7 @@
               </div>
               <div class="article-content">
                 <h3>{{ article.title_zh }}</h3>
-                <p class="article-author">{{ $t('article.author') }}: Hauty</p>
+                <p class="article-author">{{ $t('product.price') }}: {{ article.price_zh }}</p>
                 <p class="article-date">{{ formatDate(article.created_at) }}</p>
               </div>
             </NuxtLink>
@@ -175,7 +175,6 @@ const fetchHotArticles = async () => {
     const { data, error } = await supabase
       .from('product')
       .select('*')
-      .eq('type', 'hot')
       .limit(4)
     if (error) {
       console.error('热卖产品查询错误:', error)
