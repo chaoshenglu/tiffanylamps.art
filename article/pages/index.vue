@@ -305,21 +305,21 @@ const slides = computed(() => {
         image: 'https://r2.tiffanylamps.art/poster/b0.webp',
         title: '蒂凡尼灯的艺术世界',
         description: '探索经典与现代的完美融合',
-        link: '/culture',
+        link: '/product/1',
         buttonText: '了解更多'
       },
       {
         image: 'https://r2.tiffanylamps.art/poster/b1.webp',
         title: '蒂凡尼灯的艺术世界',
         description: '探索经典与现代的完美融合',
-        link: '/culture',
+        link: '/product/1',
         buttonText: '了解更多'
       },
       {
         image: 'https://r2.tiffanylamps.art/poster/b4.webp',
         title: '蒂凡尼灯的艺术世界',
         description: '探索经典与现代的完美融合',
-        link: '/culture',
+        link: '/product/1',
         buttonText: '了解更多'
       }
     ],
@@ -328,21 +328,21 @@ const slides = computed(() => {
         image: 'https://r2.tiffanylamps.art/poster/b0.webp',
         title: 'The Art of Tiffany Lamps',
         description: 'Discover the perfect fusion of classic and modern',
-        link: '/culture',
+        link: '/product/1',
         buttonText: 'Learn More'
       },
       {
         image: 'https://r2.tiffanylamps.art/poster/b1.webp',
         title: 'The Art of Tiffany Lamps',
         description: 'Discover the perfect fusion of classic and modern',
-        link: '/culture',
+        link: '/product/1',
         buttonText: 'Learn More'
       },
       {
         image: 'https://r2.tiffanylamps.art/poster/b4.webp',
         title: 'The Art of Tiffany Lamps',
         description: 'Discover the perfect fusion of classic and modern',
-        link: '/culture',
+        link: '/product/1',
         buttonText: 'Learn More'
       }
     ]
