@@ -44,10 +44,6 @@ body {
   transform: translateY(-2px);
 }
 
-.btn-secondary {
-  background-color: black;
-}
-
 /* 卡片样式 */
 .card {
   background: white;
