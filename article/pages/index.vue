@@ -228,8 +228,8 @@ const { data: products, error: hotError } = await useLazyAsyncData('hot-articles
       try {
         let latestData = await fetchProducts()
         latestData.forEach(element => {
-          element.price = locale.value === 'zh-CN' ? element.price_zh : element.price_en
-          element.title = locale.value === 'zh-CN' ? `￥${element.title_zh}` : `$${element.title_en}`
+          element.price = locale.value === 'zh-CN' ? `￥${element.price_zh}` : `$${element.price_en}`
+          element.title = locale.value === 'zh-CN' ? element.title_zh : element.title_en
           element.html = locale.value === 'zh-CN' ? element.html_zh : element.html_en
         });
         products.value = latestData
