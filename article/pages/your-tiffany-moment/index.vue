@@ -360,7 +360,7 @@ onMounted(() => {
 .moment-card {
   background: white;
   border-radius: 12px;
-  padding: 1.5rem;
+  padding: 1rem;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   /* border: 1px solid #f0f0f0; */
 }
@@ -410,40 +410,17 @@ onMounted(() => {
 }
 
 .image-grid {
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
   border-radius: 8px;
   overflow: hidden;
-  justify-items: start;
-}
-
-.image-grid.grid-1 {
-  grid-template-columns: 200px;
-}
-
-.image-grid.grid-2 {
-  grid-template-columns: repeat(2, 200px);
-}
-
-.image-grid.grid-3 {
-  grid-template-columns: repeat(3, 200px);
-}
-
-.image-grid.grid-4 {
-  grid-template-columns: repeat(2, 200px);
-  grid-template-rows: repeat(2, 200px);
-}
-
-.image-grid.grid-5,
-.image-grid.grid-6,
-.image-grid.grid-7,
-.image-grid.grid-8,
-.image-grid.grid-9 {
-  grid-template-columns: repeat(5, 200px);
 }
 
 .image-item {
-  aspect-ratio: 1;
+  width: 200px;
+  height: 200px;
+  flex-shrink: 0;
   overflow: hidden;
   border-radius: 4px;
 }
@@ -720,14 +697,7 @@ onMounted(() => {
     padding: 1rem;
   }
   
-  .image-grid.grid-3,
-  .image-grid.grid-5,
-  .image-grid.grid-6,
-  .image-grid.grid-7,
-  .image-grid.grid-8,
-  .image-grid.grid-9 {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  /* 移动端图片网格样式已删除，使用默认flexbox布局 */
   
   .form-container {
     padding: 0 1rem;
