@@ -176,6 +176,7 @@ const fetchHotArticles = async () => {
       .from('posts')
       .select('*')
       .eq('type', 'hot')
+      .eq('language', locale.value)
       .limit(4)
     if (error) {
       console.error('热卖文章查询错误:', error)
@@ -198,6 +199,7 @@ const fetchCaseArticles = async () => {
       .from('posts')
       .select('*')
       .eq('type', 'case')
+      .eq('language', locale.value)
       .limit(4)
     
     if (error) {
