@@ -89,7 +89,7 @@
               </div>
               <div class="article-content">
                 <h3>{{ article.title }}</h3>
-                <div style="display: flex;flex-direction: row;justify-content: space-between;">
+                <div style="display: flex;flex-direction: row;justify-content: space-between;margin-top:20px">
                   <p class="article-author">{{ $t('article.author') }}: Hauty</p>
                 <p class="article-date">{{ formatDate(article.created_at) }}</p>
                 </div>
