@@ -364,7 +364,7 @@ onMounted(() => {
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  border: 1px solid #f0f0f0;
+  /* border: 1px solid #f0f0f0; */
 }
 
 .moment-header {
@@ -416,23 +416,24 @@ onMounted(() => {
   gap: 0.5rem;
   border-radius: 8px;
   overflow: hidden;
+  justify-items: start;
 }
 
 .image-grid.grid-1 {
-  grid-template-columns: 1fr;
+  grid-template-columns: 200px;
 }
 
 .image-grid.grid-2 {
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, 200px);
 }
 
 .image-grid.grid-3 {
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, 200px);
 }
 
 .image-grid.grid-4 {
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-columns: repeat(2, 200px);
+  grid-template-rows: repeat(2, 200px);
 }
 
 .image-grid.grid-5,
@@ -440,14 +441,13 @@ onMounted(() => {
 .image-grid.grid-7,
 .image-grid.grid-8,
 .image-grid.grid-9 {
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 200px);
 }
 
 .image-item {
   aspect-ratio: 1;
   overflow: hidden;
   border-radius: 4px;
-  width: 200px;
 }
 
 .moment-image {
