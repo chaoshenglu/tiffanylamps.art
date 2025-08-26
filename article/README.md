@@ -30,4 +30,13 @@ CREATE TABLE contact_msg (
  message TEXT NOT NULL,
  created_at TIMESTAMP DEFAULT NOW()
 );
+
+CREATE TABLE tiffany_moments (
+ id SERIAL PRIMARY KEY,
+ nickname TEXT,
+ content TEXT,
+ images TEXT[],
+ approved BOOLEAN DEFAULT FALSE,
+ created_at TIMESTAMP DEFAULT NOW()
+);
 # 注意：supabase会自动将firstName改成firstname，将lastName改成lastname
