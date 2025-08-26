@@ -49,6 +49,20 @@
     "message": "Message*",
     "submit": "SUBMIT"
   },
+  "product": {
+    "specifications": "Specifications",
+    "material": "Material",
+    "style": "Style",
+    "category": "Category",
+    "stainedGlass": "Stained Glass",
+    "tiffanyStyle": "Tiffany Style",
+    "decorativeLamp": "Decorative Lamp",
+    "buySimilar": "Buy Similar",
+    "purchaseNote": "Click to browse similar products on external shopping platforms",
+    "details": "Product Details",
+    "notFound": "Product Not Found",
+    "notFoundDesc": "The product you are looking for does not exist or has been removed."
+  },
   "footer": {
     "copyright": "© 2025 Tiffany Lamps Art. All rights reserved.",
     "about": "About Us",
