@@ -51,7 +51,7 @@
   },
   "product": {
     "specifications": "商品参数",
-    "price":"参考价格",
+    "price":"参考价",
     "material": "材质",
     "style": "风格",
     "category": "类别",

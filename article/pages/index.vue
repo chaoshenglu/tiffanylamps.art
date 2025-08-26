@@ -47,7 +47,7 @@
           </div>
           
           <div v-else class="article-grid hot-sales-grid-layout">
-            <NuxtLink v-for="article in hotArticles" :key="article.id" 
+            <NuxtLink v-for="article in products" :key="article.id" 
                      :to="localePath(`/article/${article.id}`)" 
                      class="article-card card">
               <div class="article-image hot-sales-image">
@@ -56,7 +56,7 @@
               <div class="article-content">
                 <h3>{{ article.title_zh }}</h3>
                 <p class="article-author">{{ $t('product.price') }}: {{ article.price_zh }}</p>
-                <p class="article-date">{{ formatDate(article.created_at) }}</p>
+                <!-- <p class="article-date">{{ formatDate(article.created_at) }}</p> -->
               </div>
             </NuxtLink>
           </div>
@@ -170,7 +170,7 @@ const setCachedData = (key, data) => {
 }
 
 // 获取热卖产品的函数
-const fetchHotArticles = async () => {
+const fetchproducts = async () => {
   try {
     const { data, error } = await supabase
       .from('product')
@@ -215,10 +215,10 @@ const fetchCaseArticles = async () => {
 }
 
 // 使用useLazyAsyncData确保SSR和客户端数据一致性
-const { data: hotArticles, error: hotError } = await useLazyAsyncData('hot-articles', async () => {
+const { data: products, error: hotError } = await useLazyAsyncData('hot-articles', async () => {
   // 在服务端直接获取数据
   if (process.server) {
-    return await fetchHotArticles()
+    return await fetchproducts()
   }
   
   // 在客户端先尝试从缓存获取
@@ -227,8 +227,8 @@ const { data: hotArticles, error: hotError } = await useLazyAsyncData('hot-artic
     // 后台更新数据
     nextTick(async () => {
       try {
-        const latestData = await fetchHotArticles()
-        hotArticles.value = latestData
+        const latestData = await fetchproducts()
+        products.value = latestData
         setCachedData(HOT_ARTICLES_CACHE_KEY, latestData)
       } catch (error) {
         console.error('后台更新热卖文章失败:', error)
@@ -238,7 +238,7 @@ const { data: hotArticles, error: hotError } = await useLazyAsyncData('hot-artic
   }
   
   // 没有缓存时直接获取
-  const data = await fetchHotArticles()
+  const data = await fetchproducts()
   setCachedData(HOT_ARTICLES_CACHE_KEY, data)
   return data
 })
@@ -280,7 +280,7 @@ const error = computed(() => {
 
 // 加载状态
 const loading = computed(() => {
-  return !hotArticles.value && !caseArticles.value && !error.value
+  return !products.value && !caseArticles.value && !error.value
 })
 
 const slides = computed(() => {
