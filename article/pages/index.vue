@@ -99,7 +99,7 @@
       </div>
     </section>
     
-    <!-- 历史文化和流行趋势入口 -->
+    <!-- 历史文化和蒂凡尼时刻入口 -->
     <section class="entry-section">
       <div class="container">
         <div class="entry-grid">
@@ -115,7 +115,7 @@
             <div class="entry-content">
               <h2>{{ $t('home.moment') }}</h2>
               <p>{{ $t('home.momentDesc') }}</p>
-              <NuxtLink :to="localePath('/trends')" class="btn" style="background-color: #00000080">{{ $t('home.learnMore') }}</NuxtLink>
+              <NuxtLink :to="localePath('/your-tiffany-moment')" class="btn" style="background-color: #00000080">{{ $t('home.learnMore') }}</NuxtLink>
             </div>
           </div>
         </div>
