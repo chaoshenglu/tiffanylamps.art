@@ -215,7 +215,8 @@ const uploadImages = async () => {
   
   for (const imageData of previewImages.value) {
     try {
-      const fileName = `tiffany-moments/${Date.now()}-${Math.random().toString(36).substring(7)}.${imageData.file.name.split('.').pop()}`
+      const fileExt = imageData.file.name.split('.').pop()
+      const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`
       
       const { data, error } = await supabase.storage
         .from('images')
