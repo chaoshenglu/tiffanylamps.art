@@ -51,11 +51,11 @@
                      :to="localePath(`/article/${article.id}`)" 
                      class="article-card card">
               <div class="article-image hot-sales-image">
-                <NuxtImg :src="article.images[0]" :alt="article.title_zh" />
+                <NuxtImg :src="article.images[0]" :alt="article.title" />
               </div>
               <div class="article-content">
-                <h3>{{ article.title_zh }}</h3>
-                <p class="article-author">{{ $t('product.price') }}: {{ article.price_zh }}</p>
+                <h3>{{ article.title }}</h3>
+                <p class="article-author">{{ $t('product.price') }}: {{ article.price }}</p>
               </div>
             </NuxtLink>
           </div>
@@ -226,7 +226,12 @@ const { data: products, error: hotError } = await useLazyAsyncData('hot-articles
     // 后台更新数据
     nextTick(async () => {
       try {
-        const latestData = await fetchProducts()
+        let latestData = await fetchProducts()
+        latestData.forEach(element => {
+          element.price = locale.value === 'zh-CN' ? element.price_zh : element.price_en
+          element.title = locale.value === 'zh-CN' ? `￥${element.title_zh}` : `$${element.title_en}`
+          element.html = locale.value === 'zh-CN' ? element.html_zh : element.html_en
+        });
         products.value = latestData
         setCachedData(HOT_ARTICLES_CACHE_KEY, latestData)
       } catch (error) {
