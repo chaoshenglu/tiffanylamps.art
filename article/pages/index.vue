@@ -129,7 +129,7 @@ import { createClient } from '@supabase/supabase-js'
 
 const localePath = useLocalePath()
 const config = useRuntimeConfig()
-
+const { t, locale } = useI18n()
 // 创建 Supabase 客户端（服务端和客户端通用）
 const supabase = createClient(
   config.public.supabaseUrl,
@@ -176,7 +176,7 @@ const fetchHotArticles = async () => {
       .from('posts')
       .select('*')
       .eq('type', 'hot')
-      .eq('language', locale.value)
+      .eq('language', locale.value || 'zh-CN')
       .limit(4)
     if (error) {
       console.error('热卖文章查询错误:', error)
@@ -199,7 +199,7 @@ const fetchCaseArticles = async () => {
       .from('posts')
       .select('*')
       .eq('type', 'case')
-      .eq('language', locale.value)
+      .eq('language', locale.value || 'zh-CN')
       .limit(4)
     
     if (error) {
@@ -285,8 +285,6 @@ const loading = computed(() => {
   return !hotArticles.value && !caseArticles.value && !error.value
 })
 
-// 轮播图数据 - 计算属性，根据当前语言返回对应数据
-const { locale } = useI18n()
 const slides = computed(() => {
   const slidesData = {
     'zh-CN': [
