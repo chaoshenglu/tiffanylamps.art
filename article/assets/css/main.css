@@ -209,7 +209,7 @@ h3 {
 }
 
 .thumbnail.active {
-  border-color: black;
+  border-color: #d4af37;
   transform: scale(1.05);
 }
 
@@ -220,7 +220,7 @@ h3 {
 }
 
 .thumbnail:hover {
-  border-color: #666;
+  border-color: #d4af37;
   transform: scale(1.05);
 }
 
