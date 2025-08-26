@@ -439,7 +439,7 @@ onMounted(() => {
 .image-grid.grid-7,
 .image-grid.grid-8,
 .image-grid.grid-9 {
-  grid-template-columns: repeat(3, 200px);
+  grid-template-columns: repeat(5, 200px);
 }
 
 .image-item {
