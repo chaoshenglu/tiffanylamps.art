@@ -89,8 +89,10 @@
               </div>
               <div class="article-content">
                 <h3>{{ article.title }}</h3>
-                <p class="article-author">{{ $t('article.author') }}: Hauty</p>
+                <div style="display: flex;flex-direction: row;justify-content: space-between;">
+                  <p class="article-author">{{ $t('article.author') }}: Hauty</p>
                 <p class="article-date">{{ formatDate(article.created_at) }}</p>
+                </div>
               </div>
             </NuxtLink>
           </div>
