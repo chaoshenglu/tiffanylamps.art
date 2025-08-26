@@ -3,7 +3,7 @@
     <div class="container">
       <div class="page-header">
         <h1>{{ $t('nav.cases') }}</h1>
-        <p class="page-description">欣赏蒂凡尼灯的空间搭配案例，获取家居装饰灵感。</p>
+        <p class="page-description">{{ $t('nav.casesDesc') }}</p>
       </div>
       
       <div v-if="loading" class="loading">
