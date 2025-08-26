@@ -355,7 +355,7 @@ onMounted(() => {
 .moments-grid {
   display: grid;
   gap: 2rem;
-  max-width: 800px;
+  width: 1160px;
   margin: 0 auto;
 }
 
@@ -447,6 +447,7 @@ onMounted(() => {
   aspect-ratio: 1;
   overflow: hidden;
   border-radius: 4px;
+  width: 200px;
 }
 
 .moment-image {
