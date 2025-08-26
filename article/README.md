@@ -39,3 +39,14 @@ CREATE TABLE tiffany_moments (
  approved BOOLEAN DEFAULT FALSE,
  created_at TIMESTAMP DEFAULT NOW()
 );
+
+CREATE TABLE product (
+ id SERIAL PRIMARY KEY,
+ images TEXT[],
+ "title-en" TEXT,
+ "title-zh" TEXT,
+ "html-en" TEXT,
+ "html-zh" TEXT,
+ "price-en" NUMERIC,
+ "price-zh" NUMERIC
+);
