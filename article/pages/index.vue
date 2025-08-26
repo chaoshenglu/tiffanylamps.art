@@ -46,11 +46,11 @@
             {{ error }}
           </div>
           
-          <div v-else class="article-grid">
+          <div v-else class="article-grid hot-sales-grid-layout">
             <NuxtLink v-for="article in hotArticles" :key="article.id" 
                      :to="localePath(`/article/${article.id}`)" 
                      class="article-card card">
-              <div class="article-image">
+              <div class="article-image hot-sales-image">
                 <NuxtImg :src="article.cover_image" :alt="article.title" />
               </div>
               <div class="article-content">
@@ -81,11 +81,11 @@
             {{ error }}
           </div>
           
-          <div v-else class="article-grid">
+          <div v-else class="article-grid featured-cases-grid-layout">
             <NuxtLink v-for="article in caseArticles" :key="article.id" 
                      :to="localePath(`/article/${article.id}`)" 
                      class="article-card card">
-              <div class="article-image">
+              <div class="article-image featured-cases-image">
                 <NuxtImg :src="article.cover_image" :alt="article.title" />
               </div>
               <div class="article-content">
@@ -512,9 +512,17 @@ const stopSlideShow = () => {
   margin-bottom: 4rem;
 }
 
-.article-grid {
+/* 热卖榜单网格布局 */
+.hot-sales-grid-layout {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 2rem;
+}
+
+/* 精选案例网格布局 */
+.featured-cases-grid-layout {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
 }
 
@@ -524,9 +532,18 @@ const stopSlideShow = () => {
   height: 100%;
 }
 
-.article-image img {
+/* 热卖榜单图片样式 - 保持正方形 */
+.hot-sales-image img {
   width: 100%;
   aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 8px 8px 0 0;
+}
+
+/* 精选案例图片样式 - 矩形 */
+.featured-cases-image img {
+  width: 100%;
+  aspect-ratio: 16/9;
   object-fit: cover;
   border-radius: 8px 8px 0 0;
 }
@@ -632,6 +649,10 @@ const stopSlideShow = () => {
     font-size: 1.8rem;
   }
   
+  .featured-cases-grid-layout {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
   .entry-grid {
     grid-template-columns: 1fr;
   }
@@ -648,6 +669,11 @@ const stopSlideShow = () => {
   
   .carousel-caption p {
     font-size: 1rem;
+  }
+  
+  .hot-sales-grid-layout,
+  .featured-cases-grid-layout {
+    grid-template-columns: 1fr;
   }
 }
 
