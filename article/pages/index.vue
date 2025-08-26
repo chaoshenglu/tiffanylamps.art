@@ -55,7 +55,7 @@
               </div>
               <div class="article-content">
                 <h3>{{ article.title }}</h3>
-                <p class="article-author">{{ $t('article.author') }}: {{ article.author }}</p>
+                <p class="article-author">{{ $t('article.author') }}: Hauty</p>
                 <p class="article-date">{{ formatDate(article.created_at) }}</p>
               </div>
             </NuxtLink>
@@ -90,7 +90,7 @@
               </div>
               <div class="article-content">
                 <h3>{{ article.title }}</h3>
-                <p class="article-author">{{ $t('article.author') }}: {{ article.author }}</p>
+                <p class="article-author">{{ $t('article.author') }}: Hauty</p>
                 <p class="article-date">{{ formatDate(article.created_at) }}</p>
               </div>
             </NuxtLink>
