@@ -23,7 +23,7 @@ CREATE TABLE posts (
 
 CREATE TABLE contact_msg (
  id SERIAL PRIMARY KEY,
- firstName TEXT NOT NULL,
+ firstName TEXT NOT NULL,// 注意：supabase会自动将firstName改成firstname，将lastName改成lastname
  lastName TEXT NOT NULL,
  budget TEXT NOT NULL,
  email TEXT NOT NULL,
@@ -39,4 +39,3 @@ CREATE TABLE tiffany_moments (
  approved BOOLEAN DEFAULT FALSE,
  created_at TIMESTAMP DEFAULT NOW()
 );
-# 注意：supabase会自动将firstName改成firstname，将lastName改成lastname
