@@ -17,29 +17,19 @@ const loading = ref(true)
 // 获取商品详情
 async function fetchProduct() {
   try {
-
     const { data, error: supabaseError } = await supabase
       .from('product')
       .select('*')
       .eq('id', productId.value)
       .single()
-
     if (supabaseError) throw supabaseError
-
     if (!data) {
       throw new Error('商品不存在')
     }
-
     product.value = data
-    
-    // 设置页面元数据
     useHead({
       title: data.title,
-      meta: [
-        { name: 'description', content: data.content.substring(0, 160) }
-      ]
     })
-
   } catch (err) {
     console.error('Error:', err)
   } finally {
