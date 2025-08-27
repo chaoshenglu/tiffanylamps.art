@@ -86,11 +86,9 @@ export default defineNuxtConfig({
         { property: 'og:description', content: '探索蒂凡尼灯的艺术世界，了解历史文化、流行趋势、空间搭配案例和拍卖资讯' },
         { property: 'og:type', content: 'website' },
         { property: 'og:url', content: 'https://tiffanylamps.art' },
-        { property: 'og:image', content: 'https://tiffanylamps.art/og-image.jpg' },
         { name: 'twitter:card', content: 'summary_large_image' },
         { name: 'twitter:title', content: '蒂凡尼灯的艺术世界 - Tiffany Lamps Art' },
         { name: 'twitter:description', content: '探索蒂凡尼灯的艺术世界，了解历史文化、流行趋势、空间搭配案例和拍卖资讯' },
-        { name: 'twitter:image', content: 'https://tiffanylamps.art/og-image.jpg' }
       ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
