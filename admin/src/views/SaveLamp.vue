@@ -119,6 +119,7 @@
               :file-list="mainImageList"
               :on-change="handleMainImageChange"
               :on-remove="handleMainImageRemove"
+              :on-preview="handleMainImagePreview"
               :before-upload="beforeUpload"
               :http-request="uploadMainImage"
               list-type="picture-card"
@@ -139,6 +140,7 @@
               :file-list="detailImageList"
               :on-change="handleDetailImageChange"
               :on-remove="handleDetailImageRemove"
+              :on-preview="handleDetailImagePreview"
               :before-upload="beforeUpload"
               :http-request="uploadDetailImage"
               list-type="picture-card"
@@ -185,6 +187,18 @@
         </el-form-item>
       </el-form>
     </el-card>
+
+    <!-- 图片预览对话框 -->
+    <el-dialog v-model="previewVisible" title="图片预览" width="60%" center>
+      <div class="preview-container">
+        <el-image
+          :src="previewImageUrl"
+          fit="contain"
+          style="width: 100%; max-height: 70vh;"
+          :preview-teleported="true"
+        />
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -236,6 +250,10 @@ const form = reactive({
 const mainImageList = ref([])
 const detailImageList = ref([])
 const videoList = ref([])
+
+// 预览相关
+const previewVisible = ref(false)
+const previewImageUrl = ref('')
 
 // 表单验证规则
 const rules = {
@@ -357,6 +375,17 @@ const handleDetailImageChange = (file, fileList) => {
 
 const handleVideoChange = (file, fileList) => {
   videoList.value = fileList
+}
+
+// 图片预览处理
+const handleMainImagePreview = (file) => {
+  previewImageUrl.value = file.url || file.response?.url || ''
+  previewVisible.value = true
+}
+
+const handleDetailImagePreview = (file) => {
+  previewImageUrl.value = file.url || file.response?.url || ''
+  previewVisible.value = true
 }
 
 // 文件移除处理
@@ -625,6 +654,13 @@ onMounted(async () => {
 :deep(.el-divider__text) {
   font-weight: 600;
   color: #409eff;
+}
+
+.preview-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
 }
 
 .el-form-item {
