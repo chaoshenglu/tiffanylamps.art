@@ -1,16 +1,19 @@
 <script setup>
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { restoreSupabaseConfig } from './store/supabase.js'
+import { initializeSupabase } from './store/supabase.js'
 
 const router = useRouter()
 
 onMounted(async () => {
-  // 页面加载时尝试恢复Supabase配置
+  // 页面加载时自动初始化Supabase连接
   try {
-    await restoreSupabaseConfig(router)
+    const result = initializeSupabase()
+    if (!result.success) {
+      console.error('Supabase初始化失败:', result.error)
+    }
   } catch (error) {
-    console.error('恢复配置失败:', error)
+    console.error('初始化失败:', error)
   }
 })
 
@@ -26,7 +29,6 @@ function refresh() {
         <div class="header-content">
           <h1 class="title" @click="refresh">文章管理</h1>
           <el-menu mode="horizontal" :ellipsis="false" :default-active="$route.path" class="nav-menu" router>
-            <el-menu-item index="/config">数据库配置</el-menu-item>
             <el-menu-item index="/list">文章列表</el-menu-item>
           </el-menu>
         </div>

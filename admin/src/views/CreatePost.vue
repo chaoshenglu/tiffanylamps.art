@@ -331,17 +331,7 @@ onMounted(async () => {
   if (!isConnected.value) {
     const reconnected = await autoReconnect()
     if (!reconnected) {
-      ElMessageBox.confirm(
-        '数据库连接已断开，请重新配置连接',
-        '连接失效',
-        {
-          confirmButtonText: '去配置',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }
-      ).then(() => {
-        router.push('/config')
-      })
+      ElMessage.error('数据库连接失败，请检查环境配置')
       return
     }
   }
