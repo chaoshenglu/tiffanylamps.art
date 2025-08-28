@@ -39,7 +39,7 @@
 
       <!-- 产品表格 -->
       <el-table :data="lamps" v-loading="loading" stripe class="lamps-table" @sort-change="handleSortChange">
-        <el-table-column prop="model" label="型号" width="120" show-overflow-tooltip />
+        <el-table-column prop="model" label="型号" width="90" show-overflow-tooltip />
         <el-table-column label="主图" width="100">
           <template #default="{ row }">
             <el-image
@@ -53,26 +53,26 @@
             <div v-else class="no-image">无图片</div>
           </template>
         </el-table-column>
-        <el-table-column prop="name-zh" label="中文名" min-width="150" show-overflow-tooltip />
-        <el-table-column prop="inch" label="英寸" width="80">
+        <el-table-column prop="abb-zh" label="中文简称" show-overflow-tooltip />
+        <el-table-column prop="inch" label="英寸">
           <template #default="{ row }">
             {{ row.inch }}″
           </template>
         </el-table-column>
-        <el-table-column prop="type" label="类型" width="100">
+        <el-table-column prop="type" label="类型">
           <template #default="{ row }">
             <el-tag :type="getTypeTagType(row.type)" size="small">
               {{ getTypeName(row.type) }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="price-zh" label="国内价" width="100">
+        <el-table-column prop="price-zh" label="国内价">
           <template #default="{ row }">
             <span v-if="row['price-zh']">¥{{ row['price-zh'] }}</span>
             <span v-else>-</span>
           </template>
         </el-table-column>
-        <el-table-column prop="price-en" label="国外价" width="100">
+        <el-table-column prop="price-en" label="国外价">
           <template #default="{ row }">
             <span v-if="row['price-en']">${{ row['price-en'] }}</span>
             <span v-else>-</span>
