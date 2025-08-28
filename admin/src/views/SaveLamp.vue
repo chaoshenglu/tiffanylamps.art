@@ -114,43 +114,115 @@
         
         <el-form-item label="主图" prop="main_images">
           <div class="upload-section">
+            <!-- 拖拽排序区域 -->
+            <draggable
+              v-model="mainImageList"
+              item-key="uid"
+              class="draggable-list"
+              :animation="200"
+              ghost-class="ghost"
+              @end="onMainImageDragEnd"
+            >
+              <template #item="{ element: file }">
+                <div class="draggable-item">
+                  <img
+                    class="el-upload-list__item-thumbnail"
+                    :src="file.url"
+                    alt=""
+                  />
+                  <!-- 状态显示层 -->
+                  <div v-if="file.status === 'uploading'" class="upload-progress">
+                    <el-progress
+                      type="circle"
+                      :percentage="file.percentage || 0"
+                      :width="60"
+                    />
+                  </div>
+                  <!-- 操作按钮层 -->
+                  <span class="el-upload-list__item-actions">
+                    <span class="el-upload-list__item-preview" @click="handleMainImagePreview(file)">
+                      <el-icon><zoom-in /></el-icon>
+                    </span>
+                    <span class="el-upload-list__item-delete" @click="handleMainImageRemove(file)">
+                      <el-icon><Delete /></el-icon>
+                    </span>
+                  </span>
+                </div>
+              </template>
+            </draggable>
+            <!-- 上传按钮 -->
             <el-upload
+              v-if="mainImageList.length < 10"
               ref="mainUploadRef"
-              :file-list="mainImageList"
+              :file-list="[]"
               :on-change="handleMainImageChange"
-              :on-remove="handleMainImageRemove"
-              :on-preview="handleMainImagePreview"
               :before-upload="beforeUpload"
               :http-request="uploadMainImage"
               list-type="picture-card"
-              :limit="10"
               accept="image/*"
               multiple
+              :show-file-list="false"
             >
               <el-icon><Plus /></el-icon>
             </el-upload>
-            <div class="upload-tip">支持jpg、png格式，单个文件不超过5MB，最多10张</div>
+            <div class="upload-tip">支持jpg、png格式，单个文件不超过5MB，最多10张，可拖拽调整顺序</div>
           </div>
         </el-form-item>
 
         <el-form-item label="细节图" prop="detail_images">
           <div class="upload-section">
+            <!-- 拖拽排序区域 -->
+            <draggable
+              v-model="detailImageList"
+              item-key="uid"
+              class="draggable-list"
+              :animation="200"
+              ghost-class="ghost"
+              @end="onDetailImageDragEnd"
+            >
+              <template #item="{ element: file }">
+                <div class="draggable-item">
+                  <img
+                    class="el-upload-list__item-thumbnail"
+                    :src="file.url"
+                    alt=""
+                  />
+                  <!-- 状态显示层 -->
+                  <div v-if="file.status === 'uploading'" class="upload-progress">
+                    <el-progress
+                      type="circle"
+                      :percentage="file.percentage || 0"
+                      :width="60"
+                    />
+                  </div>
+                  <!-- 操作按钮层 -->
+                  <span class="el-upload-list__item-actions">
+                    <span class="el-upload-list__item-preview" @click="handleDetailImagePreview(file)">
+                      <el-icon><zoom-in /></el-icon>
+                    </span>
+                    <span class="el-upload-list__item-delete" @click="handleDetailImageRemove(file)">
+                      <el-icon><Delete /></el-icon>
+                    </span>
+                  </span>
+                </div>
+              </template>
+            </draggable>
+            <!-- 上传按钮 -->
             <el-upload
+              v-if="detailImageList.length < 20"
               ref="detailUploadRef"
-              :file-list="detailImageList"
+              :file-list="[]"
               :on-change="handleDetailImageChange"
-              :on-remove="handleDetailImageRemove"
-              :on-preview="handleDetailImagePreview"
               :before-upload="beforeUpload"
               :http-request="uploadDetailImage"
               list-type="picture-card"
-              :limit="20"
               accept="image/*"
               multiple
+              :show-file-list="false"
             >
               <el-icon><Plus /></el-icon>
             </el-upload>
-            <div class="upload-tip">支持jpg、png格式，单个文件不超过5MB，最多20张</div>
+            <div class="upload-tip">支持jpg、png格式，单个文件不超过5MB，最多20张，可拖拽调整顺序</div>
           </div>
         </el-form-item>
 
@@ -206,8 +278,9 @@
 import { ref, reactive, onMounted, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { Plus } from '@element-plus/icons-vue'
+import { Plus, ZoomIn, Delete } from '@element-plus/icons-vue'
 import { supabaseClient, isConnected, autoReconnect } from '../store/supabase'
+import draggable from 'vuedraggable'
 
 const route = useRoute()
 const router = useRouter()
@@ -388,25 +461,46 @@ const handleDetailImagePreview = (file) => {
   previewVisible.value = true
 }
 
-// 文件移除处理
-const handleMainImageRemove = (file, fileList) => {
-  if (file.response && file.response.url) {
-    const index = form.main_images.indexOf(file.response.url)
-    if (index > -1) {
-      form.main_images.splice(index, 1)
-    }
-  }
-  mainImageList.value = fileList
+// 拖拽结束处理函数
+const onMainImageDragEnd = () => {
+  // 更新form中的main_images数组，保持与拖拽后的顺序一致
+  form.main_images = mainImageList.value.map(file => file.response?.url || file.url).filter(Boolean)
 }
 
-const handleDetailImageRemove = (file, fileList) => {
-  if (file.response && file.response.url) {
-    const index = form.detail_images.indexOf(file.response.url)
-    if (index > -1) {
-      form.detail_images.splice(index, 1)
+const onDetailImageDragEnd = () => {
+  // 更新form中的detail_images数组，保持与拖拽后的顺序一致
+  form.detail_images = detailImageList.value.map(file => file.response?.url || file.url).filter(Boolean)
+}
+
+// 文件移除处理
+const handleMainImageRemove = (file) => {
+  // 从拖拽列表中删除
+  const index = mainImageList.value.findIndex(f => f.uid === file.uid)
+  if (index > -1) {
+    mainImageList.value.splice(index, 1)
+    // 同时从form数组中删除对应的URL
+    if (file.response && file.response.url) {
+      const urlIndex = form.main_images.indexOf(file.response.url)
+      if (urlIndex > -1) {
+        form.main_images.splice(urlIndex, 1)
+      }
     }
   }
-  detailImageList.value = fileList
+}
+
+const handleDetailImageRemove = (file) => {
+  // 从拖拽列表中删除
+  const index = detailImageList.value.findIndex(f => f.uid === file.uid)
+  if (index > -1) {
+    detailImageList.value.splice(index, 1)
+    // 同时从form数组中删除对应的URL
+    if (file.response && file.response.url) {
+      const urlIndex = form.detail_images.indexOf(file.response.url)
+      if (urlIndex > -1) {
+        form.detail_images.splice(urlIndex, 1)
+      }
+    }
+  }
 }
 
 const handleVideoRemove = (file, fileList) => {
@@ -661,6 +755,85 @@ onMounted(async () => {
   justify-content: center;
   align-items: center;
   min-height: 200px;
+}
+
+/* 拖拽相关样式 */
+.draggable-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.draggable-item {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  border: 1px solid #c0ccda;
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: move;
+  background: #fff;
+}
+
+.draggable-item:hover {
+  border-color: #409eff;
+}
+
+.draggable-item .el-upload-list__item-thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.draggable-item .el-upload-list__item-actions {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  cursor: default;
+  text-align: center;
+  color: #fff;
+  opacity: 0;
+  font-size: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: opacity 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.draggable-item:hover .el-upload-list__item-actions {
+  opacity: 1;
+}
+
+.draggable-item .el-upload-list__item-preview,
+.draggable-item .el-upload-list__item-delete {
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.draggable-item .el-upload-list__item-preview:hover,
+.draggable-item .el-upload-list__item-delete:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.upload-progress {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+/* 拖拽时的幽灵效果 */
+.ghost {
+  opacity: 0.5;
+  transform: scale(0.95);
 }
 
 .el-form-item {
