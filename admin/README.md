@@ -1,5 +1,4 @@
-# 这是一个博客后台/文章管理系统
-# 文章数据储存在supabase(https://supabase.com/)
+# 数据储存在supabase(https://supabase.com/)
 # 建表语句如下：
 ```
 CREATE TABLE posts (
@@ -12,5 +11,17 @@ CREATE TABLE posts (
   type TEXT NOT NULL,
   language TEXT DEFAULT 'zh-CN',
   created_at TIMESTAMP DEFAULT NOW()
+);
+```
+```
+CREATE TABLE product (
+ id SERIAL PRIMARY KEY,
+ images TEXT[],
+ "title_en" TEXT,
+ "title_zh" TEXT,
+ "html_en" TEXT,
+ "html_zh" TEXT,
+ "price_en" NUMERIC,
+ "price_zh" NUMERIC
 );
 ```
