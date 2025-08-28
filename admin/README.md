@@ -14,14 +14,22 @@ CREATE TABLE posts (
 );
 ```
 ```
-CREATE TABLE product (
- id SERIAL PRIMARY KEY,
- images TEXT[],
- "title_en" TEXT,
- "title_zh" TEXT,
- "html_en" TEXT,
- "html_zh" TEXT,
- "price_en" NUMERIC,
- "price_zh" NUMERIC
+CREATE TABLE lamp (
+ model TEXT PRIMARY KEY,
+ "name-zh" TEXT,
+ "name-en" TEXT,
+ "abb-zh" TEXT,
+ "abb-en" TEXT,
+ inch NUMERIC,
+ length NUMERIC,
+ width NUMERIC,
+ height NUMERIC,
+ type INTEGER CHECK (type IN (1, 2, 3, 4, 5, 6)),
+ "price-zh" NUMERIC,
+ "price-en" NUMERIC,
+ mt INTEGER CHECK (mt IN (1, 2, 3, 4, 5, 6)),
+ "main-images" TEXT[],
+ "detail-images" TEXT[],
+ videos TEXT[]
 );
 ```
