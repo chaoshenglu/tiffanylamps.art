@@ -30,6 +30,7 @@ function refresh() {
           <h1 class="title" @click="refresh">豪蒂后台管理</h1>
           <el-menu mode="horizontal" :ellipsis="false" :default-active="$route.path" class="nav-menu" router>
             <el-menu-item index="/list">文章列表</el-menu-item>
+            <el-menu-item index="/lamps">产品列表</el-menu-item>
           </el-menu>
         </div>
       </el-header>
