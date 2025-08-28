@@ -1,3 +1,4 @@
+# 请使用pnpm管理依赖，使用pnpm dev运行项目
 # 数据储存在supabase(https://supabase.com/)
 # 建表语句如下：
 ```
