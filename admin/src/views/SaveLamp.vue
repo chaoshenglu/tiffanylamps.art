@@ -100,12 +100,12 @@
 
         <el-form-item label="底座材质" prop="mt">
           <el-select v-model="form.mt" placeholder="请选择底座材质" style="width: 100%">
-            <el-option label="材质1" :value="1" />
-            <el-option label="材质2" :value="2" />
-            <el-option label="材质3" :value="3" />
-            <el-option label="材质4" :value="4" />
-            <el-option label="材质5" :value="5" />
-            <el-option label="材质6" :value="6" />
+            <el-option label="树脂" :value="1" />
+            <el-option label="铸铁" :value="2" />
+            <el-option label="合金" :value="3" />
+            <el-option label="全铜" :value="4" />
+            <el-option label="木" :value="5" />
+            <el-option label="无底座" :value="6" />
           </el-select>
         </el-form-item>
 
