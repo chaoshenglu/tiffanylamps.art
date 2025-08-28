@@ -27,7 +27,7 @@ function refresh() {
     <el-container>
       <el-header class="header">
         <div class="header-content">
-          <h1 class="title" @click="refresh">文章管理</h1>
+          <h1 class="title" @click="refresh">豪蒂后台管理</h1>
           <el-menu mode="horizontal" :ellipsis="false" :default-active="$route.path" class="nav-menu" router>
             <el-menu-item index="/list">文章列表</el-menu-item>
           </el-menu>
