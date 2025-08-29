@@ -366,10 +366,10 @@ const beforeVideoUpload = (file) => {
 }
 
 // 上传文件到Supabase Storage
-const uploadFileToStorage = async (file, folder) => {
+const uploadFileToStorage = async (file, folder, customFileName = null) => {
   try {
     const fileExt = file.name.split('.').pop()
-    const fileName = `${Date.now()}_${Math.random().toString(36).substring(2)}.${fileExt}`
+    const fileName = customFileName ? `${customFileName}.${fileExt}` : `${Date.now()}_${Math.random().toString(36).substring(2)}.${fileExt}`
     const filePath = `${folder}/${fileName}`
 
     const { data, error } = await supabaseClient.value.storage
@@ -395,7 +395,12 @@ const uploadFileToStorage = async (file, folder) => {
 // 主图上传
 const uploadMainImage = async ({ file, onSuccess, onError }) => {
   try {
-    const url = await uploadFileToStorage(file, 'main-images')
+    if (!form.model) {
+      throw new Error('请先填写产品型号')
+    }
+    const sequence = form.main_images.length + 1
+    const fileName = `${form.model}main${sequence}`
+    const url = await uploadFileToStorage(file, 'main-images', fileName)
     form.main_images.push(url)
     onSuccess({ url })
     ElMessage.success('主图上传成功')
@@ -408,7 +413,12 @@ const uploadMainImage = async ({ file, onSuccess, onError }) => {
 // 细节图上传
 const uploadDetailImage = async ({ file, onSuccess, onError }) => {
   try {
-    const url = await uploadFileToStorage(file, 'detail-images')
+    if (!form.model) {
+      throw new Error('请先填写产品型号')
+    }
+    const sequence = form.detail_images.length + 1
+    const fileName = `${form.model}detail${sequence}`
+    const url = await uploadFileToStorage(file, 'detail-images', fileName)
     form.detail_images.push(url)
     onSuccess({ url })
     ElMessage.success('细节图上传成功')
@@ -421,7 +431,12 @@ const uploadDetailImage = async ({ file, onSuccess, onError }) => {
 // 视频上传
 const uploadVideo = async ({ file, onSuccess, onError }) => {
   try {
-    const url = await uploadFileToStorage(file, 'videos')
+    if (!form.model) {
+      throw new Error('请先填写产品型号')
+    }
+    const sequence = form.videos.length + 1
+    const fileName = `${form.model}video${sequence}`
+    const url = await uploadFileToStorage(file, 'videos', fileName)
     form.videos.push(url)
     onSuccess({ url })
     ElMessage.success('视频上传成功')
