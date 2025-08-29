@@ -803,6 +803,7 @@ onMounted(async () => {
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  margin-left: 4px;
 }
 
 .draggable-item:hover .el-upload-list__item-actions {
@@ -822,6 +823,8 @@ onMounted(async () => {
   opacity: 1;
   color: white;
   position: relative;
+  font-size: 18px;
+  margin-bottom: 5px;
 }
 
 .draggable-item .el-upload-list__item-delete:hover {
@@ -829,6 +832,8 @@ onMounted(async () => {
   opacity: 1;
   color: white;
   position: relative;
+  font-size: 18px;
+  margin-bottom: 5px;
 }
 
 .upload-progress {
