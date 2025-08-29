@@ -15,18 +15,12 @@
           <el-input v-model="form.model" placeholder="请输入产品型号" maxlength="50" show-word-limit :disabled="isEditMode" />
         </el-form-item>
 
-        <el-row :gutter="20">
-          <el-col :span="12">
-            <el-form-item label="中文名称" prop="name_zh">
-              <el-input v-model="form.name_zh" placeholder="请输入中文名称" maxlength="100" show-word-limit />
+        <el-form-item label="中文名称" prop="name_zh">
+              <el-input v-model="form.name_zh" placeholder="请输入中文名称" maxlength="200" show-word-limit />
             </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="英文名称" prop="name_en">
-              <el-input v-model="form.name_en" placeholder="请输入英文名称" maxlength="100" show-word-limit />
+          <el-form-item label="英文名称" prop="name_en">
+              <el-input v-model="form.name_en" placeholder="请输入英文名称" maxlength="200" show-word-limit />
             </el-form-item>
-          </el-col>
-        </el-row>
 
         <el-row :gutter="20">
           <el-col :span="12">
