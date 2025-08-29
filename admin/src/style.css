@@ -119,3 +119,25 @@ body {
 .fade-leave-to {
   opacity: 0;
 }
+
+.lxColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.lxRow {
+  display: flex;
+  flex-direction: row;
+}
+
+.lxCenterColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.lxCenterRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}

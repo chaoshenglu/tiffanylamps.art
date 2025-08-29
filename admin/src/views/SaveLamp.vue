@@ -792,17 +792,17 @@ onMounted(async () => {
   height: 100%;
   left: 0;
   top: 0;
-  cursor: default;
   text-align: center;
   color: #fff;
   opacity: 0;
   font-size: 20px;
   background-color: rgba(0, 0, 0, 0.5);
   transition: opacity 0.3s;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   gap: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
 .draggable-item:hover .el-upload-list__item-actions {
@@ -821,12 +821,14 @@ onMounted(async () => {
   display: flex;
   opacity: 1;
   color: white;
+  position: relative;
 }
 
 .draggable-item .el-upload-list__item-delete:hover {
   display: flex;
   opacity: 1;
   color: white;
+  position: relative;
 }
 
 .upload-progress {
