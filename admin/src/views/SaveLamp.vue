@@ -817,9 +817,16 @@ onMounted(async () => {
   transition: background-color 0.3s;
 }
 
-.draggable-item .el-upload-list__item-preview:hover,
+.draggable-item .el-upload-list__item-delete {
+  display: flex;
+  opacity: 1;
+  color: white;
+}
+
 .draggable-item .el-upload-list__item-delete:hover {
-  background-color: rgba(255, 255, 255, 0.2);
+  display: flex;
+  opacity: 1;
+  color: white;
 }
 
 .upload-progress {
