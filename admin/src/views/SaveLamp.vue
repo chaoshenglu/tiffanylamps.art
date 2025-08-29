@@ -141,7 +141,7 @@
                   <!-- 操作按钮层 -->
                   <span class="el-upload-list__item-actions">
                     <span class="el-upload-list__item-preview" @click="handleMainImagePreview(file)">
-                      <el-icon><zoom-in /></el-icon>
+                      <el-icon><ZoomIn /></el-icon>
                     </span>
                     <span class="el-upload-list__item-delete" @click="handleMainImageRemove(file)">
                       <el-icon><Delete /></el-icon>
