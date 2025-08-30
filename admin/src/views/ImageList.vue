@@ -27,8 +27,7 @@
       <!-- 分页 -->
       <div class="pagination-container">
         <el-pagination v-model:current-page="pagination.currentPage" v-model:page-size="pagination.pageSize"
-          :page-sizes="[10, 20, 50, 100]" :total="pagination.total" layout="total, sizes, prev, pager, next, jumper"
-          @size-change="handleSizeChange" @current-change="handleCurrentChange" />
+          :total="pagination.total" layout="total, prev, pager, next, jumper" @current-change="handleCurrentChange" />
       </div>
     </el-card>
   </div>
@@ -106,13 +105,6 @@ const loadImages = async () => {
   } finally {
     loading.value = false
   }
-}
-
-// 处理页面大小变化
-const handleSizeChange = (size) => {
-  pagination.pageSize = size
-  pagination.currentPage = 1
-  loadImages()
 }
 
 // 处理当前页变化

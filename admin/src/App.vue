@@ -1,9 +1,6 @@
 <script setup>
 import { onMounted } from 'vue'
-import { useRouter } from 'vue-router'
 import { initializeSupabase } from './store/supabase.js'
-
-const router = useRouter()
 
 onMounted(async () => {
   // 页面加载时自动初始化Supabase连接

@@ -79,8 +79,7 @@
       <!-- 分页 -->
       <div class="pagination-container">
         <el-pagination v-model:current-page="pagination.currentPage" v-model:page-size="pagination.pageSize"
-          :page-sizes="[10, 20, 50, 100]" :total="pagination.total" layout="total, sizes, prev, pager, next, jumper"
-          @size-change="handleSizeChange" @current-change="handleCurrentChange" />
+          :total="pagination.total" layout="total, prev, pager, next, jumper" @current-change="handleCurrentChange" />
       </div>
     </el-card>
 
@@ -217,7 +216,7 @@ const loadPosts = async () => {
 
     if (error) {
       console.error('加载文章错误:', error)
-      
+
       // 如果是认证错误，尝试重连
       if (error.code === 'PGRST301' || error.message.includes('JWT') || error.message.includes('authentication')) {
         const reconnected = await autoReconnect()
@@ -228,7 +227,7 @@ const loadPosts = async () => {
           return
         }
       }
-      
+
       ElMessage.error(`加载失败: ${error.message}`)
       return
     }
@@ -276,13 +275,6 @@ const handleSortChange = ({ prop, order }) => {
     sort.order = order
     loadPosts()
   }
-}
-
-// 处理页面大小变化
-const handleSizeChange = (size) => {
-  pagination.pageSize = size
-  pagination.currentPage = 1
-  loadPosts()
 }
 
 // 处理当前页变化
@@ -372,6 +364,4 @@ onMounted(() => {
   justify-content: center;
   padding: 20px 0;
 }
-
-
 </style>
