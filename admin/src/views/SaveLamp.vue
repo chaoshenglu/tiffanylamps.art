@@ -10,17 +10,17 @@
       <el-form ref="formRef" :model="form" :rules="rules" label-width="120px" class="lamp-form" v-loading="loading">
         <!-- 基本信息 -->
         <el-divider content-position="left">基本信息</el-divider>
-        
+
         <el-form-item label="产品型号" prop="model">
           <el-input v-model="form.model" placeholder="请输入产品型号" maxlength="50" show-word-limit :disabled="isEditMode" />
         </el-form-item>
 
         <el-form-item label="中文名称" prop="name_zh">
-              <el-input v-model="form.name_zh" placeholder="请输入中文名称" maxlength="200" show-word-limit />
-            </el-form-item>
-          <el-form-item label="英文名称" prop="name_en">
-              <el-input v-model="form.name_en" placeholder="请输入英文名称" maxlength="200" show-word-limit />
-            </el-form-item>
+          <el-input v-model="form.name_zh" placeholder="请输入中文名称" maxlength="200" show-word-limit />
+        </el-form-item>
+        <el-form-item label="英文名称" prop="name_en">
+          <el-input v-model="form.name_en" placeholder="请输入英文名称" maxlength="200" show-word-limit />
+        </el-form-item>
 
         <el-row :gutter="20">
           <el-col :span="12">
@@ -37,11 +37,12 @@
 
         <!-- 规格信息 -->
         <el-divider content-position="left">规格信息</el-divider>
-        
+
         <el-row :gutter="20">
           <el-col :span="12">
             <el-form-item label="英寸" prop="inch">
-              <el-input-number v-model="form.inch" :precision="2" :step="0.1" :min="0" placeholder="英寸" style="width: 100%" />
+              <el-input-number v-model="form.inch" :precision="2" :step="0.1" :min="0" placeholder="英寸"
+                style="width: 100%" />
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -61,33 +62,38 @@
         <el-row :gutter="20">
           <el-col :span="8">
             <el-form-item label="长度(cm)" prop="length">
-              <el-input-number v-model="form.length" :precision="2" :step="0.1" :min="0" placeholder="长度" style="width: 100%" />
+              <el-input-number v-model="form.length" :precision="2" :step="0.1" :min="0" placeholder="长度"
+                style="width: 100%" />
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="宽度(cm)" prop="width">
-              <el-input-number v-model="form.width" :precision="2" :step="0.1" :min="0" placeholder="宽度" style="width: 100%" />
+              <el-input-number v-model="form.width" :precision="2" :step="0.1" :min="0" placeholder="宽度"
+                style="width: 100%" />
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="高度(cm)" prop="height">
-              <el-input-number v-model="form.height" :precision="2" :step="0.1" :min="0" placeholder="高度" style="width: 100%" />
+              <el-input-number v-model="form.height" :precision="2" :step="0.1" :min="0" placeholder="高度"
+                style="width: 100%" />
             </el-form-item>
           </el-col>
         </el-row>
 
         <!-- 价格信息 -->
         <el-divider content-position="left">价格信息</el-divider>
-        
+
         <el-row :gutter="20">
           <el-col :span="12">
             <el-form-item label="国内价格" prop="price_zh">
-              <el-input-number v-model="form.price_zh" :precision="2" :step="1" :min="0" placeholder="国内价格" style="width: 100%" />
+              <el-input-number v-model="form.price_zh" :precision="2" :step="1" :min="0" placeholder="国内价格"
+                style="width: 100%" />
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="国外价格" prop="price_en">
-              <el-input-number v-model="form.price_en" :precision="2" :step="1" :min="0" placeholder="国外价格" style="width: 100%" />
+              <el-input-number v-model="form.price_en" :precision="2" :step="1" :min="0" placeholder="国外价格"
+                style="width: 100%" />
             </el-form-item>
           </el-col>
         </el-row>
@@ -105,59 +111,42 @@
 
         <!-- 图片上传 -->
         <el-divider content-position="left">图片管理</el-divider>
-        
+
         <el-form-item label="主图" prop="main_images">
           <div class="upload-section">
             <!-- 拖拽排序区域 -->
-            <draggable
-              v-model="mainImageList"
-              item-key="uid"
-              class="draggable-list"
-              :animation="200"
-              ghost-class="ghost"
-              @end="onMainImageDragEnd"
-            >
+            <draggable v-model="mainImageList" item-key="uid" class="draggable-list" :animation="200"
+              ghost-class="ghost" @end="onMainImageDragEnd">
               <template #item="{ element: file }">
                 <div class="draggable-item">
-                  <img
-                    class="el-upload-list__item-thumbnail"
-                    :src="file.url"
-                    alt=""
-                  />
+                  <img class="el-upload-list__item-thumbnail" :src="file.url" alt="" />
                   <!-- 状态显示层 -->
                   <div v-if="file.status === 'uploading'" class="upload-progress">
-                    <el-progress
-                      type="circle"
-                      :percentage="file.percentage || 0"
-                      :width="60"
-                    />
+                    <el-progress type="circle" :percentage="file.percentage || 0" :width="60" />
                   </div>
                   <!-- 操作按钮层 -->
                   <span class="el-upload-list__item-actions">
                     <span class="el-upload-list__item-preview" @click="handleMainImagePreview(file)">
-                      <el-icon><ZoomIn /></el-icon>
+                      <el-icon>
+                        <ZoomIn />
+                      </el-icon>
                     </span>
                     <span class="el-upload-list__item-delete" @click="handleMainImageRemove(file)">
-                      <el-icon><Delete /></el-icon>
+                      <el-icon>
+                        <Delete />
+                      </el-icon>
                     </span>
                   </span>
                 </div>
               </template>
             </draggable>
             <!-- 上传按钮 -->
-            <el-upload
-              v-if="mainImageList.length < 10"
-              ref="mainUploadRef"
-              :file-list="[]"
-              :on-change="handleMainImageChange"
-              :before-upload="beforeUpload"
-              :http-request="uploadMainImage"
-              list-type="picture-card"
-              accept="image/*"
-              multiple
-              :show-file-list="false"
-            >
-              <el-icon><Plus /></el-icon>
+            <el-upload v-if="mainImageList.length < 10" ref="mainUploadRef" :file-list="[]"
+              :on-change="handleMainImageChange" :before-upload="beforeUpload" :http-request="uploadMainImage"
+              list-type="picture-card" accept="image/*" multiple :show-file-list="false">
+              <el-icon>
+                <Plus />
+              </el-icon>
             </el-upload>
             <div class="upload-tip">支持jpg、png格式，单个文件不超过5MB，最多10张，可拖拽调整顺序</div>
           </div>
@@ -166,28 +155,14 @@
         <el-form-item label="细节图" prop="detail_images">
           <div class="upload-section">
             <!-- 拖拽排序区域 -->
-            <draggable
-              v-model="detailImageList"
-              item-key="uid"
-              class="draggable-list"
-              :animation="200"
-              ghost-class="ghost"
-              @end="onDetailImageDragEnd"
-            >
+            <draggable v-model="detailImageList" item-key="uid" class="draggable-list" :animation="200"
+              ghost-class="ghost" @end="onDetailImageDragEnd">
               <template #item="{ element: file }">
                 <div class="draggable-item">
-                  <img
-                    class="el-upload-list__item-thumbnail"
-                    :src="file.url"
-                    alt=""
-                  />
+                  <img class="el-upload-list__item-thumbnail" :src="file.url" alt="" />
                   <!-- 状态显示层 -->
                   <div v-if="file.status === 'uploading'" class="upload-progress">
-                    <el-progress
-                      type="circle"
-                      :percentage="file.percentage || 0"
-                      :width="60"
-                    />
+                    <el-progress type="circle" :percentage="file.percentage || 0" :width="60" />
                   </div>
                   <!-- 操作按钮层 -->
                   <span class="el-upload-list__item-actions">
@@ -195,26 +170,21 @@
                       <el-icon><zoom-in /></el-icon>
                     </span>
                     <span class="el-upload-list__item-delete" @click="handleDetailImageRemove(file)">
-                      <el-icon><Delete /></el-icon>
+                      <el-icon>
+                        <Delete />
+                      </el-icon>
                     </span>
                   </span>
                 </div>
               </template>
             </draggable>
             <!-- 上传按钮 -->
-            <el-upload
-              v-if="detailImageList.length < 20"
-              ref="detailUploadRef"
-              :file-list="[]"
-              :on-change="handleDetailImageChange"
-              :before-upload="beforeUpload"
-              :http-request="uploadDetailImage"
-              list-type="picture-card"
-              accept="image/*"
-              multiple
-              :show-file-list="false"
-            >
-              <el-icon><Plus /></el-icon>
+            <el-upload v-if="detailImageList.length < 20" ref="detailUploadRef" :file-list="[]"
+              :on-change="handleDetailImageChange" :before-upload="beforeUpload" :http-request="uploadDetailImage"
+              list-type="picture-card" accept="image/*" multiple :show-file-list="false">
+              <el-icon>
+                <Plus />
+              </el-icon>
             </el-upload>
             <div class="upload-tip">支持jpg、png格式，单个文件不超过5MB，最多20张，可拖拽调整顺序</div>
           </div>
@@ -222,21 +192,12 @@
 
         <!-- 视频上传 -->
         <el-divider content-position="left">视频管理</el-divider>
-        
+
         <el-form-item label="产品视频" prop="videos">
           <div class="upload-section">
-            <el-upload
-              ref="videoUploadRef"
-              :file-list="videoList"
-              :on-change="handleVideoChange"
-              :on-remove="handleVideoRemove"
-              :before-upload="beforeVideoUpload"
-              :http-request="uploadVideo"
-              list-type="text"
-              :limit="5"
-              accept="video/*"
-              multiple
-            >
+            <el-upload ref="videoUploadRef" :file-list="videoList" :on-change="handleVideoChange"
+              :on-remove="handleVideoRemove" :before-upload="beforeVideoUpload" :http-request="uploadVideo"
+              list-type="text" :limit="5" accept="video/*" multiple>
               <el-button type="primary">选择视频文件</el-button>
             </el-upload>
             <div class="upload-tip">支持mp4、mov格式，单个文件不超过50MB，最多5个</div>
@@ -257,12 +218,8 @@
     <!-- 图片预览对话框 -->
     <el-dialog v-model="previewVisible" title="图片预览" width="60%" center>
       <div class="preview-container">
-        <el-image
-          :src="previewImageUrl"
-          fit="contain"
-          style="width: 100%; max-height: 70vh;"
-          :preview-teleported="true"
-        />
+        <el-image :src="previewImageUrl" fit="contain" style="width: 100%; max-height: 70vh;"
+          :preview-teleported="true" />
       </div>
     </el-dialog>
   </div>
@@ -543,7 +500,7 @@ const loadLamp = async () => {
       Object.keys(form).forEach(key => {
         if (key.includes('_')) {
           // 处理带下划线的字段名
-          const dbKey = key.replace('_', '-')
+          const dbKey = key
           if (data[dbKey] !== undefined) {
             form[key] = data[dbKey]
           }
@@ -555,9 +512,9 @@ const loadLamp = async () => {
       })
 
       // 处理图片和视频列表显示
-      if (data['main-images']) {
-        form.main_images = [...data['main-images']]
-        mainImageList.value = data['main-images'].map((url, index) => ({
+      if (data.main_images) {
+        form.main_images = [...data.main_images]
+        mainImageList.value = data.main_images.map((url, index) => ({
           uid: index,
           name: `主图${index + 1}`,
           status: 'success',
@@ -566,9 +523,9 @@ const loadLamp = async () => {
         }))
       }
 
-      if (data['detail-images']) {
-        form.detail_images = [...data['detail-images']]
-        detailImageList.value = data['detail-images'].map((url, index) => ({
+      if (data.detail_images) {
+        form.detail_images = [...data.detail_images]
+        detailImageList.value = data.detail_images.map((url, index) => ({
           uid: index,
           name: `细节图${index + 1}`,
           status: 'success',
@@ -616,20 +573,20 @@ const submitForm = async () => {
       try {
         const lampData = {
           model: form.model,
-          'name-zh': form.name_zh,
-          'name-en': form.name_en,
-          'abb-zh': form.abb_zh,
-          'abb-en': form.abb_en,
+          name_zh: form.name_zh,
+          name_en: form.name_en,
+          abb_zh: form.abb_zh,
+          abb_en: form.abb_en,
           inch: form.inch,
           length: form.length,
           width: form.width,
           height: form.height,
           type: form.type,
-          'price-zh': form.price_zh,
-          'price-en': form.price_en,
+          price_zh: form.price_zh,
+          price_en: form.price_en,
           mt: form.mt,
-          'main-images': form.main_images,
-          'detail-images': form.detail_images,
+          main_images: form.main_images,
+          detail_images: form.detail_images,
           videos: form.videos
         }
 
@@ -672,12 +629,12 @@ const resetForm = () => {
   if (formRef.value) {
     formRef.value.resetFields()
   }
-  
+
   // 清空文件列表
   mainImageList.value = []
   detailImageList.value = []
   videoList.value = []
-  
+
   // 重置表单数据
   Object.keys(form).forEach(key => {
     if (Array.isArray(form[key])) {
@@ -702,7 +659,7 @@ onMounted(async () => {
       return
     }
   }
-  
+
   // 如果是编辑模式，加载产品数据
   if (isEditMode.value) {
     await loadLamp()

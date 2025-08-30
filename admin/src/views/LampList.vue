@@ -42,18 +42,13 @@
         <el-table-column prop="model" label="型号" width="90" show-overflow-tooltip />
         <el-table-column label="主图" width="100">
           <template #default="{ row }">
-            <el-image
-              v-if="row['main-images'] && row['main-images'].length > 0"
-              :src="row['main-images'][0]"
-              :preview-src-list="row['main-images']"
-              fit="cover"
-              style="width: 60px; height: 60px; border-radius: 4px;"
-              :preview-teleported="true"
-            />
+            <el-image v-if="row.main_images && row.main_images.length > 0" :src="row.main_images[0]"
+              :preview-src-list="row.main_images" fit="cover" style="width: 60px; height: 60px; border-radius: 4px;"
+              :preview-teleported="true" />
             <div v-else class="no-image">无图片</div>
           </template>
         </el-table-column>
-        <el-table-column prop="abb-zh" label="中文简称" show-overflow-tooltip />
+        <el-table-column prop="abb_zh" label="中文简称" show-overflow-tooltip />
         <el-table-column prop="inch" label="英寸">
           <template #default="{ row }">
             {{ row.inch }}″
@@ -66,15 +61,15 @@
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="price-zh" label="国内价">
+        <el-table-column prop="price_zh" label="国内价">
           <template #default="{ row }">
-            <span v-if="row['price-zh']">¥{{ row['price-zh'] }}</span>
+            <span v-if="row.price_zh">¥{{ row.price_zh }}</span>
             <span v-else>-</span>
           </template>
         </el-table-column>
-        <el-table-column prop="price-en" label="国外价">
+        <el-table-column prop="price_en" label="国外价">
           <template #default="{ row }">
-            <span v-if="row['price-en']">${{ row['price-en'] }}</span>
+            <span v-if="row.price_en">${{ row.price_en }}</span>
             <span v-else>-</span>
           </template>
         </el-table-column>
@@ -175,7 +170,7 @@ const loadLamps = async () => {
       query = query.eq('type', filters.type)
     }
     if (filters.search) {
-      query = query.or(`model.ilike.%${filters.search}%,name-zh.ilike.%${filters.search}%,name-en.ilike.%${filters.search}%`)
+      query = query.or(`model.ilike.%${filters.search}%,name_zh.ilike.%${filters.search}%,name_en.ilike.%${filters.search}%`)
     }
 
     // 应用排序
@@ -191,7 +186,7 @@ const loadLamps = async () => {
 
     if (error) {
       console.error('加载产品错误:', error)
-      
+
       // 如果是认证错误，尝试重连
       if (error.code === 'PGRST301' || error.message.includes('JWT') || error.message.includes('authentication')) {
         const reconnected = await autoReconnect()
@@ -202,7 +197,7 @@ const loadLamps = async () => {
           return
         }
       }
-      
+
       ElMessage.error(`加载失败: ${error.message}`)
       return
     }
@@ -278,7 +273,7 @@ const editLamp = (lamp) => {
 const deleteLamp = async (lamp) => {
   try {
     await ElMessageBox.confirm(
-      `确定要删除产品「${lamp.model} - ${lamp['name-zh']}」吗？`,
+      `确定要删除产品「${lamp.model} - ${lamp.name_zh}」吗？`,
       '确认删除',
       {
         confirmButtonText: '确定',
