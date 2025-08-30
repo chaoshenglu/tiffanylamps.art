@@ -100,14 +100,6 @@ const beforeUpload = (file) => {
   return false // 返回false阻止自动上传
 }
 
-// 生成UUID
-const generateUUID = () => {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-    const r = Math.random() * 16 | 0
-    const v = c === 'x' ? r : (r & 0x3 | 0x8)
-    return v.toString(16)
-  })
-}
 
 // 提交表单
 const submitForm = async () => {
@@ -135,10 +127,10 @@ const submitForm = async () => {
     }
 
     // 上传所有图片
-    const uploadPromises = fileList.value.map(async (file) => {
-      const uuid = generateUUID()
+    const uploadPromises = fileList.value.map(async (file, index) => {
+      const random4Digits = Math.floor(1000 + Math.random() * 9000) // 生成4位随机数
       const fileExtension = file.name.split('.').pop()
-      const fileName = `drainage/${uuid}.${fileExtension}`
+      const fileName = `drainage/${form.amazonId}-${index}-${random4Digits}.${fileExtension}`
 
       const { data, error } = await supabaseClient.value.storage
         .from('images')
