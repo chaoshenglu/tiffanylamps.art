@@ -9,25 +9,174 @@
       </template>
 
       <div class="form-container">
-        <el-alert title="图片上传功能待实现" type="info" description="此页面用于上传图片到 drainage 文件夹，功能将在后续版本中实现。" show-icon
-          :closable="false" />
+        <el-form :model="form" :rules="rules" ref="formRef" label-width="100px">
+          <!-- 商品ID信息 -->
+          <el-form-item label="Amazon ID" prop="amazonId">
+            <el-input v-model="form.amazonId" placeholder="请输入Amazon商品ID" style="width: 300px;" />
+          </el-form-item>
 
-        <div class="placeholder-content">
-          <el-icon size="64" color="#909399">
-            <Picture />
-          </el-icon>
-          <p class="placeholder-text">图片上传功能开发中</p>
-        </div>
+          <el-form-item label="天猫 ID" prop="tmallId">
+            <el-input v-model="form.tmallId" placeholder="请输入天猫商品ID" style="width: 300px;" />
+          </el-form-item>
+
+          <!-- 图片上传区域 -->
+          <el-form-item label="商品图片" required>
+            <div class="upload-section">
+              <el-alert title="多图上传时，请保证多张图片都是同一件商品" type="info" :closable="false" style="margin-bottom: 16px;" />
+
+              <el-upload v-model:file-list="fileList" action="#" multiple :auto-upload="false"
+                :on-change="handleFileChange" :on-remove="handleFileRemove" list-type="picture-card"
+                :before-upload="beforeUpload">
+                <el-icon>
+                  <Plus />
+                </el-icon>
+              </el-upload>
+            </div>
+          </el-form-item>
+
+          <!-- 提交按钮 -->
+          <el-form-item>
+            <el-button type="primary" @click="submitForm" :loading="loading">提交</el-button>
+            <el-button @click="resetForm">重置</el-button>
+          </el-form-item>
+        </el-form>
       </div>
     </el-card>
   </div>
 </template>
 
 <script setup>
+import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
-import { Picture } from '@element-plus/icons-vue'
+import { ElMessage } from 'element-plus'
+import { Plus } from '@element-plus/icons-vue'
+import { supabaseClient, isConnected, autoReconnect } from '../store/supabase.js'
 
 const router = useRouter()
+const formRef = ref()
+const loading = ref(false)
+const fileList = ref([])
+
+// 表单数据
+const form = reactive({
+  amazonId: '',
+  tmallId: ''
+})
+
+// 表单验证规则
+const rules = reactive({
+  amazonId: [
+    { required: true, message: '请输入Amazon商品ID', trigger: 'blur' }
+  ],
+  tmallId: [
+    { required: true, message: '请输入天猫商品ID', trigger: 'blur' }
+  ]
+})
+
+// 文件选择变化
+const handleFileChange = (file, files) => {
+  fileList.value = files
+}
+
+// 文件移除
+const handleFileRemove = (file, files) => {
+  fileList.value = files
+}
+
+// 上传前验证
+const beforeUpload = (file) => {
+  const isImage = file.type.startsWith('image/')
+  if (!isImage) {
+    ElMessage.error('只能上传图片文件')
+    return false
+  }
+
+  const isLt5M = file.size / 1024 / 1024 < 5
+  if (!isLt5M) {
+    ElMessage.error('图片大小不能超过5MB')
+    return false
+  }
+
+  return false // 返回false阻止自动上传
+}
+
+// 生成UUID
+const generateUUID = () => {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    const r = Math.random() * 16 | 0
+    const v = c === 'x' ? r : (r & 0x3 | 0x8)
+    return v.toString(16)
+  })
+}
+
+// 提交表单
+const submitForm = async () => {
+  if (!formRef.value) return
+
+  try {
+    // 验证表单
+    await formRef.value.validate()
+
+    // 检查是否有文件
+    if (fileList.value.length === 0) {
+      ElMessage.warning('请至少上传一张图片')
+      return
+    }
+
+    loading.value = true
+
+    // 如果未连接，尝试自动重连
+    if (!isConnected.value) {
+      const reconnected = await autoReconnect()
+      if (!reconnected) {
+        ElMessage.error('数据库连接失败，请检查环境配置')
+        return
+      }
+    }
+
+    // 上传所有图片
+    const uploadPromises = fileList.value.map(async (file) => {
+      const uuid = generateUUID()
+      const fileExtension = file.name.split('.').pop()
+      const fileName = `drainage/${uuid}.${fileExtension}`
+
+      const { data, error } = await supabaseClient.value.storage
+        .from('images')
+        .upload(fileName, file.raw, {
+          metadata: {
+            amazonId: form.amazonId,
+            tmallId: form.tmallId
+          }
+        })
+
+      if (error) {
+        throw new Error(`上传失败: ${error.message}`)
+      }
+
+      return data
+    })
+
+    // 等待所有上传完成
+    await Promise.all(uploadPromises)
+
+    ElMessage.success('图片上传成功！')
+    resetForm()
+
+  } catch (error) {
+    console.error('上传错误:', error)
+    ElMessage.error(error.message || '上传失败，请重试')
+  } finally {
+    loading.value = false
+  }
+}
+
+// 重置表单
+const resetForm = () => {
+  if (formRef.value) {
+    formRef.value.resetFields()
+  }
+  fileList.value = []
+}
 
 // 返回图片列表
 const goBack = () => {
@@ -58,18 +207,19 @@ const goBack = () => {
   padding: 20px;
 }
 
-.placeholder-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 60px 0;
-  color: #909399;
+.upload-section {
+  width: 100%;
 }
 
-.placeholder-text {
-  margin-top: 16px;
-  font-size: 16px;
-  color: #606266;
+:deep(.el-upload-list--picture-card) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+:deep(.el-upload--picture-card) {
+  width: 100px;
+  height: 100px;
+  line-height: 100px;
 }
 </style>
