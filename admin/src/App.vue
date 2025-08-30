@@ -31,6 +31,7 @@ function refresh() {
           <el-menu mode="horizontal" :ellipsis="false" :default-active="$route.path" class="nav-menu" router>
             <el-menu-item index="/list">文章列表</el-menu-item>
             <el-menu-item index="/lamps">产品列表</el-menu-item>
+            <el-menu-item index="/images">图片列表</el-menu-item>
           </el-menu>
         </div>
       </el-header>
