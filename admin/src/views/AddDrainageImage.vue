@@ -12,11 +12,27 @@
         <el-form :model="form" :rules="rules" ref="formRef" label-width="100px">
           <!-- 商品ID信息 -->
           <el-form-item label="Amazon ID" prop="amazonId">
-            <el-input v-model="form.amazonId" placeholder="请输入Amazon商品ID" style="width: 300px;" />
+            <el-input v-model="form.amazonId" placeholder="请输入Amazon商品ID" style="width: 300px;margin-right: 15px;" />
+            <el-popover placement="right" :width="500" trigger="hover">
+              <template #reference>
+                <el-icon>
+                  <QuestionFilled />
+                </el-icon>
+              </template>
+              <img src="/src/assets/amazonTip.webp" style="width: 100%;" />
+            </el-popover>
           </el-form-item>
 
           <el-form-item label="天猫 ID" prop="tmallId">
-            <el-input v-model="form.tmallId" placeholder="请输入天猫商品ID" style="width: 300px;" />
+            <el-input v-model="form.tmallId" placeholder="请输入天猫商品ID" style="width: 300px;margin-right: 15px;" />
+            <el-popover placement="right" :width="500" trigger="hover">
+              <template #reference>
+                <el-icon>
+                  <QuestionFilled />
+                </el-icon>
+              </template>
+              <img src="/src/assets/tmallTip.webp" style="width: 100%;" />
+            </el-popover>
           </el-form-item>
 
           <!-- 图片上传区域 -->
@@ -51,7 +67,7 @@
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
-import { Plus } from '@element-plus/icons-vue'
+import { Plus, QuestionFilled } from '@element-plus/icons-vue'
 import { supabaseClient, isConnected, autoReconnect } from '../store/supabase.js'
 
 const router = useRouter()
