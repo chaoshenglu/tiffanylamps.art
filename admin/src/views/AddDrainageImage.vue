@@ -22,8 +22,10 @@
           <!-- 图片上传区域 -->
           <el-form-item label="商品图片" required>
             <div class="upload-section">
-              <el-alert title="多图上传时，请保证多张图片都是同一件商品" type="info" :closable="false" style="margin-bottom: 16px;" />
-
+              <el-alert title="请注意：" type="warning" :closable="false" />
+              <el-alert title="1.多图上传时，请保证多张图片都是同一件商品。" type="warning" :closable="false" />
+              <el-alert title="2.发布产品，可以直接上传图片，不需要在这里上传。" type="warning" :closable="false" />
+              <el-alert title="3.这里的图片，仅作为文章中的插图使用。" type="warning" :closable="false" style="margin-bottom: 16px;" />
               <el-upload v-model:file-list="fileList" action="#" multiple :auto-upload="false"
                 :on-change="handleFileChange" :on-remove="handleFileRemove" list-type="picture-card"
                 :before-upload="beforeUpload">
