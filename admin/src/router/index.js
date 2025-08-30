@@ -3,6 +3,8 @@ import CreatePost from '../views/CreatePost.vue'
 import PostList from '../views/PostList.vue'
 import SaveLamp from '../views/SaveLamp.vue'
 import LampList from '../views/LampList.vue'
+import ImageList from '../views/ImageList.vue'
+import AddDrainageImage from '../views/AddDrainageImage.vue'
 
 const routes = [
   {
@@ -42,6 +44,16 @@ const routes = [
     path: '/lamp/edit/:model',
     name: 'EditLamp',
     component: SaveLamp
+  },
+  {
+    path: '/images',
+    name: 'ImageList',
+    component: ImageList
+  },
+  {
+    path: '/images/add',
+    name: 'AddDrainageImage',
+    component: AddDrainageImage
   }
 ]
 
