@@ -14,7 +14,7 @@
           v-model="searchKeyword"
           placeholder="搜索文件名"
           clearable
-          style="width: 300px;"
+          style="width: 300px; margin-bottom: 20px;"
           @input="filterImages"
         >
           <template #prefix>
@@ -193,10 +193,6 @@ onMounted(() => {
   font-size: 1.2rem;
   font-weight: 600;
   color: #2c3e50;
-}
-
-.images-table {
-  margin-bottom: 20px;
 }
 
 </style>
