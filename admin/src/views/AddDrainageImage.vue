@@ -17,6 +17,13 @@
               <el-radio :value="1">是</el-radio>
             </el-radio-group>
           </el-form-item>
+          <!-- 是否添加水印 -->
+          <el-form-item label="是否添加水印">
+            <el-radio-group v-model="addWaterMark">
+              <el-radio :value="0">否</el-radio>
+              <el-radio :value="1">是</el-radio>
+            </el-radio-group>
+          </el-form-item>
           <!-- 商品ID信息 -->
           <el-form-item v-if="haveRelatedProduct==1" label="Amazon ID" prop="amazonId">
             <el-input v-model="form.amazonId" placeholder="请输入Amazon商品ID" style="width: 300px;margin-right: 15px;" />
@@ -93,6 +100,7 @@ const router = useRouter()
 const formRef = ref()
 const loading = ref(false)
 const haveRelatedProduct = ref(0)
+const addWaterMark = ref(0)
 const fileList = ref([])
 const previewVisible = ref(false)
 const previewImageUrl = ref('')
