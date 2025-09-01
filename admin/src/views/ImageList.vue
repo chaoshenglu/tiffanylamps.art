@@ -69,6 +69,11 @@ const pagination = reactive({
   total: 0
 })
 
+// 缓存文件总数，避免重复调用
+const totalCountCache = ref(null)
+const cacheTimestamp = ref(0)
+const CACHE_DURATION = 30000 // 30秒缓存
+
 // 搜索处理 - 使用原生防抖避免频繁API调用
 const handleSearch = () => {
   // 清除之前的定时器
@@ -80,6 +85,46 @@ const handleSearch = () => {
   searchTimeout.value = setTimeout(() => {
     loadImages()
   }, 300)
+}
+
+// 获取文件总数
+const getTotalFilesCount = async (forceRefresh = false) => {
+  const now = Date.now()
+  
+  // 使用缓存（非搜索状态且缓存有效）
+  if (!forceRefresh && !searchQuery.value && totalCountCache.value !== null &&
+      (now - cacheTimestamp.value) < CACHE_DURATION) {
+    return totalCountCache.value
+  }
+
+  try {
+    // 获取所有文件（不限制数量）来计数
+    const { data, error } = await supabaseClient.value.storage
+      .from('images')
+      .list('dr', {
+        limit: 1000, // 设置一个足够大的限制来获取所有文件
+        search: searchQuery.value
+      })
+
+    if (error) {
+      console.error('获取文件总数错误:', error)
+      return 0
+    }
+
+    // 过滤掉文件夹，只保留文件并计数
+    const count = data.filter(item => !item.name.endsWith('/')).length
+    
+    // 缓存非搜索状态的总数
+    if (!searchQuery.value) {
+      totalCountCache.value = count
+      cacheTimestamp.value = now
+    }
+    
+    return count
+  } catch (error) {
+    console.error('获取文件总数错误:', error)
+    return 0
+  }
 }
 
 // 加载图片列表
@@ -134,8 +179,15 @@ const loadImages = async () => {
     })
 
     images.value = imagesWithUrls
-    pagination.total = files.length // 这里需要获取总文件数，但 list API 不返回总数
-    // 为了分页正常工作，可能需要实现一个计数功能
+    
+    // 获取文件总数并设置分页
+    if (searchQuery.value) {
+      // 搜索时，获取准确的搜索结果总数
+      pagination.total = await getTotalFilesCount(true)
+    } else {
+      // 非搜索时，使用缓存的总文件数
+      pagination.total = await getTotalFilesCount()
+    }
 
   } catch (error) {
     console.error('加载图片错误:', error)
@@ -185,6 +237,8 @@ const deleteImage = async (image) => {
       ElMessage.error(`删除失败: ${error.message}`)
     } else {
       ElMessage.success('删除成功')
+      // 清除缓存，强制刷新总数
+      totalCountCache.value = null
       loadImages()
     }
   } catch (error) {
