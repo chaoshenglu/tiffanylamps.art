@@ -8,8 +8,23 @@
         </div>
       </template>
 
+      <!-- 搜索框 -->
+      <div class="search-container">
+        <el-input
+          v-model="searchKeyword"
+          placeholder="搜索文件名"
+          clearable
+          style="width: 300px;"
+          @input="filterImages"
+        >
+          <template #prefix>
+            <el-icon><search /></el-icon>
+          </template>
+        </el-input>
+      </div>
+
       <!-- 图片表格 -->
-      <el-table :data="images" v-loading="loading" stripe class="images-table">
+      <el-table :data="filteredImages" v-loading="loading" stripe class="images-table">
         <el-table-column label="缩略图" width="80">
           <template #default="{ row }">
             <el-image :src="row.url" :preview-src-list="[row.url]" fit="cover"
@@ -30,14 +45,33 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted, computed } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { supabaseClient, isConnected, autoReconnect } from '../store/supabase.js'
 import { useRouter } from 'vue-router'
+import { Search } from '@element-plus/icons-vue'
 
 const router = useRouter()
 const loading = ref(false)
 const images = ref([])
+const searchKeyword = ref('')
+const allImages = ref([])
+
+// 筛选后的图片列表
+const filteredImages = computed(() => {
+  if (!searchKeyword.value) {
+    return images.value
+  }
+  const keyword = searchKeyword.value.toLowerCase()
+  return images.value.filter(image =>
+    image.name.toLowerCase().includes(keyword)
+  )
+})
+
+// 筛选图片
+const filterImages = () => {
+  // computed 属性会自动更新，这里不需要额外操作
+}
 
 // 加载图片列表
 const loadImages = async () => {
@@ -83,8 +117,7 @@ const loadImages = async () => {
     })
 
     images.value = imagesWithUrls
-    pagination.total = files.length // 这里需要获取总文件数，但 list API 不返回总数
-    // 为了分页正常工作，可能需要实现一个计数功能
+    allImages.value = imagesWithUrls // 保存所有图片用于搜索
 
   } catch (error) {
     console.error('加载图片错误:', error)
