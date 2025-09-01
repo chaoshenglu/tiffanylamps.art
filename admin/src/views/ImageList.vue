@@ -15,7 +15,7 @@
           placeholder="搜索文件名称"
           clearable
           @input="handleSearch"
-          style="width: 300px; margin-bottom: 20px;"
+          style="width: 300px;"
         >
           <template #prefix>
             <el-icon><search /></el-icon>
@@ -24,7 +24,7 @@
       </div>
 
       <!-- 图片表格 -->
-      <el-table :data="filteredImages" v-loading="loading" stripe class="images-table">
+      <el-table :data="images" v-loading="loading" stripe class="images-table">
         <el-table-column label="缩略图" width="80">
           <template #default="{ row }">
             <el-image :src="row.url" :preview-src-list="[row.url]" fit="cover"
