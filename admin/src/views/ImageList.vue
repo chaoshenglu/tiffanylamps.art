@@ -70,8 +70,7 @@ const loadImages = async () => {
       .from('images')
       .list('dr', {
         limit: pagination.pageSize,
-        offset: (pagination.currentPage - 1) * pagination.pageSize,
-        sortBy: { column: 'name', order: 'asc' }
+        offset: (pagination.currentPage - 1) * pagination.pageSize
       })
 
     if (error) {
