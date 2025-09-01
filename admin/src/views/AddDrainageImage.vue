@@ -186,7 +186,7 @@ const submitForm = async () => {
       } else {
         // 不关联商品时使用nanoid生成文件名
         const nanoId = nanoid().replace(/-/g, '') // 去除中划线
-        fileName = `dr/${nanoId}-${random4Digits}${index}.${fileExtension}`
+        fileName = `dr/${nanoId}${index}.${fileExtension}`
       }
 
       const { data, error } = await supabaseClient.value.storage
