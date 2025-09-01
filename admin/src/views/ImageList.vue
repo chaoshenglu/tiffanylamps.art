@@ -25,11 +25,6 @@
         </el-table-column>
       </el-table>
 
-      <!-- 分页 -->
-      <div class="pagination-container">
-        <el-pagination v-model:current-page="pagination.currentPage" v-model:page-size="pagination.pageSize"
-          :total="pagination.total" layout="total, prev, pager, next, jumper" @current-change="handleCurrentChange" />
-      </div>
     </el-card>
   </div>
 </template>
@@ -43,13 +38,6 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 const loading = ref(false)
 const images = ref([])
-
-// 分页配置
-const pagination = reactive({
-  currentPage: 1,
-  pageSize: 10,
-  total: 0
-})
 
 // 加载图片列表
 const loadImages = async () => {
@@ -69,8 +57,7 @@ const loadImages = async () => {
     const { data, error } = await supabaseClient.value.storage
       .from('images')
       .list('dr', {
-        limit: pagination.pageSize,
-        offset: (pagination.currentPage - 1) * pagination.pageSize
+        limit: 500
       })
 
     if (error) {
@@ -105,12 +92,6 @@ const loadImages = async () => {
   } finally {
     loading.value = false
   }
-}
-
-// 处理当前页变化
-const handleCurrentChange = (page) => {
-  pagination.currentPage = page
-  loadImages()
 }
 
 // 新增图片
@@ -185,9 +166,4 @@ onMounted(() => {
   margin-bottom: 20px;
 }
 
-.pagination-container {
-  display: flex;
-  justify-content: center;
-  padding: 20px 0;
-}
 </style>
