@@ -167,20 +167,19 @@ export async function addWatermark(file, watermarkPath) {
         // 绘制主图片
         ctx.drawImage(mainImg, 0, 0);
         
+        // 使用固定水印尺寸：144px宽，30px高
+        const watermarkWidth = 144;
+        const watermarkHeight = 30;
+        
         // 计算水印位置（右下角，留10px边距）
-        const watermarkSize = Math.min(mainImg.width, mainImg.height) * 0.15; // 水印大小为图片较小边的15%
-        const watermarkX = mainImg.width - watermarkSize - 10;
-        const watermarkY = mainImg.height - watermarkSize - 10;
+        const watermarkX = mainImg.width - watermarkWidth - 10;
+        const watermarkY = mainImg.height - watermarkHeight - 10;
         
-        // 绘制水印（保持水印的宽高比）
-        const watermarkAspect = watermarkImg.width / watermarkImg.height;
-        const watermarkWidth = watermarkSize;
-        const watermarkHeight = watermarkSize / watermarkAspect;
-        
+        // 绘制水印
         ctx.drawImage(
           watermarkImg,
           watermarkX,
-          watermarkY - (watermarkSize - watermarkHeight), // 垂直居中
+          watermarkY,
           watermarkWidth,
           watermarkHeight
         );
@@ -208,6 +207,7 @@ export async function addWatermark(file, watermarkPath) {
     };
     
     watermarkImg.onerror = () => {
+      URL.revokeObjectURL(mainUrl);
       reject(new Error('水印图片加载失败'));
     };
     
