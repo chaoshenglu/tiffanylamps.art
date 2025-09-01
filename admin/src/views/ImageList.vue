@@ -16,9 +16,10 @@
               style="width: 80px; height: 80px; border-radius: 4px;" :preview-teleported="true" />
           </template>
         </el-table-column>
-        <el-table-column prop="name" label="图片名称" show-overflow-tooltip />
-        <el-table-column label="操作" width="100" fixed="right">
+        <el-table-column prop="url" label="图片地址" show-overflow-tooltip />
+        <el-table-column label="操作" width="180" fixed="right">
           <template #default="{ row }">
+            <el-button size="small" type="primary" @click="copyLink(row)">复制链接</el-button>
             <el-button size="small" type="danger" @click="deleteImage(row)">删除</el-button>
           </template>
         </el-table-column>
@@ -116,6 +117,14 @@ const handleCurrentChange = (page) => {
 // 新增图片
 const addImage = () => {
   router.push('/images/add')
+}
+
+const copyLink = (image) => {
+  navigator.clipboard.writeText(image.url).then(() => {
+    ElMessage.success('链接已复制到剪贴板')
+  }).catch(err => {
+    ElMessage.error('复制链接失败')
+  })
 }
 
 // 删除图片
