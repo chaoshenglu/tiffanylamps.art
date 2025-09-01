@@ -148,7 +148,7 @@ const submitForm = async () => {
     const uploadPromises = fileList.value.map(async (file, index) => {
       const random4Digits = Math.floor(1000 + Math.random() * 9000) // 生成4位随机数
       const fileExtension = file.name.split('.').pop()
-      const fileName = `dr/${form.amazonId}-${form.tmallId}-${random4Digits}.${fileExtension}`
+      const fileName = `dr/${form.amazonId}-${form.tmallId}-${random4Digits}${index}.${fileExtension}`
 
       const { data, error } = await supabaseClient.value.storage
         .from('images')
