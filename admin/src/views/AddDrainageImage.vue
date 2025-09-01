@@ -148,16 +148,11 @@ const submitForm = async () => {
     const uploadPromises = fileList.value.map(async (file, index) => {
       const random4Digits = Math.floor(1000 + Math.random() * 9000) // 生成4位随机数
       const fileExtension = file.name.split('.').pop()
-      const fileName = `drainage/${form.amazonId}-${index}-${random4Digits}.${fileExtension}`
+      const fileName = `drainage/${form.amazonId}-${form.tmallId}-${random4Digits}.${fileExtension}`
 
       const { data, error } = await supabaseClient.value.storage
         .from('images')
-        .upload(fileName, file.raw, {
-          metadata: {
-            amazonId: form.amazonId,
-            tmallId: form.tmallId
-          }
-        })
+        .upload(fileName, file.raw)
 
       if (error) {
         throw new Error(`上传失败: ${error.message}`)
