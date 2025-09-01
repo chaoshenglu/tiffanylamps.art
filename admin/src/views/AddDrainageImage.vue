@@ -3,7 +3,7 @@
     <el-card class="form-card">
       <template #header>
         <div class="card-header">
-          <span>新增图片</span>
+          <span>新增图片（文章插图）</span>
           <el-button @click="goBack">返回列表</el-button>
         </div>
       </template>
