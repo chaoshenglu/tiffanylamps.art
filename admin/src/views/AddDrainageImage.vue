@@ -95,6 +95,7 @@ import { ElMessage } from 'element-plus'
 import { Plus, QuestionFilled } from '@element-plus/icons-vue'
 import { supabaseClient, isConnected, autoReconnect } from '../store/supabase.js'
 import { nanoid } from 'nanoid'
+import { processImage } from '../utils/imageProcessor.js'
 
 const router = useRouter()
 const formRef = ref()
@@ -211,28 +212,36 @@ const submitForm = async () => {
 
     // 上传所有图片
     const uploadPromises = fileList.value.map(async (file, index) => {
-      const random4Digits = Math.floor(1000 + Math.random() * 9000) // 生成4位随机数
-      const fileExtension = file.name.split('.').pop()
-      
-      let fileName
-      if (haveRelatedProduct.value) {
-        // 关联商品时使用商品ID
-        fileName = `dr/${form.amazonId}-${form.tmallId}-${random4Digits}${index}.${fileExtension}`
-      } else {
-        // 不关联商品时使用nanoid生成文件名
-        const nanoId = nanoid().replace(/-/g, '') // 去除中划线
-        fileName = `dr/${nanoId}${index}.${fileExtension}`
+      try {
+        // 处理图片：压缩、转换为webp、添加水印（如果需要）
+        const processedFile = await processImage(file.raw, addWaterMark.value === 1)
+        
+        const random4Digits = Math.floor(1000 + Math.random() * 9000) // 生成4位随机数
+        const fileExtension = 'webp' // 强制使用webp格式
+        
+        let fileName
+        if (haveRelatedProduct.value) {
+          // 关联商品时使用商品ID
+          fileName = `dr/${form.amazonId}-${form.tmallId}-${random4Digits}${index}.${fileExtension}`
+        } else {
+          // 不关联商品时使用nanoid生成文件名
+          const nanoId = nanoid().replace(/-/g, '') // 去除中划线
+          fileName = `dr/${nanoId}${index}.${fileExtension}`
+        }
+
+        const { data, error } = await supabaseClient.value.storage
+          .from('images')
+          .upload(fileName, processedFile)
+
+        if (error) {
+          throw new Error(`上传失败: ${error.message}`)
+        }
+
+        return data
+      } catch (error) {
+        console.error(`处理第${index + 1}张图片失败:`, error)
+        throw new Error(`处理图片失败: ${error.message}`)
       }
-
-      const { data, error } = await supabaseClient.value.storage
-        .from('images')
-        .upload(fileName, file.raw)
-
-      if (error) {
-        throw new Error(`上传失败: ${error.message}`)
-      }
-
-      return data
     })
 
     // 等待所有上传完成
