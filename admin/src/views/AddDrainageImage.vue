@@ -50,7 +50,7 @@
               <el-alert title="2.这里的图片，仅作为文章中的插图使用。" type="warning" :closable="false" style="margin-bottom: 16px;" />
               <el-upload v-model:file-list="fileList" action="#" multiple :auto-upload="false"
                 :on-change="handleFileChange" :on-remove="handleFileRemove" list-type="picture-card"
-                :before-upload="beforeUpload">
+                :before-upload="beforeUpload" :on-preview="handlePreview">
                 <el-icon>
                   <Plus />
                 </el-icon>
@@ -67,6 +67,18 @@
       </div>
     </el-card>
   </div>
+
+  <!-- 图片预览对话框 -->
+  <el-dialog v-model="previewVisible" title="图片预览" width="80%" :close-on-click-modal="false">
+    <div class="preview-container">
+      <img :src="previewImageUrl" class="preview-image" alt="预览图片" />
+    </div>
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="previewVisible = false">关闭</el-button>
+      </span>
+    </template>
+  </el-dialog>
 </template>
 
 <script setup>
@@ -82,6 +94,8 @@ const formRef = ref()
 const loading = ref(false)
 const haveRelatedProduct = ref(0)
 const fileList = ref([])
+const previewVisible = ref(false)
+const previewImageUrl = ref('')
 
 // 表单数据
 const form = reactive({
@@ -146,6 +160,19 @@ const beforeUpload = (file) => {
   }
 
   return false // 返回false阻止自动上传
+}
+
+// 图片预览处理
+const handlePreview = (file) => {
+  if (file.url) {
+    previewImageUrl.value = file.url
+  } else if (file.raw) {
+    previewImageUrl.value = URL.createObjectURL(file.raw)
+  } else {
+    ElMessage.warning('无法预览该文件')
+    return
+  }
+  previewVisible.value = true
 }
 
 
@@ -265,5 +292,23 @@ const goBack = () => {
   width: 100px;
   height: 100px;
   line-height: 100px;
+}
+
+.preview-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+.preview-image {
+  max-width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+}
+
+.dialog-footer {
+  display: flex;
+  justify-content: center;
 }
 </style>
