@@ -10,8 +10,15 @@
 
       <div class="form-container">
         <el-form :model="form" :rules="rules" ref="formRef" label-width="100px">
+          <!-- 是否关联商品 -->
+          <el-form-item label="是否关联商品">
+            <el-radio-group v-model="haveRelatedProduct">
+              <el-radio :value="0">否</el-radio>
+              <el-radio :value="1">是</el-radio>
+            </el-radio-group>
+          </el-form-item>
           <!-- 商品ID信息 -->
-          <el-form-item label="Amazon ID" prop="amazonId">
+          <el-form-item v-if="haveRelatedProduct==1" label="Amazon ID" prop="amazonId">
             <el-input v-model="form.amazonId" placeholder="请输入Amazon商品ID" style="width: 300px;margin-right: 15px;" />
             <el-popover placement="right" :width="500" trigger="hover">
               <template #reference>
@@ -23,7 +30,7 @@
             </el-popover>
           </el-form-item>
 
-          <el-form-item label="天猫 ID" prop="tmallId">
+          <el-form-item v-if="haveRelatedProduct==1" label="天猫 ID" prop="tmallId">
             <el-input v-model="form.tmallId" placeholder="请输入天猫商品ID" style="width: 300px;margin-right: 15px;" />
             <el-popover placement="right" :width="500" trigger="hover">
               <template #reference>
@@ -36,7 +43,7 @@
           </el-form-item>
 
           <!-- 图片上传区域 -->
-          <el-form-item label="商品图片" required>
+          <el-form-item label="图片" required>
             <div class="upload-section">
               <el-alert title="请注意：" type="warning" :closable="false" />
               <el-alert title="1.多图上传时，请保证多张图片都是同一件商品。" type="warning" :closable="false" />
@@ -69,10 +76,12 @@ import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { Plus, QuestionFilled } from '@element-plus/icons-vue'
 import { supabaseClient, isConnected, autoReconnect } from '../store/supabase.js'
+import { nanoid } from 'nanoid'
 
 const router = useRouter()
 const formRef = ref()
 const loading = ref(false)
+const haveRelatedProduct = ref(0)
 const fileList = ref([])
 
 // 表单数据
@@ -84,10 +93,32 @@ const form = reactive({
 // 表单验证规则
 const rules = reactive({
   amazonId: [
-    { required: true, message: '请输入Amazon商品ID', trigger: 'blur' }
+    {
+      required: true,
+      message: '请输入Amazon商品ID',
+      trigger: 'blur',
+      validator: (rule, value, callback) => {
+        if (haveRelatedProduct.value && !value) {
+          callback(new Error('请输入Amazon商品ID'))
+        } else {
+          callback()
+        }
+      }
+    }
   ],
   tmallId: [
-    { required: true, message: '请输入天猫商品ID', trigger: 'blur' }
+    {
+      required: true,
+      message: '请输入天猫商品ID',
+      trigger: 'blur',
+      validator: (rule, value, callback) => {
+        if (haveRelatedProduct.value && !value) {
+          callback(new Error('请输入天猫商品ID'))
+        } else {
+          callback()
+        }
+      }
+    }
   ]
 })
 
@@ -148,7 +179,16 @@ const submitForm = async () => {
     const uploadPromises = fileList.value.map(async (file, index) => {
       const random4Digits = Math.floor(1000 + Math.random() * 9000) // 生成4位随机数
       const fileExtension = file.name.split('.').pop()
-      const fileName = `dr/${form.amazonId}-${form.tmallId}-${random4Digits}${index}.${fileExtension}`
+      
+      let fileName
+      if (haveRelatedProduct.value) {
+        // 关联商品时使用商品ID
+        fileName = `dr/${form.amazonId}-${form.tmallId}-${random4Digits}${index}.${fileExtension}`
+      } else {
+        // 不关联商品时使用nanoid生成文件名
+        const nanoId = nanoid().replace(/-/g, '') // 去除中划线
+        fileName = `dr/${nanoId}-${random4Digits}${index}.${fileExtension}`
+      }
 
       const { data, error } = await supabaseClient.value.storage
         .from('images')
