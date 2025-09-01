@@ -56,22 +56,75 @@ export async function compressImage(file) {
 }
 
 /**
+ * 将Blob转换为ImageData
+ * @param {Blob} blob - 图片Blob对象
+ * @returns {Promise<ImageData>} - ImageData对象
+ */
+export const blobToImageData = async (blob) => {
+  return new Promise((resolve, reject) => {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+    let objectUrl = null;
+    
+    img.onload = () => {
+      let { width, height } = img;
+      
+      // 如果图片宽度大于1080px，按比例缩放
+      if (width > 1080) {
+        const ratio = 1080 / width;
+        width = 1080;
+        height = Math.round(height * ratio);
+      }
+      
+      canvas.width = width;
+      canvas.height = height;
+      
+      // 绘制缩放后的图片
+      ctx.drawImage(img, 0, 0, width, height);
+      
+      const imageData = ctx.getImageData(0, 0, width, height);
+      
+      // 清理内存
+      if (objectUrl) {
+        URL.revokeObjectURL(objectUrl);
+      }
+      
+      resolve(imageData);
+    };
+    
+    img.onerror = () => {
+      if (objectUrl) {
+        URL.revokeObjectURL(objectUrl);
+      }
+      reject(new Error('图片加载失败'));
+    };
+    
+    objectUrl = URL.createObjectURL(blob);
+    img.src = objectUrl;
+  });
+};
+
+/**
  * 将图片转换为webp格式
  * @param {File} file - 原始图片文件
  * @returns {Promise<File>} - webp格式的图片文件
  */
 export async function convertToWebp(file) {
   try {
-    // 读取文件为ArrayBuffer
-    const arrayBuffer = await file.arrayBuffer();
+    // 将File转换为Blob
+    const blob = new Blob([file], { type: file.type });
+    
+    // 将Blob转换为ImageData
+    const imageData = await blobToImageData(blob);
     
     // 使用jsquash转换为webp
-    const webpBuffer = await encode(arrayBuffer, {
+    const webpBuffer = await encode(imageData, {
       quality: 95 // 95%质量
     });
     
     // 创建新的webp文件
-    const webpFile = new File([webpBuffer], 
+    const webpFile = new File([webpBuffer],
       file.name.replace(/\.[^/.]+$/, '.webp'), // 替换扩展名为.webp
       {
         type: 'image/webp',
