@@ -65,10 +65,10 @@ const loadImages = async () => {
   loading.value = true
 
   try {
-    // 获取 drainage 文件夹中的所有文件
+    // 获取 dr 文件夹中的所有文件
     const { data, error } = await supabaseClient.value.storage
       .from('images')
-      .list('drainage', {
+      .list('dr', {
         limit: pagination.pageSize,
         offset: (pagination.currentPage - 1) * pagination.pageSize,
         sortBy: { column: 'name', order: 'asc' }
@@ -87,12 +87,12 @@ const loadImages = async () => {
     const imagesWithUrls = files.map(file => {
       const { data: { publicUrl } } = supabaseClient.value.storage
         .from('images')
-        .getPublicUrl(`drainage/${file.name}`)
+        .getPublicUrl(`dr/${file.name}`)
 
       return {
         name: file.name,
         url: publicUrl,
-        path: `drainage/${file.name}`
+        path: `dr/${file.name}`
       }
     })
 
