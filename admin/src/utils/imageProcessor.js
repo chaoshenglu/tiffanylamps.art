@@ -40,7 +40,7 @@ export async function compressImage(file) {
             lastModified: Date.now()
           });
           resolve(compressedFile);
-        }, 'image/jpeg', 0.8); // 80%质量
+        }, 'image/jpeg', 0.95); // 95%质量
       } catch (error) {
         reject(error);
       }
@@ -67,7 +67,7 @@ export async function convertToWebp(file) {
     
     // 使用jsquash转换为webp
     const webpBuffer = await encode(arrayBuffer, {
-      quality: 80 // 80%质量
+      quality: 95 // 95%质量
     });
     
     // 创建新的webp文件
