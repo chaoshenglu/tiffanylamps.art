@@ -13,7 +13,7 @@
         <el-table-column label="缩略图" width="120">
           <template #default="{ row }">
             <el-image :src="row.url" :preview-src-list="[row.url]" fit="cover"
-              style="width: 80px; height: 80px; border-radius: 4px;" :preview-teleported="true" />
+              style="width: 50px; height: 50px; border-radius: 4px;" :preview-teleported="true" />
           </template>
         </el-table-column>
         <el-table-column prop="url" label="图片地址" show-overflow-tooltip />
