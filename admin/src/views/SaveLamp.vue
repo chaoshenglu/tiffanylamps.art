@@ -300,6 +300,14 @@ const rules = {
     { required: true, message: '请输入产品型号', trigger: 'blur' },
     { min: 1, max: 50, message: '型号长度在1到50个字符', trigger: 'blur' }
   ],
+  name_zh: [
+    { required: true, message: '请输入中文名称', trigger: 'blur' },
+    { min: 1, max: 200, message: '中文名称长度在1到200个字符', trigger: 'blur' }
+  ],
+  name_en: [
+    { required: true, message: '请输入英文名称', trigger: 'blur' },
+    { min: 1, max: 200, message: '英文名称长度在1到200个字符', trigger: 'blur' }
+  ],
   type: [
     { required: true, message: '请选择产品分类', trigger: 'change' }
   ]
@@ -367,11 +375,13 @@ const uploadFileToStorage = async (file, folder, customFileName = null) => {
 // 主图上传
 const uploadMainImage = async ({ file, onSuccess, onError }) => {
   try {
-    if (!form.model) {
+    // 在编辑模式下，如果已经有产品型号，使用现有型号，否则使用临时标识
+    const modelPrefix = form.model || (isEditMode.value ? lampModel.value : 'temp')
+    if (!modelPrefix) {
       throw new Error('请先填写产品型号')
     }
     const nanoId = nanoid().replace(/-/g, '') // 去除中划线
-    const fileName = `${form.model}main${nanoId}`
+    const fileName = `${modelPrefix}main${nanoId}`
     const url = await uploadFileToStorage(file, 'main-images', fileName)
     form.main_images.push(url)
     onSuccess({ url })
@@ -385,11 +395,13 @@ const uploadMainImage = async ({ file, onSuccess, onError }) => {
 // 细节图上传
 const uploadDetailImage = async ({ file, onSuccess, onError }) => {
   try {
-    if (!form.model) {
+    // 在编辑模式下，如果已经有产品型号，使用现有型号，否则使用临时标识
+    const modelPrefix = form.model || (isEditMode.value ? lampModel.value : 'temp')
+    if (!modelPrefix) {
       throw new Error('请先填写产品型号')
     }
     const nanoId = nanoid().replace(/-/g, '') // 去除中划线
-    const fileName = `${form.model}detail${nanoId}`
+    const fileName = `${modelPrefix}detail${nanoId}`
     const url = await uploadFileToStorage(file, 'detail-images', fileName)
     form.detail_images.push(url)
     onSuccess({ url })
@@ -403,11 +415,13 @@ const uploadDetailImage = async ({ file, onSuccess, onError }) => {
 // 视频上传
 const uploadVideo = async ({ file, onSuccess, onError }) => {
   try {
-    if (!form.model) {
+    // 在编辑模式下，如果已经有产品型号，使用现有型号，否则使用临时标识
+    const modelPrefix = form.model || (isEditMode.value ? lampModel.value : 'temp')
+    if (!modelPrefix) {
       throw new Error('请先填写产品型号')
     }
     const nanoId = nanoid().replace(/-/g, '') // 去除中划线
-    const fileName = `${form.model}video${nanoId}`
+    const fileName = `${modelPrefix}video${nanoId}`
     const url = await uploadFileToStorage(file, 'videos', fileName)
     form.videos.push(url)
     onSuccess({ url })
@@ -535,16 +549,8 @@ const loadLamp = async () => {
     if (data) {
       // 填充表单数据
       Object.keys(form).forEach(key => {
-        if (key.includes('_')) {
-          // 处理带下划线的字段名
-          const dbKey = key
-          if (data[dbKey] !== undefined) {
-            form[key] = data[dbKey]
-          }
-        } else {
-          if (data[key] !== undefined) {
-            form[key] = data[key]
-          }
+        if (data[key] !== undefined && data[key] !== null) {
+          form[key] = data[key]
         }
       })
 
@@ -678,17 +684,12 @@ const resetForm = () => {
   Object.keys(form).forEach(key => {
     if (Array.isArray(form[key])) {
       form[key] = []
-    } else {
+    } else if (typeof form[key] === 'number') {
       form[key] = null
+    } else {
+      form[key] = ''
     }
   })
-  form.model = ''
-  form.name_zh = ''
-  form.name_en = ''
-  form.abb_zh = ''
-  form.abb_en = ''
-  form.amazon_id = ''
-  form.tmall_id = ''
 }
 
 // 组件挂载
