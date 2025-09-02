@@ -384,6 +384,17 @@ const uploadMainImage = async ({ file, onSuccess, onError }) => {
     const fileName = `${modelPrefix}main${nanoId}`
     const url = await uploadFileToStorage(file, 'main-images', fileName)
     form.main_images.push(url)
+    
+    // 手动添加到文件列表，因为on-change事件现在只在success时触发
+    const newFile = {
+      uid: `upload_${Date.now()}_${Math.random().toString(36).substring(2)}`,
+      name: file.name,
+      status: 'success',
+      url: url,
+      response: { url }
+    }
+    mainImageList.value.push(newFile)
+    
     onSuccess({ url })
     ElMessage.success('主图上传成功')
   } catch (error) {
@@ -404,6 +415,17 @@ const uploadDetailImage = async ({ file, onSuccess, onError }) => {
     const fileName = `${modelPrefix}detail${nanoId}`
     const url = await uploadFileToStorage(file, 'detail-images', fileName)
     form.detail_images.push(url)
+    
+    // 手动添加到文件列表，因为on-change事件现在只在success时触发
+    const newFile = {
+      uid: `upload_${Date.now()}_${Math.random().toString(36).substring(2)}`,
+      name: file.name,
+      status: 'success',
+      url: url,
+      response: { url }
+    }
+    detailImageList.value.push(newFile)
+    
     onSuccess({ url })
     ElMessage.success('细节图上传成功')
   } catch (error) {
@@ -424,6 +446,10 @@ const uploadVideo = async ({ file, onSuccess, onError }) => {
     const fileName = `${modelPrefix}video${nanoId}`
     const url = await uploadFileToStorage(file, 'videos', fileName)
     form.videos.push(url)
+    
+    // 对于视频上传，Element UI 会自动管理文件列表，所以我们不需要手动添加
+    // 只需要确保URL被添加到form.videos数组中
+    
     onSuccess({ url })
     ElMessage.success('视频上传成功')
   } catch (error) {
@@ -432,36 +458,52 @@ const uploadVideo = async ({ file, onSuccess, onError }) => {
   }
 }
 
-// 文件变化处理
+// 文件变化处理 - 主要处理上传进度状态
 const handleMainImageChange = (file, fileList) => {
-  // 为新上传的文件生成唯一uid
-  const updatedFileList = fileList.map(f => {
-    if (!f.uid || f.uid.toString().startsWith('upload_')) {
-      return {
-        ...f,
-        uid: `upload_${Date.now()}_${Math.random().toString(36).substring(2)}`
+  // 只更新上传中的文件状态，不替换整个列表
+  if (file.status === 'uploading') {
+    const index = mainImageList.value.findIndex(f => f.uid === file.uid)
+    if (index === -1) {
+      // 添加新的上传中文件
+      mainImageList.value.push({
+        ...file,
+        uid: file.uid || `upload_${Date.now()}_${Math.random().toString(36).substring(2)}`
+      })
+    } else {
+      // 更新已有文件的上传进度
+      mainImageList.value[index] = {
+        ...mainImageList.value[index],
+        percentage: file.percentage,
+        status: file.status
       }
     }
-    return f
-  })
-  mainImageList.value = updatedFileList
+  }
 }
 
 const handleDetailImageChange = (file, fileList) => {
-  // 为新上传的文件生成唯一uid
-  const updatedFileList = fileList.map(f => {
-    if (!f.uid || f.uid.toString().startsWith('upload_')) {
-      return {
-        ...f,
-        uid: `upload_${Date.now()}_${Math.random().toString(36).substring(2)}`
+  // 只更新上传中的文件状态，不替换整个列表
+  if (file.status === 'uploading') {
+    const index = detailImageList.value.findIndex(f => f.uid === file.uid)
+    if (index === -1) {
+      // 添加新的上传中文件
+      detailImageList.value.push({
+        ...file,
+        uid: file.uid || `upload_${Date.now()}_${Math.random().toString(36).substring(2)}`
+      })
+    } else {
+      // 更新已有文件的上传进度
+      detailImageList.value[index] = {
+        ...detailImageList.value[index],
+        percentage: file.percentage,
+        status: file.status
       }
     }
-    return f
-  })
-  detailImageList.value = updatedFileList
+  }
 }
 
 const handleVideoChange = (file, fileList) => {
+  // 对于视频上传，Element UI 的 text 类型列表会自动管理
+  // 但我们需要确保不会丢失已有的视频文件
   videoList.value = fileList
 }
 
