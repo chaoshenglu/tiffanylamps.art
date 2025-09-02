@@ -14,9 +14,6 @@
         <el-form-item label="群组ID" prop="post_group_id">
           <el-input v-model="form.post_group_id" placeholder="请输入文章的群组ID" maxlength="100" show-word-limit />
         </el-form-item>
-        <el-form-item label="商品链接" prop="product_link">
-          <el-input v-model="form.product_link" placeholder="请输入商品链接" maxlength="100" show-word-limit />
-        </el-form-item>
         <el-form-item label="文章封面" prop="cover_image">
           <el-input v-model="form.cover_image" placeholder="请输入封面链接" maxlength="100" show-word-limit />
         </el-form-item>
@@ -129,7 +126,6 @@ const postId = computed(() => route.params.id)
 const form = reactive({
   title: '',
   post_group_id: '',
-  product_link: '',
   cover_image: '',
   type: '',
   language: 'zh-CN',
@@ -283,7 +279,6 @@ const loadPost = async () => {
       // 填充表单数据
       form.title = data.title || ''
       form.post_group_id = data.post_group_id || ''
-      form.product_link = data.product_link || ''
       form.cover_image = data.cover_image || ''
       form.type = data.type || ''
       form.language = data.language || 'zh-CN'
@@ -362,7 +357,6 @@ const submitForm = async () => {
         const postData = {
           title: form.title,
           post_group_id: form.post_group_id,
-          product_link: form.product_link,
           cover_image: form.cover_image,
           content: form.content,
           type: form.type,
@@ -450,7 +444,6 @@ const submitForm2 = async () => {
         const postData = {
           title: form.title,
           post_group_id: form.post_group_id,
-          product_link: form.product_link,
           cover_image: form.cover_image,
           content: form.content,
           type: form.type,
