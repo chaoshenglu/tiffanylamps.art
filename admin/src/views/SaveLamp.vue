@@ -35,6 +35,19 @@
           </el-col>
         </el-row>
 
+        <el-row :gutter="20">
+          <el-col :span="12">
+            <el-form-item label="Amazon商品ID" prop="amazon_id">
+              <el-input v-model="form.amazon_id" placeholder="请输入Amazon商品ID" maxlength="50" show-word-limit />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="天猫商品ID" prop="tmall_id">
+              <el-input v-model="form.tmall_id" placeholder="请输入天猫商品ID" maxlength="50" show-word-limit />
+            </el-form-item>
+          </el-col>
+        </el-row>
+
         <!-- 规格信息 -->
         <el-divider content-position="left">规格信息</el-divider>
 
