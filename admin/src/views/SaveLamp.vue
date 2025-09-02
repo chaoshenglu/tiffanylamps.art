@@ -161,7 +161,7 @@
                 <Plus />
               </el-icon>
             </el-upload>
-            <div class="upload-tip">支持jpg、png、webp格式，单个文件不超过5MB，最多10张，可拖拽调整顺序</div>
+            <div class="upload-tip">支持jpg、png、webp格式，推荐尺寸800px*800px，单个文件不超过5MB，最多10张，可拖拽调整顺序</div>
           </div>
         </el-form-item>
 
@@ -199,7 +199,7 @@
                 <Plus />
               </el-icon>
             </el-upload>
-            <div class="upload-tip">支持jpg、png、webp格式，单个文件不超过5MB，最多10张，可拖拽调整顺序</div>
+            <div class="upload-tip">支持jpg、png、webp格式，推荐尺寸1000px*1000px，单个文件不超过5MB，最多20张，可拖拽调整顺序</div>
           </div>
         </el-form-item>
 
