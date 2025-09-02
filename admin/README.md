@@ -7,7 +7,7 @@ CREATE TABLE posts (
   post_group_id TEXT NOT NULL,
   title TEXT UNIQUE,
   content TEXT NOT NULL,
-  coverImage TEXT NOT NULL,
+  cover_image TEXT NOT NULL,
   type TEXT NOT NULL,
   language TEXT DEFAULT 'zh-CN',
   created_at TIMESTAMP DEFAULT NOW()
