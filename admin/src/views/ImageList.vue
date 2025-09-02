@@ -3,7 +3,7 @@
     <el-card class="list-card">
       <template #header>
         <div class="card-header">
-          <span>图片列表</span>
+          <span>文章插图</span>
           <el-button type="primary" @click="addImage">新增图片</el-button>
         </div>
       </template>
