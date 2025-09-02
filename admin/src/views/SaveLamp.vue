@@ -245,7 +245,7 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 import { Plus, ZoomIn, Delete } from '@element-plus/icons-vue'
 import { supabaseClient, isConnected, autoReconnect } from '../store/supabase'
 import draggable from 'vuedraggable'
-
+import { nanoid } from 'nanoid'
 const route = useRoute()
 const router = useRouter()
 
@@ -370,8 +370,8 @@ const uploadMainImage = async ({ file, onSuccess, onError }) => {
     if (!form.model) {
       throw new Error('请先填写产品型号')
     }
-    const sequence = form.main_images.length + 1
-    const fileName = `${form.model}main${sequence}`
+    const nanoId = nanoid().replace(/-/g, '') // 去除中划线
+    const fileName = `${form.model}main${nanoId}`
     const url = await uploadFileToStorage(file, 'main-images', fileName)
     form.main_images.push(url)
     onSuccess({ url })
@@ -388,8 +388,8 @@ const uploadDetailImage = async ({ file, onSuccess, onError }) => {
     if (!form.model) {
       throw new Error('请先填写产品型号')
     }
-    const sequence = form.detail_images.length + 1
-    const fileName = `${form.model}detail${sequence}`
+    const nanoId = nanoid().replace(/-/g, '') // 去除中划线
+    const fileName = `${form.model}detail${nanoId}`
     const url = await uploadFileToStorage(file, 'detail-images', fileName)
     form.detail_images.push(url)
     onSuccess({ url })
