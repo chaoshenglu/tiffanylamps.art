@@ -218,7 +218,7 @@
         </el-form-item>
 
         <!-- 操作按钮 -->
-        <el-form-item>
+        <el-form-item style="margin-top: 50px;margin-left: 300px;">
           <el-button type="primary" @click="submitForm" :loading="submitting" size="large">
             {{ isEditMode ? '更新产品' : '创建产品' }}
           </el-button>
