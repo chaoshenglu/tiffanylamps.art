@@ -174,7 +174,7 @@ const setCachedData = (key, data) => {
 const fetchProducts = async () => {
   try {
     const { data, error } = await supabase
-      .from('product')
+      .from('lamp')
       .select('*')
       .limit(4)
     if (error) {
