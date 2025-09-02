@@ -235,6 +235,17 @@
           :preview-teleported="true" />
       </div>
     </el-dialog>
+
+<!-- 详情图片预览弹窗 -->
+    <el-dialog v-model="showDetailPreview" title="预览" width="30%" :center="true">
+      <div style="overflow-y: auto; max-height: 80vh; padding: 20px;">
+        <div class="lxCenterColumn">
+          <img v-for="(image, index) in productData?.detail_images_cn || []" :key="index" :src="image"
+           style="width: 100%; height: auto; object-fit: contain;" />
+        </div>
+      </div>
+    </el-dialog>
+
   </div>
 </template>
 
@@ -248,7 +259,7 @@ import draggable from 'vuedraggable'
 import { nanoid } from 'nanoid'
 const route = useRoute()
 const router = useRouter()
-
+const showDetailPreview = ref(false)
 // 表单引用
 const formRef = ref()
 const mainUploadRef = ref()
