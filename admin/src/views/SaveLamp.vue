@@ -199,7 +199,10 @@
                 <Plus />
               </el-icon>
             </el-upload>
-            <div class="upload-tip">支持jpg、png、webp格式，推荐尺寸1000px*1000px，单个文件不超过5MB，最多20张，可拖拽调整顺序</div>
+            <div class="lxCenterRow">
+              <div class="upload-tip">支持jpg、png、webp格式，推荐尺寸1000px*1000px，单个文件不超过5MB，最多20张，可拖拽调整顺序</div>
+              <el-button @click="showDetailPreview = true" type="primary" text>预览</el-button>
+            </div>
           </div>
         </el-form-item>
 
@@ -236,12 +239,12 @@
       </div>
     </el-dialog>
 
-<!-- 详情图片预览弹窗 -->
+    <!-- 详情图片预览弹窗 -->
     <el-dialog v-model="showDetailPreview" title="预览" width="30%" :center="true">
       <div style="overflow-y: auto; max-height: 80vh; padding: 20px;">
         <div class="lxCenterColumn">
-          <img v-for="(image, index) in productData?.detail_images_cn || []" :key="index" :src="image"
-           style="width: 100%; height: auto; object-fit: contain;" />
+          <img v-for="(image, index) in detailImageList || []" :key="index" :src="image"
+            style="width: 100%; height: auto; object-fit: contain;" />
         </div>
       </div>
     </el-dialog>
@@ -395,7 +398,7 @@ const uploadMainImage = async ({ file, onSuccess, onError }) => {
     const fileName = `${modelPrefix}main${nanoId}`
     const url = await uploadFileToStorage(file, 'main-images', fileName)
     form.main_images.push(url)
-    
+
     // 手动添加到文件列表，因为on-change事件现在只在success时触发
     const newFile = {
       uid: `upload_${Date.now()}_${Math.random().toString(36).substring(2)}`,
@@ -405,7 +408,7 @@ const uploadMainImage = async ({ file, onSuccess, onError }) => {
       response: { url }
     }
     mainImageList.value.push(newFile)
-    
+
     onSuccess({ url })
     ElMessage.success('主图上传成功')
   } catch (error) {
@@ -426,7 +429,7 @@ const uploadDetailImage = async ({ file, onSuccess, onError }) => {
     const fileName = `${modelPrefix}detail${nanoId}`
     const url = await uploadFileToStorage(file, 'detail-images', fileName)
     form.detail_images.push(url)
-    
+
     // 手动添加到文件列表，因为on-change事件现在只在success时触发
     const newFile = {
       uid: `upload_${Date.now()}_${Math.random().toString(36).substring(2)}`,
@@ -436,7 +439,7 @@ const uploadDetailImage = async ({ file, onSuccess, onError }) => {
       response: { url }
     }
     detailImageList.value.push(newFile)
-    
+
     onSuccess({ url })
     ElMessage.success('细节图上传成功')
   } catch (error) {
@@ -457,10 +460,10 @@ const uploadVideo = async ({ file, onSuccess, onError }) => {
     const fileName = `${modelPrefix}video${nanoId}`
     const url = await uploadFileToStorage(file, 'videos', fileName)
     form.videos.push(url)
-    
+
     // 对于视频上传，Element UI 会自动管理文件列表，所以我们不需要手动添加
     // 只需要确保URL被添加到form.videos数组中
-    
+
     onSuccess({ url })
     ElMessage.success('视频上传成功')
   } catch (error) {
