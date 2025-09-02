@@ -1,6 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import tsconfigPaths from 'vite-tsconfig-paths'
 
+// 验证环境变量
+console.log('🔍 验证 Supabase 环境变量:')
+console.log('SUPABASE_URL:', process.env.SUPABASE_URL || '❌ 未设置')
+console.log('SUPABASE_ANON_KEY:', process.env.SUPABASE_ANON_KEY || '❌ 未设置')
+
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
