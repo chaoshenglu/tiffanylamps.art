@@ -222,7 +222,7 @@
           <el-button type="primary" @click="submitForm" :loading="submitting" size="large">
             {{ isEditMode ? '更新产品' : '创建产品' }}
           </el-button>
-          <el-button @click="resetForm" size="large">重置</el-button>
+          <el-button v-if="!isEditMode" @click="resetForm" size="large">重置</el-button>
           <el-button @click="$router.go(-1)" size="large">返回</el-button>
         </el-form-item>
       </el-form>
