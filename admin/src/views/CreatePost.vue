@@ -26,7 +26,7 @@
                 <el-option label="流行趋势" value="trend" />
                 <el-option label="热卖榜单" value="hot" />
                 <el-option label="拍卖会资料" value="auction" />
-                <el-option label="装修案例" value="case" />
+                <el-option label="空间美学" value="case" />
                 <el-option label="其他" value="other" />
               </el-select>
             </el-form-item>
