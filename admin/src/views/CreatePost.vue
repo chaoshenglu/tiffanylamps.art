@@ -15,7 +15,7 @@
           <el-input v-model="form.post_group_id" placeholder="请输入文章的群组ID" maxlength="100" show-word-limit />
         </el-form-item>
         <el-form-item label="文章封面" prop="cover_image">
-          <el-input v-model="form.cover_image" placeholder="请输入封面链接" maxlength="100" show-word-limit />
+          <el-input v-model="form.cover_image" placeholder="请输入封面链接" maxlength="200" show-word-limit />
         </el-form-item>
 
         <el-row :gutter="20">
@@ -52,35 +52,19 @@
                 <span class="html-mode-title">HTML</span>
               </div>
               <div class="mode-switch">
-                <el-button 
-                  :type="isHtmlMode ? 'primary' : 'default'" 
-                  size="small" 
-                  @click="toggleHtmlMode"
-                >
+                <el-button :type="isHtmlMode ? 'primary' : 'default'" size="small" @click="toggleHtmlMode">
                   {{ isHtmlMode ? '富文本' : 'HTML' }}
                 </el-button>
               </div>
             </div>
-            
+
             <!-- 富文本编辑器 -->
-            <Editor 
-              class="editor-content" 
-              v-model="form.content" 
-              :defaultConfig="editorConfig"
-              @onCreated="handleCreated" 
-              v-show="!isHtmlMode"
-            />
-            
+            <Editor class="editor-content" v-model="form.content" :defaultConfig="editorConfig"
+              @onCreated="handleCreated" v-show="!isHtmlMode" />
+
             <!-- HTML源码编辑器 -->
-            <el-input
-              v-show="isHtmlMode"
-              v-model="htmlContent"
-              type="textarea"
-              :rows="25"
-              class="html-editor"
-              placeholder="请输入HTML源码..."
-              @blur="updateContentFromHtml"
-            />
+            <el-input v-show="isHtmlMode" v-model="htmlContent" type="textarea" :rows="25" class="html-editor"
+              placeholder="请输入HTML源码..." @blur="updateContentFromHtml" />
           </div>
         </el-form-item>
 
@@ -101,7 +85,7 @@
 </template>
 
 <script setup>
-import { ref,shallowRef, reactive, onBeforeUnmount, onMounted, computed, nextTick } from 'vue'
+import { ref, shallowRef, reactive, onBeforeUnmount, onMounted, computed, nextTick } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
 import { supabaseClient, isConnected, autoReconnect } from '../store/supabase.js'
@@ -205,7 +189,7 @@ const editorConfig = {
 // 编辑器实例
 const handleCreated = (editor) => {
   editorRef.value = editor
-  
+
   // 如果是编辑模式且已有内容，延迟设置编辑器内容
   if (isEditMode.value && form.content) {
     setTimeout(() => {
@@ -221,7 +205,7 @@ const handleCreated = (editor) => {
 // 切换HTML模式
 const toggleHtmlMode = () => {
   if (!editorRef.value) return
-  
+
   if (isHtmlMode.value) {
     // 从HTML模式切换到富文本模式
     isHtmlMode.value = false
@@ -241,7 +225,7 @@ const toggleHtmlMode = () => {
 // 从HTML源码更新内容
 const updateContentFromHtml = () => {
   if (!editorRef.value || !isHtmlMode.value) return
-  
+
   try {
     // 更新表单内容
     form.content = htmlContent.value
@@ -258,23 +242,23 @@ const updateContentFromHtml = () => {
 // 加载文章数据（编辑模式）
 const loadPost = async () => {
   if (!isEditMode.value) return
-  
+
   loading.value = true
-  
+
   try {
     const { data, error } = await supabaseClient.value
       .from('posts')
       .select('*')
       .eq('id', postId.value)
       .single()
-    
+
     if (error) {
       console.error('加载文章错误:', error)
       ElMessage.error(`加载文章失败: ${error.message}`)
       router.push('/posts')
       return
     }
-    
+
     if (data) {
       // 填充表单数据
       form.title = data.title || ''
@@ -283,10 +267,10 @@ const loadPost = async () => {
       form.type = data.type || ''
       form.language = data.language || 'zh-CN'
       form.content = data.content || ''
-      
+
       // 设置HTML内容
       htmlContent.value = data.content || ''
-      
+
       // 延迟设置编辑器内容，避免Slate DOM错误
       if (data.content) {
         await nextTick()
@@ -330,7 +314,7 @@ onMounted(async () => {
       return
     }
   }
-  
+
   // 如果是编辑模式，加载文章数据
   if (isEditMode.value) {
     await loadPost()
@@ -452,8 +436,8 @@ const submitForm2 = async () => {
 
         // 创建新文章(通常是翻译后的文章)
         let result = await supabaseClient.value
-            .from('posts')
-            .insert([postData])
+          .from('posts')
+          .insert([postData])
 
         const { data, error } = result
 
@@ -472,13 +456,13 @@ const submitForm2 = async () => {
           ElMessage.error(`发布失败: ${error.message}`)
         } else {
           ElMessageBox.confirm(
-              '你可以点击翻译，然后用其他语言再次发布此文章',
-              '文章发布成功',
-              {
-                confirmButtonText: '我知道了',
-                type: 'success'
-              }
-            )
+            '你可以点击翻译，然后用其他语言再次发布此文章',
+            '文章发布成功',
+            {
+              confirmButtonText: '我知道了',
+              type: 'success'
+            }
+          )
         }
       } catch (error) {
         console.error('发布错误:', error)
