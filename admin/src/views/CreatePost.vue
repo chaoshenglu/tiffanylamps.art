@@ -88,9 +88,9 @@
           <el-button type="primary" @click="submitForm" :loading="submitting" size="large">
             {{ isEditMode ? '更新文章' : '发布文章' }}
           </el-button>
-          <el-button v-if="isEditMode" type="primary" @click="submitForm2" :loading="submitting" size="large">
+          <!-- <el-button v-if="isEditMode" type="primary" @click="submitForm2" :loading="submitting" size="large">
             二次发布
-          </el-button>
+          </el-button> -->
           <el-button @click="resetForm" size="large">
             重置
           </el-button>
