@@ -243,7 +243,7 @@
     <el-dialog v-model="showDetailPreview" title="预览" width="30%" :center="true">
       <div style="overflow-y: auto; max-height: 80vh; padding: 20px;">
         <div class="lxCenterColumn">
-          <img v-for="(image, index) in detailImageList || []" :key="index" :src="image"
+          <img v-for="(image, index) in detailImageList || []" :key="index" :src="image.url"
             style="width: 100%; height: auto; object-fit: contain;" />
         </div>
       </div>
