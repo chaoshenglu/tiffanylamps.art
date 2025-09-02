@@ -123,9 +123,9 @@
         </el-form-item>
 
         <!-- 图片上传 -->
-        <el-divider content-position="left">图片管理</el-divider>
+        <el-divider v-if="isEditMode || form.model" content-position="left">图片管理</el-divider>
 
-        <el-form-item label="主图" prop="main_images">
+        <el-form-item v-if="isEditMode || form.model" label="主图" prop="main_images">
           <div class="upload-section">
             <!-- 拖拽排序区域 -->
             <draggable v-model="mainImageList" item-key="uid" class="draggable-list" :animation="200"
@@ -165,7 +165,7 @@
           </div>
         </el-form-item>
 
-        <el-form-item label="细节图" prop="detail_images">
+        <el-form-item v-if="isEditMode || form.model" label="细节图" prop="detail_images">
           <div class="upload-section">
             <!-- 拖拽排序区域 -->
             <draggable v-model="detailImageList" item-key="uid" class="draggable-list" :animation="200"
@@ -204,9 +204,9 @@
         </el-form-item>
 
         <!-- 视频上传 -->
-        <el-divider content-position="left">视频管理</el-divider>
+        <el-divider v-if="isEditMode || form.model" content-position="left">视频管理</el-divider>
 
-        <el-form-item label="产品视频" prop="videos">
+        <el-form-item v-if="isEditMode || form.model" label="产品视频" prop="videos">
           <div class="upload-section">
             <el-upload ref="videoUploadRef" :file-list="videoList" :on-change="handleVideoChange"
               :on-remove="handleVideoRemove" :before-upload="beforeVideoUpload" :http-request="uploadVideo"
