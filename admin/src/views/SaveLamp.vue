@@ -270,6 +270,8 @@ const form = reactive({
   name_en: '',
   abb_zh: '',
   abb_en: '',
+  amazon_id: '',
+  tmall_id: '',
   inch: null,
   length: null,
   width: null,
@@ -590,6 +592,8 @@ const submitForm = async () => {
           name_en: form.name_en,
           abb_zh: form.abb_zh,
           abb_en: form.abb_en,
+          amazon_id: form.amazon_id,
+          tmall_id: form.tmall_id,
           inch: form.inch,
           length: form.length,
           width: form.width,
@@ -661,6 +665,8 @@ const resetForm = () => {
   form.name_en = ''
   form.abb_zh = ''
   form.abb_en = ''
+  form.amazon_id = ''
+  form.tmall_id = ''
 }
 
 // 组件挂载
