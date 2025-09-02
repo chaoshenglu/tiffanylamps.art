@@ -406,8 +406,8 @@ const uploadVideo = async ({ file, onSuccess, onError }) => {
     if (!form.model) {
       throw new Error('请先填写产品型号')
     }
-    const sequence = form.videos.length + 1
-    const fileName = `${form.model}video${sequence}`
+    const nanoId = nanoid().replace(/-/g, '') // 去除中划线
+    const fileName = `${form.model}video${nanoId}`
     const url = await uploadFileToStorage(file, 'videos', fileName)
     form.videos.push(url)
     onSuccess({ url })
