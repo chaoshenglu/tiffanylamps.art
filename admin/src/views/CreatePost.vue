@@ -123,7 +123,7 @@ const rules = {
   ],
   cover_image: [
     { required: true, message: '请输入封面链接', trigger: 'blur' },
-    { min: 1, max: 100, message: '链接长度在 1 到 100 个字符', trigger: 'blur' }
+    { min: 1, max: 100, message: '链接长度在 1 到 200 个字符', trigger: 'blur' }
   ],
   type: [
     { required: true, message: '请选择文章分类', trigger: 'change' }
