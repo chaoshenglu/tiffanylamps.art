@@ -420,11 +420,31 @@ const uploadVideo = async ({ file, onSuccess, onError }) => {
 
 // 文件变化处理
 const handleMainImageChange = (file, fileList) => {
-  mainImageList.value = fileList
+  // 为新上传的文件生成唯一uid
+  const updatedFileList = fileList.map(f => {
+    if (!f.uid || f.uid.toString().startsWith('upload_')) {
+      return {
+        ...f,
+        uid: `upload_${Date.now()}_${Math.random().toString(36).substring(2)}`
+      }
+    }
+    return f
+  })
+  mainImageList.value = updatedFileList
 }
 
 const handleDetailImageChange = (file, fileList) => {
-  detailImageList.value = fileList
+  // 为新上传的文件生成唯一uid
+  const updatedFileList = fileList.map(f => {
+    if (!f.uid || f.uid.toString().startsWith('upload_')) {
+      return {
+        ...f,
+        uid: `upload_${Date.now()}_${Math.random().toString(36).substring(2)}`
+      }
+    }
+    return f
+  })
+  detailImageList.value = updatedFileList
 }
 
 const handleVideoChange = (file, fileList) => {
@@ -460,8 +480,9 @@ const handleMainImageRemove = (file) => {
   if (index > -1) {
     mainImageList.value.splice(index, 1)
     // 同时从form数组中删除对应的URL
-    if (file.response && file.response.url) {
-      const urlIndex = form.main_images.indexOf(file.response.url)
+    const urlToRemove = file.response?.url || file.url
+    if (urlToRemove) {
+      const urlIndex = form.main_images.indexOf(urlToRemove)
       if (urlIndex > -1) {
         form.main_images.splice(urlIndex, 1)
       }
@@ -475,8 +496,9 @@ const handleDetailImageRemove = (file) => {
   if (index > -1) {
     detailImageList.value.splice(index, 1)
     // 同时从form数组中删除对应的URL
-    if (file.response && file.response.url) {
-      const urlIndex = form.detail_images.indexOf(file.response.url)
+    const urlToRemove = file.response?.url || file.url
+    if (urlToRemove) {
+      const urlIndex = form.detail_images.indexOf(urlToRemove)
       if (urlIndex > -1) {
         form.detail_images.splice(urlIndex, 1)
       }
@@ -530,7 +552,7 @@ const loadLamp = async () => {
       if (data.main_images) {
         form.main_images = [...data.main_images]
         mainImageList.value = data.main_images.map((url, index) => ({
-          uid: index,
+          uid: `main-${index}-${url.replace(/[^a-zA-Z0-9]/g, '').substring(0, 10)}`,
           name: `主图${index + 1}`,
           status: 'success',
           url: url,
@@ -541,7 +563,7 @@ const loadLamp = async () => {
       if (data.detail_images) {
         form.detail_images = [...data.detail_images]
         detailImageList.value = data.detail_images.map((url, index) => ({
-          uid: index,
+          uid: `detail-${index}-${url.replace(/[^a-zA-Z0-9]/g, '').substring(0, 10)}`,
           name: `细节图${index + 1}`,
           status: 'success',
           url: url,
@@ -552,7 +574,7 @@ const loadLamp = async () => {
       if (data.videos) {
         form.videos = [...data.videos]
         videoList.value = data.videos.map((url, index) => ({
-          uid: index,
+          uid: `video-${index}-${url.replace(/[^a-zA-Z0-9]/g, '').substring(0, 10)}`,
           name: `视频${index + 1}`,
           status: 'success',
           url: url,
