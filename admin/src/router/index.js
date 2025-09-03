@@ -9,7 +9,7 @@ import AddDrainageImage from '../views/AddDrainageImage.vue'
 const routes = [
   {
     path: '/',
-    redirect: '/posts'
+    redirect: '/images'
   },
   {
     path: '/create',
