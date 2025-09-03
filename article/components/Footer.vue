@@ -42,7 +42,7 @@
                   <p class="qr-text">扫一扫关注微信公众号</p>
                 </div>
               </div>
-              <a href="#" class="social-link">
+              <a href="https://weibo.com/hauty" class="social-link" target="_blank" rel="noopener noreferrer">
                 <img src="/assets/weibo.svg" width="20" height="20" alt="微博" />
               </a>
             </template>
