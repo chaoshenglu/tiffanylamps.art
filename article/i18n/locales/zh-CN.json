@@ -50,7 +50,7 @@
     "submit": "提交"
   },
   "product": {
-    "specifications": "商品参数",
+    "specifications": "产品参数",
     "price":"参考价",
     "material": "材质",
     "style": "风格",
@@ -60,9 +60,9 @@
     "decorativeLamp": "装饰灯具",
     "buySimilar": "购买同款",
     "purchaseNote": "点击前往外部购物平台浏览同款商品",
-    "details": "商品详情",
-    "notFound": "商品未找到",
-    "notFoundDesc": "您查找的商品不存在或已被移除。"
+    "details": "产品详情",
+    "notFound": "产品未找到",
+    "notFoundDesc": "您查找的产品不存在或已被移除。"
   },
   "footer": {
     "copyright": "© 2025 蒂凡尼灯艺术. 保留所有权利.",
