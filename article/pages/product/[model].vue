@@ -168,40 +168,55 @@ const productCategory = computed(() => {
 //  mt INTEGER CHECK (mt IN (1, 2, 3, 4, 5, 6)),--底座材质:1.树脂 2.铸铁 3.合金 4.全铜 5.木 6.无底座
 const productMaterial = computed(() => {
   if (!product.value) return ''
+  let material = ''
   if (locale.value === 'zh-CN') {
     switch (product.value.mt) {
       case 1:
-        return '树脂'
+        material = '树脂'
+        break
       case 2:
-        return '铸铁'
+        material = '铸铁'
+        break
       case 3:
-        return '合金'
+        material = '合金'
+        break
       case 4:
-        return '全铜'
+        material = '全铜'
+        break
       case 5:
-        return '木'
+        material = '木'
+        break
       case 6:
-        return '无底座'
+        material = '无'
       default:
-        return ''
+        material = ''
     }
+    return `彩色玻璃灯罩，${material}底座`
   } else {
+    let material = ''
     switch (product.value.mt) {
       case 1:
-        return 'Resin'
+        material = 'Resin'
+        break
       case 2:
-        return 'Cast Iron'
+        material = 'Cast Iron'
+        break
       case 3:
-        return 'Alloy'
+        material = 'Alloy'
+        break
       case 4:
-        return 'Copper'
+        material = 'Copper'
+        break
       case 5:
-        return 'Wood'
+        material = 'Wood'
+        break
       case 6:
-        return 'No Base'
+        material = 'No'
+        break
       default:
-        return ''
+        material = ''
     }
+    return `Stained Glass Shade, ${material} Base`
   }
 })
 
