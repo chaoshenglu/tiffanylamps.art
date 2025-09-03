@@ -47,15 +47,15 @@
           </div>
           
           <div v-else class="article-grid hot-sales-grid-layout">
-            <NuxtLink v-for="p in products" :key="p.id" 
-                     :to="localePath(`/product/${p.id}`)" 
+            <NuxtLink v-for="p in products" :key="p.model" 
+                     :to="localePath(`/product/${p.model}`)" 
                      class="article-card card">
               <div class="article-image hot-sales-image">
-                <NuxtImg :src="p.images[0]" :alt="p.title" />
+                <NuxtImg :src="p.main_images[0]" :alt="p.abb_zh" />
               </div>
               <div class="article-content">
-                <h3>{{ p.title }}</h3>
-                <p class="article-author">{{ $t('product.price') }}: {{ p.price }}</p>
+                <h3>{{ p.abb_zh }}</h3>
+                <p class="article-author">{{ $t('product.price') }}: {{ p.price_zh }}</p>
               </div>
             </NuxtLink>
           </div>
