@@ -275,5 +275,23 @@ const toggleWechatQR = () => {
   .social-links {
     justify-content: center;
   }
+  
+  /* 移动端微信二维码弹窗调整 */
+  .wechat-qr-popup {
+    bottom: 45px;
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 140px;
+    padding: 12px;
+  }
+  
+  .qr-code {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .qr-text {
+    font-size: 11px;
+  }
 }
 </style>
