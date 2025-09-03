@@ -35,9 +35,13 @@
                 <!-- 抖音图标偏小，用30x30 -->
                 <img src="/assets/douyin.svg" width="30" height="30" alt="抖音" />
               </a>
-              <a href="#" class="social-link">
+              <div class="social-link wechat-container" @click="toggleWechatQR" @mouseenter="showWechatQR" @mouseleave="hideWechatQR">
                 <img src="/assets/weixin.svg" width="20" height="20" alt="微信" />
-              </a>
+                <div v-if="isWechatQRVisible" class="wechat-qr-popup">
+                  <img src="/assets/weixin.webp" alt="微信公众号二维码" class="qr-code" />
+                  <p class="qr-text">扫一扫关注微信公众号</p>
+                </div>
+              </div>
               <a href="#" class="social-link">
                 <img src="/assets/weibo.svg" width="20" height="20" alt="微博" />
               </a>
@@ -77,6 +81,31 @@
 <script setup>
 const localePath = useLocalePath()
 const { t, locale } = useI18n()
+
+// 微信二维码显示状态
+const isWechatQRVisible = ref(false)
+let hideTimeout = null
+
+// 显示微信二维码
+const showWechatQR = () => {
+  if (hideTimeout) {
+    clearTimeout(hideTimeout)
+    hideTimeout = null
+  }
+  isWechatQRVisible.value = true
+}
+
+// 隐藏微信二维码（延迟隐藏，避免鼠标移动时闪烁）
+const hideWechatQR = () => {
+  hideTimeout = setTimeout(() => {
+    isWechatQRVisible.value = false
+  }, 200)
+}
+
+// 切换微信二维码显示状态（点击时）
+const toggleWechatQR = () => {
+  isWechatQRVisible.value = !isWechatQRVisible.value
+}
 </script>
 
 <style scoped>
@@ -141,6 +170,73 @@ const { t, locale } = useI18n()
   border-radius: 50%;
   text-decoration: none;
   transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+/* 微信容器样式 */
+.wechat-container {
+  position: relative;
+}
+
+/* 微信二维码弹窗样式 */
+.wechat-qr-popup {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  text-align: center;
+  min-width: 160px;
+  animation: fadeInUp 0.3s ease-out;
+}
+
+.wechat-qr-popup::before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid white;
+}
+
+.qr-code {
+  width: 120px;
+  height: 120px;
+  display: block;
+  margin: 0 auto 10px;
+  border-radius: 4px;
+}
+
+.qr-text {
+  color: #333;
+  font-size: 12px;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* 弹窗动画 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* 微信图标悬浮效果 */
+.wechat-container:hover {
+  background-color: #07c160;
 }
 
 .footer-bottom {
