@@ -50,8 +50,8 @@
                 <span class="param-value">{{ t('product.decorativeLamp') }}</span>
               </div>
               <div class="param-item">
-                <span class="param-label">{{ t('product.category') }}:</span>
-                <span class="param-value">{{ t('product.decorativeLamp') }}</span>
+                <span class="param-label">{{ t('product.material') }}:</span>
+                <span class="param-value">{{ productMaterial }}</span>
               </div>
             </div>
           </div>
@@ -159,6 +159,46 @@ const productCategory = computed(() => {
         return 'Night Lamp'
       case 6:
         return 'Other'
+      default:
+        return ''
+    }
+  }
+})
+
+//  mt INTEGER CHECK (mt IN (1, 2, 3, 4, 5, 6)),--底座材质:1.树脂 2.铸铁 3.合金 4.全铜 5.木 6.无底座
+const productMaterial = computed(() => {
+  if (!product.value) return ''
+  if (locale.value === 'zh-CN') {
+    switch (product.value.mt) {
+      case 1:
+        return '树脂'
+      case 2:
+        return '铸铁'
+      case 3:
+        return '合金'
+      case 4:
+        return '全铜'
+      case 5:
+        return '木'
+      case 6:
+        return '无底座'
+      default:
+        return ''
+    }
+  } else {
+    switch (product.value.mt) {
+      case 1:
+        return 'Resin'
+      case 2:
+        return 'Cast Iron'
+      case 3:
+        return 'Alloy'
+      case 4:
+        return 'Copper'
+      case 5:
+        return 'Wood'
+      case 6:
+        return 'No Base'
       default:
         return ''
     }
