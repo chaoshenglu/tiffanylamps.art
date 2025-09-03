@@ -119,12 +119,12 @@ async function fetchProduct() {
 // 计算属性
 const productTitle = computed(() => {
   if (!product.value) return ''
-  return locale.value === 'zh-CN' ? product.value['title_zh'] : product.value['title_en']
+  return locale.value === 'zh-CN' ? product.value.name_zh : product.value.name_en
 })
 
 const productPrice = computed(() => {
   if (!product.value) return ''
-  const price = locale.value === 'zh-CN' ? product.value['price_zh'] : product.value['price_en']
+  const price = locale.value === 'zh-CN' ? product.value.price_zh : product.value.price_en
   const currency = locale.value === 'zh-CN' ? '¥' : '$'
   return `${currency}${price}`
 })
