@@ -157,6 +157,12 @@ h3 {
   padding: 2rem 0;
 }
 
+.product-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0;
+}
+
 .product-main {
   display: grid;
   grid-template-columns: 1fr 1fr;

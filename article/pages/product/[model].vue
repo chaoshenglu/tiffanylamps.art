@@ -6,7 +6,7 @@
     </div>
 
     <!-- 产品详情 -->
-    <div v-else-if="product" class="container">
+    <div v-else-if="product" class="product-container">
       <!-- 上半部分：图片和商品信息 -->
       <div class="product-main">
         <!-- 左侧：图片轮播 -->
