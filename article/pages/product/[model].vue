@@ -12,17 +12,17 @@
         <!-- 左侧：图片轮播 -->
         <div class="product-images">
           <div class="main-image">
-            <img :src="currentImage" :alt="productTitle" />
+            <img :src="currentImage" />
           </div>
           <div class="thumbnail-list">
             <div 
-              v-for="(image, index) in product.images" 
+              v-for="(image, index) in product.main_images" 
               :key="index"
               class="thumbnail"
               :class="{ active: currentImageIndex === index }"
               @click="currentImageIndex = index"
             >
-              <img :src="image" :alt="`${productTitle} ${index + 1}`" />
+              <img :src="image" />
             </div>
           </div>
         </div>
@@ -131,12 +131,19 @@ const productPrice = computed(() => {
 
 const productHtml = computed(() => {
   if (!product.value) return ''
-  return locale.value === 'zh-CN' ? product.value['html_zh'] : product.value['html_en']
+  const imageUrls = []
+  product.value.detail_images.forEach(element => {
+    imageUrls.push(element)
+  });
+  // 生成img标签
+  const imgTags = imageUrls.map(url => `  <img src="${url}">`).join('\n')
+  // 生成完整的HTML代码
+  return `<div style="display: flex;flex-direction: column;border-radius: 8px;box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);overflow: hidden;">\n${imgTags}\n</div>`
 })
 
 const currentImage = computed(() => {
-  if (!product.value?.images || product.value.images.length === 0) return ''
-  return product.value.images[currentImageIndex.value]
+  if (!product.value?.main_images || product.value.main_images.length === 0) return ''
+  return product.value.main_images[currentImageIndex.value]
 })
 
 // 方法
