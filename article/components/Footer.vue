@@ -31,7 +31,7 @@
             <!-- 中文社交媒体图标 -->
             <template v-if="locale === 'zh-CN'">
               <a href="#" class="social-link">
-                <img src="/assets/douyin.svg" width="20" height="20" alt="抖音" />
+                <img src="/assets/douyin.svg" width="30" height="30" alt="抖音" />
               </a>
               <a href="#" class="social-link">
                 <img src="/assets/weixin.svg" width="20" height="20" alt="微信" />
