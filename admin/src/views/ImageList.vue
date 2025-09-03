@@ -132,12 +132,37 @@ const addImage = () => {
   router.push('/images/add')
 }
 
-const copyLink = (image) => {
-  navigator.clipboard.writeText(image.url).then(() => {
-    ElMessage.success('链接已复制到剪贴板')
-  }).catch(err => {
-    ElMessage.error('复制链接失败')
-  })
+const copyLink = async (image) => {
+  try {
+    // 优先使用现代的 Clipboard API
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(image.url)
+      ElMessage.success('链接已复制到剪贴板')
+      return
+    }
+    
+    // 回退方案：使用传统的 document.execCommand
+    const textArea = document.createElement('textarea')
+    textArea.value = image.url
+    textArea.style.position = 'fixed'
+    textArea.style.left = '-999999px'
+    textArea.style.top = '-999999px'
+    document.body.appendChild(textArea)
+    textArea.focus()
+    textArea.select()
+    
+    const successful = document.execCommand('copy')
+    document.body.removeChild(textArea)
+    
+    if (successful) {
+      ElMessage.success('链接已复制到剪贴板')
+    } else {
+      throw new Error('execCommand failed')
+    }
+  } catch (err) {
+    console.error('复制失败:', err)
+    ElMessage.error('复制链接失败，请手动复制链接地址')
+  }
 }
 
 // 删除图片
