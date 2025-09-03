@@ -50,7 +50,7 @@
     "submit": "SUBMIT"
   },
   "product": {
-    "specifications": "Specifications",
+    "size": "Size",
     "price":"Reference Price",
     "material": "Material",
     "style": "Style",

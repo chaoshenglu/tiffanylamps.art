@@ -46,8 +46,8 @@
                 <span class="param-value">{{ productCategory }}</span>
               </div>
               <div class="param-item">
-                <span class="param-label">{{ t('product.category') }}:</span>
-                <span class="param-value">{{ t('product.decorativeLamp') }}</span>
+                <span class="param-label">{{ t('product.size') }}:</span>
+                <span class="param-value">{{ productSize }}</span>
               </div>
               <div class="param-item">
                 <span class="param-label">{{ t('product.material') }}:</span>
@@ -203,6 +203,17 @@ const productMaterial = computed(() => {
         return ''
     }
   }
+})
+
+/**
+ *  length NUMERIC,--长cm
+ *  width NUMERIC,--宽cm
+ *  height NUMERIC,--高cm
+ */
+
+ const productSize = computed(() => {
+  if (!product.value) return ''
+  return `${product.value.length}cm x ${product.value.width}cm x ${product.value.height}cm`
 })
 
 const productPrice = computed(() => {
