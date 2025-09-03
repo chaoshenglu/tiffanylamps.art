@@ -233,6 +233,7 @@ h3 {
 /* 产品信息区域 */
 .product-info {
   padding: 1rem 0;
+  margin-left: 20px;
 }
 
 .product-title {
