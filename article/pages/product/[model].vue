@@ -36,7 +36,6 @@
           </div>
 
           <div class="product-params">
-            <h3>{{ t('product.specifications') }}</h3>
             <div class="param-list">
               <div class="param-item">
                 <span class="param-label">{{ t('product.material') }}:</span>
@@ -45,6 +44,10 @@
               <div class="param-item">
                 <span class="param-label">{{ t('product.style') }}:</span>
                 <span class="param-value">{{ t('product.tiffanyStyle') }}</span>
+              </div>
+              <div class="param-item">
+                <span class="param-label">{{ t('product.category') }}:</span>
+                <span class="param-value">{{ t('product.decorativeLamp') }}</span>
               </div>
               <div class="param-item">
                 <span class="param-label">{{ t('product.category') }}:</span>
