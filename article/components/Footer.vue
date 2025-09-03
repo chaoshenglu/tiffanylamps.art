@@ -30,7 +30,9 @@
           <div class="social-links">
             <!-- 中文社交媒体图标 -->
             <template v-if="locale === 'zh-CN'">
-              <a href="#" class="social-link">
+              <!-- 在新标签页打开 -->
+              <a href="https://v.douyin.com/xZ_02CtYTHc/" class="social-link" target="_blank" rel="noopener noreferrer">
+                <!-- 抖音图标偏小，用30x30 -->
                 <img src="/assets/douyin.svg" width="30" height="30" alt="抖音" />
               </a>
               <a href="#" class="social-link">
