@@ -88,7 +88,7 @@ const supabase = createClient(
   config.public.supabaseKey
 )
 const route = useRoute()
-const productId = computed(() => route.params.id)
+const model = computed(() => route.params.model)
 const product = ref(null)
 const loading = ref(true)
 const currentImageIndex = ref(0)
@@ -97,9 +97,9 @@ const currentImageIndex = ref(0)
 async function fetchProduct() {
   try {
     const { data, error: supabaseError } = await supabase
-      .from('product')
+      .from('lamp')
       .select('*')
-      .eq('id', productId.value)
+      .eq('model', model.value)
       .single()
     if (supabaseError) throw supabaseError
     if (!data) {
