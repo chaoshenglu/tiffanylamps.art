@@ -30,13 +30,12 @@
         <!-- 右侧：商品信息 -->
         <div class="product-info">
           <h1 class="product-title">{{ productTitle }}</h1>
-          
-          <div class="product-price">
-            <span class="price">{{ productPrice }}</span>
-          </div>
-
           <div class="product-params">
             <div class="param-list">
+              <div class="param-item">
+                <span class="param-label" style="padding-top:15px;">{{ t('product.price') }}:</span>
+                <span class="price">{{ productPrice }}</span>
+              </div>
               <div class="param-item">
                 <span class="param-label">{{ t('product.style') }}:</span>
                 <span class="param-value">{{ t('product.tiffanyStyle') }}</span>
