@@ -43,7 +43,7 @@
               </div>
               <div class="param-item">
                 <span class="param-label">{{ t('product.category') }}:</span>
-                <span class="param-value">{{ t('product.decorativeLamp') }}</span>
+                <span class="param-value">{{ productCategory }}</span>
               </div>
               <div class="param-item">
                 <span class="param-label">{{ t('product.category') }}:</span>
@@ -123,6 +123,46 @@ async function fetchProduct() {
 const productTitle = computed(() => {
   if (!product.value) return ''
   return locale.value === 'zh-CN' ? product.value.name_zh : product.value.name_en
+})
+
+// (type IN (1, 2, 3, 4, 5, 6)),--分类:1.台灯 2.落地灯 3.吊灯 4.壁灯 5.小夜灯 6.其它
+const productCategory = computed(() => {
+  if (!product.value) return ''
+  if (locale.value === 'zh-CN'){
+    switch (product.value.type) {
+      case 1:
+        return '台灯'
+      case 2:
+        return '落地灯'
+      case 3:
+        return '吊灯'
+      case 4:
+        return '壁灯'
+      case 5:
+        return '小夜灯'
+      case 6:
+        return '其它'
+      default:
+        return ''
+    }
+  }else{
+    switch (product.value.type) {
+      case 1:
+        return 'Table Lamp'
+      case 2:
+        return 'Floor Lamp'
+      case 3:
+        return 'Chandelier'
+      case 4:
+        return 'Wall Lamp'
+      case 5:
+        return 'Night Lamp'
+      case 6:
+        return 'Other'
+      default:
+        return ''
+    }
+  }
 })
 
 const productPrice = computed(() => {
