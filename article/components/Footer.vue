@@ -234,11 +234,6 @@ const toggleWechatQR = () => {
   }
 }
 
-/* 微信图标悬浮效果 */
-.wechat-container:hover {
-  background-color: #07c160;
-}
-
 .footer-bottom {
   border-top: 1px solid #555;
   padding-top: 1rem;
