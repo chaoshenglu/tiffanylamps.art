@@ -300,11 +300,21 @@ h3 {
   transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 .purchase-btn:hover {
   background: linear-gradient(135deg, #deb52f, #f4d03f);
   transform: translateY(-2px);
+}
+
+.purchase-btn svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
 }
 
 .video-btn {
@@ -320,11 +330,21 @@ h3 {
   transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 .video-btn:hover {
   background: linear-gradient(135deg, #d4af37, #deb52f);
   transform: translateY(-2px);
+}
+
+.video-btn svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
 }
 
 .purchase-note {
