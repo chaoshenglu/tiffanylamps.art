@@ -54,7 +54,7 @@
           <div class="purchase-section">
             <div class="lxCenterRow">
               <button class="btn video-btn" @click="goToPurchase">
-                {{ t('product.buySimilar') }}
+                {{ t('product.videoShowcase') }}
               </button>
               <div style="width: 30px;"></div>
               <button class="btn purchase-btn" @click="goToPurchase">
