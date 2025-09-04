@@ -39,7 +39,8 @@ CREATE TABLE lamp (
  mt INTEGER CHECK (mt IN (1, 2, 3, 4, 5, 6)),--底座材质:1.树脂 2.铸铁 3.合金 4.全铜 5.木 6.无底座
  main_images TEXT[],--主图数组
  detail_images TEXT[],--细节图数组
- videos TEXT[]--视频数组
+ tiktok_id TEXT,--tiktokID
+ douyin_id TEXT--抖音ID
 );
 ```
 

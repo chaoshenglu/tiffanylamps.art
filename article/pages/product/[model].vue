@@ -271,7 +271,11 @@ function goToPurchase() {
 }
 
 function goToVideo() {
-  
+  if (locale.value === 'zh-CN') {
+    window.open(`https://v.douyin.com/${product.value.douyin_id}`, '_blank')
+  } else {
+    window.open(`https://vt.tiktok.com/${product.value.tiktok_id}`, '_blank')
+  }
 }
 
 // 页面加载时获取产品数据
