@@ -48,7 +48,7 @@
             </template>
             <!-- 默认社交媒体图标 -->
             <template v-else>
-              <a href="#" class="social-link">
+              <a href="https://www.tiktok.com/@hautylamps" class="social-link" target="_blank" rel="noopener noreferrer">
                 <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
                   <path d="M19.589 6.686a4.793 4.793 0 01-3.77-4.245V2h-3.445v13.672a2.896 2.896 0 01-5.201 1.743l-.002-.001.002.001a2.895 2.895 0 113.183-4.51v-3.5a6.329 6.329 0 109.238 5.728V6.686z"/>
                 </svg>
