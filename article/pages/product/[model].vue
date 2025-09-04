@@ -53,13 +53,13 @@
           <!-- 视频按钮和购买按钮 -->
           <div class="purchase-section">
             <div class="lxCenterRow">
-              <button class="btn video-btn" @click="goToVideo">
+              <button v-if="shouldShowVideoButton" class="btn video-btn" @click="goToVideo">
                 <svg width="20" height="20" viewBox="0 0 1024 1024" fill="currentColor">
                   <path d="M213.333333 278.698667C213.333333 179.2 321.877333 117.76 407.168 168.96l388.821333 233.301333c82.858667 49.706667 82.858667 169.813333 0 219.477334L407.168 855.04C321.834667 906.24 213.333333 844.8 213.333333 745.301333V278.698667z"/>
                 </svg>
                 {{ t('product.videoShowcase') }}
               </button>
-              <div style="width: 30px;"></div>
+              <div v-if="shouldShowVideoButton" style="width: 30px;"></div>
               <button class="btn purchase-btn" @click="goToPurchase">
                 <svg width="20" height="20" viewBox="0 0 1024 1024" fill="currentColor">
                   <path d="M704 316.992a38.72 38.72 0 0 0-38.4-39.168c-21.184 0-38.4 17.536-38.4 39.168v78.208c0 64.832-51.52 117.376-115.072 117.376s-115.072-52.48-115.072-117.376V316.992a38.784 38.784 0 0 0-38.4-39.168c-21.12 0-38.336 17.536-38.336 39.168v78.208c0 108.096 85.888 195.648 191.808 195.648 105.92 0 191.808-87.552 191.808-195.648V316.992z m172.16 521.216a73.536 73.536 0 0 1-56.96 25.792H204.8c-22.592 0-41.92-8.768-57.024-25.92a76.352 76.352 0 0 1-19.328-60.48l37.632-547.52A76.864 76.864 0 0 1 242.368 160h538.88c39.68 0 72.32 30.08 76.352 70.336l37.952 547.456c2.304 22.912-4.288 43.328-19.392 60.416z"/>
@@ -259,6 +259,16 @@ const productHtml = computed(() => {
 const currentImage = computed(() => {
   if (!product.value?.main_images || product.value.main_images.length === 0) return ''
   return product.value.main_images[currentImageIndex.value]
+})
+
+// 是否显示视频按钮
+const shouldShowVideoButton = computed(() => {
+  if (!product.value) return false
+  if (locale.value === 'zh-CN') {
+    return !!product.value.douyin_id
+  } else {
+    return !!product.value.tiktok_id
+  }
 })
 
 // 方法
