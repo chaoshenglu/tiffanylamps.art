@@ -299,6 +299,8 @@ const form = reactive({
   abb_en: '',
   amazon_id: '',
   tmall_id: '',
+  tiktok_id: '',
+  douyin_id: '',
   inch: null,
   length: null,
   width: null,
@@ -334,6 +336,12 @@ const rules = {
   name_en: [
     { required: true, message: '请输入英文名称', trigger: 'blur' },
     { min: 1, max: 200, message: '英文名称长度在1到200个字符', trigger: 'blur' }
+  ],
+  tiktok_id: [
+    { max: 50, message: 'Tiktok视频ID长度不能超过50个字符', trigger: 'blur' }
+  ],
+  douyin_id: [
+    { max: 50, message: '抖音视频ID长度不能超过50个字符', trigger: 'blur' }
   ],
   type: [
     { required: true, message: '请选择产品分类', trigger: 'change' }
@@ -684,6 +692,8 @@ const submitForm = async () => {
           abb_en: form.abb_en,
           amazon_id: form.amazon_id,
           tmall_id: form.tmall_id,
+          tiktok_id: form.tiktok_id,
+          douyin_id: form.douyin_id,
           inch: form.inch,
           length: form.length,
           width: form.width,
