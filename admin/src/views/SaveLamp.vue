@@ -74,12 +74,6 @@
 
         <el-row :gutter="20">
           <el-col :span="8">
-            <el-form-item label="长度(cm)" prop="length">
-              <el-input-number v-model="form.length" :precision="2" :step="0.1" :min="0" placeholder="长度"
-                style="width: 100%" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
             <el-form-item label="宽度(cm)" prop="width">
               <el-input-number v-model="form.width" :precision="2" :step="0.1" :min="0" placeholder="宽度"
                 style="width: 100%" />
@@ -88,6 +82,12 @@
           <el-col :span="8">
             <el-form-item label="高度(cm)" prop="height">
               <el-input-number v-model="form.height" :precision="2" :step="0.1" :min="0" placeholder="高度"
+                style="width: 100%" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="长度(cm)" prop="length">
+              <el-input-number v-model="form.length" :precision="2" :step="0.1" :min="0" placeholder="长度"
                 style="width: 100%" />
             </el-form-item>
           </el-col>
@@ -154,14 +154,14 @@
               </template>
             </draggable>
             <!-- 上传按钮 -->
-            <el-upload v-if="mainImageList.length < 10" ref="mainUploadRef" :file-list="[]"
+            <el-upload v-if="mainImageList.length < 6" ref="mainUploadRef" :file-list="[]"
               :on-change="handleMainImageChange" :before-upload="beforeUpload" :http-request="uploadMainImage"
               list-type="picture-card" accept="image/*" multiple :show-file-list="false">
               <el-icon>
                 <Plus />
               </el-icon>
             </el-upload>
-            <div class="upload-tip">支持jpg、png、webp格式，推荐尺寸800px*800px，单个文件不超过5MB，最多10张，可拖拽调整顺序</div>
+            <div class="upload-tip">支持jpg、png、webp格式，推荐尺寸800px*800px，单个文件不超过5MB，最多6张，可拖拽调整顺序</div>
           </div>
         </el-form-item>
 
@@ -207,7 +207,7 @@
         </el-form-item>
 
         <!-- 视频上传 -->
-        <el-divider v-if="isEditMode || form.model" content-position="left">视频管理</el-divider>
+        <!-- <el-divider v-if="isEditMode || form.model" content-position="left">视频管理</el-divider>
 
         <el-form-item v-if="isEditMode || form.model" label="产品视频" prop="videos">
           <div class="upload-section">
@@ -218,7 +218,7 @@
             </el-upload>
             <div class="upload-tip">支持mp4、mov格式，单个文件不超过50MB，最多5个</div>
           </div>
-        </el-form-item>
+        </el-form-item> -->
 
         <!-- 操作按钮 -->
         <el-form-item style="margin-top: 50px;margin-left: 300px;">
@@ -296,7 +296,7 @@ const form = reactive({
   mt: null,
   main_images: [],
   detail_images: [],
-  videos: []
+  // videos: []
 })
 
 // 文件列表
@@ -344,20 +344,20 @@ const beforeUpload = (file) => {
 }
 
 // 视频上传前验证
-const beforeVideoUpload = (file) => {
-  const isVideo = file.type.startsWith('video/')
-  const isLt50M = file.size / 1024 / 1024 < 50
+// const beforeVideoUpload = (file) => {
+//   const isVideo = file.type.startsWith('video/')
+//   const isLt50M = file.size / 1024 / 1024 < 50
 
-  if (!isVideo) {
-    ElMessage.error('只能上传视频文件!')
-    return false
-  }
-  if (!isLt50M) {
-    ElMessage.error('视频大小不能超过 50MB!')
-    return false
-  }
-  return true
-}
+//   if (!isVideo) {
+//     ElMessage.error('只能上传视频文件!')
+//     return false
+//   }
+//   if (!isLt50M) {
+//     ElMessage.error('视频大小不能超过 50MB!')
+//     return false
+//   }
+//   return true
+// }
 
 // 上传文件到Supabase Storage
 const uploadFileToStorage = async (file, folder, customFileName = null) => {
@@ -449,28 +449,23 @@ const uploadDetailImage = async ({ file, onSuccess, onError }) => {
 }
 
 // 视频上传
-const uploadVideo = async ({ file, onSuccess, onError }) => {
-  try {
-    // 在编辑模式下，如果已经有产品型号，使用现有型号，否则使用临时标识
-    const modelPrefix = form.model || (isEditMode.value ? lampModel.value : 'temp')
-    if (!modelPrefix) {
-      throw new Error('请先填写产品型号')
-    }
-    const nanoId = nanoid().replace(/-/g, '') // 去除中划线
-    const fileName = `${modelPrefix}video${nanoId}`
-    const url = await uploadFileToStorage(file, 'videos', fileName)
-    form.videos.push(url)
-
-    // 对于视频上传，Element UI 会自动管理文件列表，所以我们不需要手动添加
-    // 只需要确保URL被添加到form.videos数组中
-
-    onSuccess({ url })
-    ElMessage.success('视频上传成功')
-  } catch (error) {
-    onError(error)
-    ElMessage.error('视频上传失败: ' + error.message)
-  }
-}
+// const uploadVideo = async ({ file, onSuccess, onError }) => {
+//   try {
+//     const modelPrefix = form.model || (isEditMode.value ? lampModel.value : 'temp')
+//     if (!modelPrefix) {
+//       throw new Error('请先填写产品型号')
+//     }
+//     const nanoId = nanoid().replace(/-/g, '') // 去除中划线
+//     const fileName = `${modelPrefix}video${nanoId}`
+//     const url = await uploadFileToStorage(file, 'videos', fileName)
+//     form.videos.push(url)
+//     onSuccess({ url })
+//     ElMessage.success('视频上传成功')
+//   } catch (error) {
+//     onError(error)
+//     ElMessage.error('视频上传失败: ' + error.message)
+//   }
+// }
 
 // 文件变化处理 - 主要处理上传进度状态
 const handleMainImageChange = (file, fileList) => {
@@ -515,11 +510,9 @@ const handleDetailImageChange = (file, fileList) => {
   }
 }
 
-const handleVideoChange = (file, fileList) => {
-  // 对于视频上传，Element UI 的 text 类型列表会自动管理
-  // 但我们需要确保不会丢失已有的视频文件
-  videoList.value = fileList
-}
+// const handleVideoChange = (file, fileList) => {
+//   videoList.value = fileList
+// }
 
 // 图片预览处理
 const handleMainImagePreview = (file) => {
@@ -576,15 +569,15 @@ const handleDetailImageRemove = (file) => {
   }
 }
 
-const handleVideoRemove = (file, fileList) => {
-  if (file.response && file.response.url) {
-    const index = form.videos.indexOf(file.response.url)
-    if (index > -1) {
-      form.videos.splice(index, 1)
-    }
-  }
-  videoList.value = fileList
-}
+// const handleVideoRemove = (file, fileList) => {
+//   if (file.response && file.response.url) {
+//     const index = form.videos.indexOf(file.response.url)
+//     if (index > -1) {
+//       form.videos.splice(index, 1)
+//     }
+//   }
+//   videoList.value = fileList
+// }
 
 // 加载产品数据（编辑模式）
 const loadLamp = async () => {
@@ -633,16 +626,16 @@ const loadLamp = async () => {
         }))
       }
 
-      if (data.videos) {
-        form.videos = [...data.videos]
-        videoList.value = data.videos.map((url, index) => ({
-          uid: `video-${index}-${url.replace(/[^a-zA-Z0-9]/g, '').substring(0, 10)}`,
-          name: `视频${index + 1}`,
-          status: 'success',
-          url: url,
-          response: { url }
-        }))
-      }
+      // if (data.videos) {
+      //   form.videos = [...data.videos]
+      //   videoList.value = data.videos.map((url, index) => ({
+      //     uid: `video-${index}-${url.replace(/[^a-zA-Z0-9]/g, '').substring(0, 10)}`,
+      //     name: `视频${index + 1}`,
+      //     status: 'success',
+      //     url: url,
+      //     response: { url }
+      //   }))
+      // }
     }
   } catch (error) {
     console.error('加载产品错误:', error)
@@ -688,7 +681,7 @@ const submitForm = async () => {
           mt: form.mt,
           main_images: form.main_images,
           detail_images: form.detail_images,
-          videos: form.videos
+          // videos: form.videos
         }
 
         let result
