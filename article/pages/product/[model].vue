@@ -52,9 +52,15 @@
 
           <!-- 购买按钮 -->
           <div class="purchase-section">
-            <button class="btn purchase-btn" @click="goToPurchase">
-              {{ t('product.buySimilar') }}
-            </button>
+            <div class="lxCenterRow">
+              <button class="btn video-btn" @click="goToPurchase">
+                {{ t('product.buySimilar') }}
+              </button>
+              <div style="width: 30px;"></div>
+              <button class="btn purchase-btn" @click="goToPurchase">
+                {{ t('product.buySimilar') }}
+              </button>
+            </div>
             <p class="purchase-note">{{ t('product.purchaseNote') }}</p>
           </div>
         </div>
