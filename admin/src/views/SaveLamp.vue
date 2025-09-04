@@ -48,6 +48,19 @@
           </el-col>
         </el-row>
 
+        <el-row :gutter="20">
+          <el-col :span="12">
+            <el-form-item label="Tiktok视频ID" prop="tiktok_id">
+              <el-input v-model="form.tiktok_id" placeholder="请输入Tiktok视频ID" maxlength="50" show-word-limit />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="抖音视频ID" prop="douyin_id">
+              <el-input v-model="form.douyin_id" placeholder="请输入抖音视频ID" maxlength="50" show-word-limit />
+            </el-form-item>
+          </el-col>
+        </el-row>
+
         <!-- 规格信息 -->
         <el-divider content-position="left">规格信息</el-divider>
 
