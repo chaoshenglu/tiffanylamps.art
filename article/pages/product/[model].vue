@@ -53,7 +53,7 @@
           <!-- 购买按钮 -->
           <div class="purchase-section">
             <div class="lxCenterRow">
-              <button class="btn video-btn" @click="goToPurchase">
+              <button class="btn video-btn" @click="goToVideo">
                 {{ t('product.videoShowcase') }}
               </button>
               <div style="width: 30px;"></div>
@@ -262,6 +262,10 @@ function goToPurchase() {
   } else {
     window.open(`https://www.amazon.com/dp/${product.value.amazon_id}`, '_blank')
   }
+}
+
+function goToVideo() {
+  
 }
 
 // 页面加载时获取产品数据
