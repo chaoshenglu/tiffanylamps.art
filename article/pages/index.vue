@@ -305,7 +305,7 @@ const slides = computed(() => {
         image: 'https://r2.tiffanylamps.art/poster/b0.webp',
         title: '蒂凡尼灯的艺术世界',
         description: '探索经典与现代的完美融合',
-        link: '/product/1',
+        link: '/product/TJ2282',
         buttonText: '了解更多'
       },
       {
