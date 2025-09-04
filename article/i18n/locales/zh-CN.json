@@ -51,6 +51,7 @@
   },
   "product": {
     "size": "尺寸",
+    "videoShowcase": "视频展示",
     "price":"参考价",
     "material": "材质",
     "style": "风格",
