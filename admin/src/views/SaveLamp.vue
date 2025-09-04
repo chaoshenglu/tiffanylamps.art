@@ -267,7 +267,7 @@ const showDetailPreview = ref(false)
 const formRef = ref()
 const mainUploadRef = ref()
 const detailUploadRef = ref()
-const videoUploadRef = ref()
+// const videoUploadRef = ref()
 
 // 状态管理
 const loading = ref(false)
