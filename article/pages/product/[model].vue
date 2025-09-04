@@ -15,13 +15,8 @@
             <img :src="currentImage" />
           </div>
           <div class="thumbnail-list">
-            <div 
-              v-for="(image, index) in product.main_images" 
-              :key="index"
-              class="thumbnail"
-              :class="{ active: currentImageIndex === index }"
-              @click="currentImageIndex = index"
-            >
+            <div v-for="(image, index) in product.main_images" :key="index" class="thumbnail"
+              :class="{ active: currentImageIndex === index }" @click="currentImageIndex = index">
               <img :src="image" />
             </div>
           </div>
@@ -107,7 +102,7 @@ async function fetchProduct() {
     if (!data) {
       throw new Error('商品不存在')
     }
-    product.value = data    
+    product.value = data
     useHead({
       title: productTitle.value,
     })
@@ -127,7 +122,7 @@ const productTitle = computed(() => {
 // (type IN (1, 2, 3, 4, 5, 6)),--分类:1.台灯 2.落地灯 3.吊灯 4.壁灯 5.小夜灯 6.其它
 const productCategory = computed(() => {
   if (!product.value) return ''
-  if (locale.value === 'zh-CN'){
+  if (locale.value === 'zh-CN') {
     switch (product.value.type) {
       case 1:
         return '台灯'
@@ -144,7 +139,7 @@ const productCategory = computed(() => {
       default:
         return ''
     }
-  }else{
+  } else {
     switch (product.value.type) {
       case 1:
         return 'Table Lamp'
@@ -225,7 +220,7 @@ const productMaterial = computed(() => {
  *  height NUMERIC,--高cm
  */
 
- const productSize = computed(() => {
+const productSize = computed(() => {
   if (!product.value) return ''
   return `${product.value.length}cm x ${product.value.width}cm x ${product.value.height}cm`
 })
@@ -256,8 +251,11 @@ const currentImage = computed(() => {
 
 // 方法
 function goToPurchase() {
-  // 跳转到购买链接，这里可以根据实际需求修改
-  window.open('https://www.amazon.com', '_blank')
+  if (locale.value === 'zh-CN') {
+    window.open(`https://detail.tmall.com/item.htm?id=${product.value.tmall_id}`, '_blank')
+  } else {
+    window.open(`https://www.amazon.com/dp/${product.value.amazon_id}`, '_blank')
+  }
 }
 
 // 页面加载时获取产品数据
