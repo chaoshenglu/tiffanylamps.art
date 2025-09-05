@@ -51,11 +51,12 @@
                      :to="localePath(`/product/${p.model}`)" 
                      class="article-card card">
               <div class="article-image hot-sales-image">
-                <NuxtImg :src="p.main_images[0]" :alt="p.abb_zh" />
+                <NuxtImg v-if="locale === 'zh-CN'" :src="p.main_images[0]" :alt="p.abb_zh" />
+                <NuxtImg v-else :src="p.main_images[0]" :alt="p.abb_en" />
               </div>
               <div class="article-content">
-                <h3>{{ p.abb_zh }}</h3>
-                <p class="article-author">{{ $t('product.price') }}: {{ p.price_zh }}</p>
+                <h3 style="word-break: break-all;">{{ locale === 'zh-CN' ? p.abb_zh : p.abb_en }}</h3>
+                <p class="article-author">{{ $t('product.price') }}: {{ locale === 'zh-CN' ? p.price_zh : p.price_en }}</p>
               </div>
             </NuxtLink>
           </div>
