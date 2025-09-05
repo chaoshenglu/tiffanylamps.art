@@ -319,7 +319,7 @@ const slides = computed(() => {
         image: 'https://r2.tiffanylamps.art/poster/b4.webp',
         title: '蒂凡尼灯的艺术世界',
         description: '探索经典与现代的完美融合',
-        link: '/product/1',
+        link: '/product/TJ1632',
         buttonText: '了解更多'
       }
     ],
@@ -342,7 +342,7 @@ const slides = computed(() => {
         image: 'https://r2.tiffanylamps.art/poster/b4.webp',
         title: 'The Art of Tiffany Lamps',
         description: 'Discover the perfect fusion of classic and modern',
-        link: '/product/1',
+        link: '/product/TJ1632',
         buttonText: 'Learn More'
       }
     ]
