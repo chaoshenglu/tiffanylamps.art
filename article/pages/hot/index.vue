@@ -66,7 +66,7 @@ async function fetchHotProducts() {
     const { data, error: supabaseError } = await supabase
       .from('lamp')
       .select('*')
-      .limit(4)
+      .limit(400)
     if (supabaseError) {
       console.error('热卖产品查询错误:', supabaseError)
       error.value = '无法加载热卖榜单数据'
