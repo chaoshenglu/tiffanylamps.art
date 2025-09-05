@@ -205,6 +205,21 @@ onMounted(() => {
   margin: 2rem 0;
 }
 
+/* 热卖榜单网格布局 */
+.hot-sales-grid-layout {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 2rem;
+}
+
+/* 热卖榜单图片样式 - 保持正方形 */
+.hot-sales-image img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 8px 8px 0 0;
+}
+
 @media (max-width: 1200px) {
   .articles-grid {
     grid-template-columns: repeat(3, 1fr);
@@ -232,6 +247,10 @@ onMounted(() => {
 
 @media (max-width: 480px) {
   .articles-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hot-sales-grid-layout {
     grid-template-columns: 1fr;
   }
 }
