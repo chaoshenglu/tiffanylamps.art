@@ -286,7 +286,11 @@ function isOnlyDigits(str) {
 
 function goToVideo() {
   if (locale.value === 'zh-CN') {
-    window.open(`https://v.douyin.com/${product.value.douyin_id}`, '_blank')
+    if (isOnlyDigits(product.value.douyin_id)) {
+      window.open(`https://www.douyin.com/video/${product.value.douyin_id}`, '_blank')
+    }else{
+      window.open(`https://v.douyin.com/${product.value.douyin_id}`, '_blank')
+    }
   } else {
     if (isOnlyDigits(product.value.tiktok_id)) {
       window.open(`https://www.tiktok.com/@hautylamps/video/${product.value.tiktok_id}`, '_blank')
