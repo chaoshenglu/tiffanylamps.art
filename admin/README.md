@@ -27,6 +27,7 @@ CREATE TABLE lamp (
  width NUMERIC,--宽
  height NUMERIC,--高
  type INTEGER CHECK (type IN (1, 2, 3, 4, 5, 6)),--分类:1.台灯 2.落地灯 3.吊灯 4.壁灯 5.小夜灯 6.其它
+ pc NUMERIC,--成本
  price_zh NUMERIC,--国内价
  price_en NUMERIC,--国外价
  mt INTEGER CHECK (mt IN (1, 2, 3, 4, 5, 6)),--底座材质:1.树脂 2.铸铁 3.合金 4.全铜 5.木 6.无底座
