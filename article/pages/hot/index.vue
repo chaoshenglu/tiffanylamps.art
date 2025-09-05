@@ -27,7 +27,7 @@
           </div>
           <div class="article-content">
             <h3 style="word-break: break-all;">{{ locale === 'zh-CN' ? p.abb_zh : p.abb_en }}</h3>
-            <p class="article-author">{{ $t('product.price') }}: {{ locale === 'zh-CN' ? '￥' : '$' }}{{ locale ===
+            <p class="product-price">{{ $t('product.price') }}: {{ locale === 'zh-CN' ? '￥' : '$' }}{{ locale ===
               'zh-CN' ? p.price_zh : p.price_en }}</p>
           </div>
         </NuxtLink>
@@ -223,6 +223,12 @@ onMounted(() => {
   aspect-ratio: 1;
   object-fit: cover;
   border-radius: 8px 8px 0 0;
+}
+
+.product-price {
+  color: #777;
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
 }
 
 @media (max-width: 1200px) {
