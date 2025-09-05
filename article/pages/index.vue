@@ -56,7 +56,7 @@
               </div>
               <div class="article-content">
                 <h3 style="word-break: break-all;">{{ locale === 'zh-CN' ? p.abb_zh : p.abb_en }}</h3>
-                <p class="article-author">{{ $t('product.price') }}: {{ locale === 'zh-CN' ? p.price_zh : p.price_en }}</p>
+                <p class="article-author">{{ $t('product.price') }}: {{ locale === 'zh-CN' ? '￥' : '$' }}{{ locale === 'zh-CN' ? p.price_zh : p.price_en }}</p>
               </div>
             </NuxtLink>
           </div>
