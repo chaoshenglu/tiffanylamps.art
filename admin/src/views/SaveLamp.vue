@@ -110,14 +110,20 @@
         <el-divider content-position="left">价格信息</el-divider>
 
         <el-row :gutter="20">
-          <el-col :span="12">
-            <el-form-item label="国内价格" prop="price_zh">
+          <el-col :span="8">
+            <el-form-item label="成本￥" prop="pc">
+              <el-input-number v-model="form.pc" :precision="2" :step="1" :min="0" placeholder="成本"
+                style="width: 100%" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="国内价格￥" prop="price_zh">
               <el-input-number v-model="form.price_zh" :precision="2" :step="1" :min="0" placeholder="国内价格"
                 style="width: 100%" />
             </el-form-item>
           </el-col>
-          <el-col :span="12">
-            <el-form-item label="国外价格" prop="price_en">
+          <el-col :span="8">
+            <el-form-item label="国外价格$" prop="price_en">
               <el-input-number v-model="form.price_en" :precision="2" :step="1" :min="0" placeholder="国外价格"
                 style="width: 100%" />
             </el-form-item>
