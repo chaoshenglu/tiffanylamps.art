@@ -5,37 +5,32 @@
         <h1>{{ $t('nav.hot') }}</h1>
         <p class="page-description">发现最受欢迎的蒂凡尼灯具，了解市场热门选择。</p>
       </div>
-      
+
       <div v-if="loading" class="loading">
         <div class="spinner"></div>
       </div>
-      
+
       <div v-else-if="error" class="error-message">
         {{ error }}
       </div>
-      
+
       <div v-else-if="articles.length === 0" class="no-articles">
         暂无相关文章
       </div>
-      
-      <div v-else class="articles-grid">
-        <div v-for="(article, index) in articles" :key="article.id" class="article-card card">
-          <NuxtLink :to="localePath(`/article/${article.id}`)" class="article-link">
-            <div class="article-rank">
-              <span class="rank-number">{{ index + 1 }}</span>
-            </div>
-            <div class="article-image">
-              <img :src="article.cover_image" :alt="article.title" />
-            </div>
-            <div class="article-content">
-              <h3>{{ article.title }}</h3>
-              <div class="article-meta">
-                <span class="article-author">{{ $t('article.author') }}: {{ article.author }}</span>
-                <span class="article-date">{{ formatDate(article.created_at) }}</span>
-              </div>
-            </div>
-          </NuxtLink>
-        </div>
+
+      <div v-else class="article-grid hot-sales-grid-layout">
+        <NuxtLink v-for="p in products" :key="p.model" :to="localePath(`/product/${p.model}`)"
+          class="article-card card">
+          <div class="article-image hot-sales-image">
+            <NuxtImg v-if="locale === 'zh-CN'" :src="p.main_images[0]" :alt="p.abb_zh" />
+            <NuxtImg v-else :src="p.main_images[0]" :alt="p.abb_en" />
+          </div>
+          <div class="article-content">
+            <h3 style="word-break: break-all;">{{ locale === 'zh-CN' ? p.abb_zh : p.abb_en }}</h3>
+            <p class="article-author">{{ $t('product.price') }}: {{ locale === 'zh-CN' ? '￥' : '$' }}{{ locale ===
+              'zh-CN' ? p.price_zh : p.price_en }}</p>
+          </div>
+        </NuxtLink>
       </div>
     </div>
   </div>
@@ -51,7 +46,7 @@ const supabase = createClient(
   config.public.supabaseUrl,
   config.public.supabaseKey
 )
-const articles = ref([])
+const products = ref([])
 const loading = ref(true)
 const error = ref(null)
 
@@ -63,42 +58,36 @@ useHead({
   ]
 })
 
-// 格式化日期
-const formatDate = (dateString) => {
-  const date = new Date(dateString)
-  return new Intl.DateTimeFormat(locale.value).format(date)
-}
-
-// 获取热卖类文章
-async function fetchHotArticles() {
+// 热卖产品查询
+async function fetchHotProducts() {
   try {
-    const { data, error: supabaseError } = await supabase
-      .from('posts')
+    const { data, error } = await supabase
+      .from('lamp')
       .select('*')
-      .eq('type', 'hot')
-      .eq('language', locale.value)
-      .order('created_at', { ascending: false })
-    
-    if (supabaseError) throw supabaseError
-    
-    articles.value = data
+      .limit(4)
+    if (error) {
+      console.error('热卖产品查询错误:', error)
+      throw createError({
+        statusCode: 500,
+        statusMessage: '无法加载热卖榜单数据'
+      })
+    }
+    return data || []
   } catch (err) {
-    console.error('Error fetching hot articles:', err)
-    error.value = t('获取文章列表失败')
-  } finally {
-    loading.value = false
+    console.error('获取热卖产品时发生错误:', err)
+    throw err
   }
 }
 
-// 监听语言变化，重新获取文章
+// 监听语言变化，重新获取产品
 watch(() => locale.value, () => {
   loading.value = true
-  fetchHotArticles()
+  fetchHotProducts()
 })
 
-// 页面加载时获取文章
+// 页面加载时获取产品
 onMounted(() => {
-  fetchHotArticles()
+  fetchHotProducts()
 })
 </script>
 
@@ -226,15 +215,15 @@ onMounted(() => {
   .page-header h1 {
     font-size: 2rem;
   }
-  
+
   .page-description {
     font-size: 1rem;
   }
-  
+
   .articles-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   .article-meta {
     flex-direction: column;
     gap: 0.5rem;
