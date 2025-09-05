@@ -49,11 +49,6 @@
           </template>
         </el-table-column>
         <el-table-column prop="abb_zh" label="中文简称" show-overflow-tooltip />
-        <el-table-column prop="inch" label="英寸">
-          <template #default="{ row }">
-            {{ row.inch }}″
-          </template>
-        </el-table-column>
         <el-table-column prop="type" label="类型">
           <template #default="{ row }">
             <el-tag :type="getTypeTagType(row.type)" size="small">
