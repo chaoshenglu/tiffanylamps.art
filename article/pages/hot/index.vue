@@ -72,7 +72,7 @@ async function fetchHotProducts() {
         statusMessage: '无法加载热卖榜单数据'
       })
     }
-    return data || []
+    products.value = data || []
   } catch (err) {
     console.error('获取热卖产品时发生错误:', err)
     throw err
