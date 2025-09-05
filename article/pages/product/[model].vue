@@ -280,11 +280,19 @@ function goToPurchase() {
   }
 }
 
+function isOnlyDigits(str) {
+  return /^\d+$/.test(str);
+}
+
 function goToVideo() {
   if (locale.value === 'zh-CN') {
     window.open(`https://v.douyin.com/${product.value.douyin_id}`, '_blank')
   } else {
-    window.open(`https://vt.tiktok.com/${product.value.tiktok_id}`, '_blank')
+    if (isOnlyDigits(product.value.tiktok_id)) {
+      window.open(`https://www.tiktok.com/@hautylamps/video/${product.value.tiktok_id}`, '_blank')
+    }else{
+      window.open(`https://vt.tiktok.com/${product.value.tiktok_id}`, '_blank')
+    }
   }
 }
 
