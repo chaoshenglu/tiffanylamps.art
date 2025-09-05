@@ -61,6 +61,12 @@
             </el-tag>
           </template>
         </el-table-column>
+        <el-table-column prop="pc" label="成本￥">
+          <template #default="{ row }">
+            <span v-if="row.pc">¥{{ row.pc }}</span>
+            <span v-else>-</span>
+          </template>
+        </el-table-column>
         <el-table-column prop="price_zh" label="国内价">
           <template #default="{ row }">
             <span v-if="row.price_zh">¥{{ row.price_zh }}</span>
