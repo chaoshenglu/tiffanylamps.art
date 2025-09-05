@@ -61,12 +61,15 @@ useHead({
 // 热卖产品查询
 async function fetchHotProducts() {
   try {
-    const { data, error } = await supabase
+    loading.value = true
+    error.value = null
+    const { data, error: supabaseError } = await supabase
       .from('lamp')
       .select('*')
       .limit(4)
-    if (error) {
-      console.error('热卖产品查询错误:', error)
+    if (supabaseError) {
+      console.error('热卖产品查询错误:', supabaseError)
+      error.value = '无法加载热卖榜单数据'
       throw createError({
         statusCode: 500,
         statusMessage: '无法加载热卖榜单数据'
@@ -75,13 +78,15 @@ async function fetchHotProducts() {
     products.value = data || []
   } catch (err) {
     console.error('获取热卖产品时发生错误:', err)
+    error.value = err.message || '获取产品数据失败'
     throw err
+  } finally {
+    loading.value = false
   }
 }
 
 // 监听语言变化，重新获取产品
 watch(() => locale.value, () => {
-  loading.value = true
   fetchHotProducts()
 })
 
@@ -115,7 +120,7 @@ onMounted(() => {
   margin: 0 auto;
 }
 
-.articles-grid {
+.article-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
@@ -235,7 +240,7 @@ onMounted(() => {
     font-size: 1rem;
   }
 
-  .articles-grid {
+  .article-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -246,7 +251,7 @@ onMounted(() => {
 }
 
 @media (max-width: 480px) {
-  .articles-grid {
+  .article-grid {
     grid-template-columns: 1fr;
   }
 
