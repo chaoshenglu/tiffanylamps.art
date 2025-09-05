@@ -14,8 +14,8 @@
         {{ error }}
       </div>
 
-      <div v-else-if="articles.length === 0" class="no-articles">
-        暂无相关文章
+      <div v-else-if="products.length === 0" class="no-articles">
+        暂无相关产品
       </div>
 
       <div v-else class="article-grid hot-sales-grid-layout">
