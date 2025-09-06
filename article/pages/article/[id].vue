@@ -90,17 +90,27 @@ const preprocessImageCaptions = (html) => {
   const images = tempDiv.querySelectorAll('img')
 
   images.forEach(img => {
-    console.log('img :', img);
+    let imageUrl = img.getAttribute('src') || ''
+    const filename = imageUrl.split('/').pop();
+    console.log('img :', imageUrl,filename);
+    //将filename转换为数组，分隔符为"-"
+    const parts = filename.split('-');
     // 先记录原始的父元素，用于后续的样式处理
     const originalParent = img.parentElement
     let targetParent = originalParent // 默认目标父元素
 
     // 如果文章有商品链接，为图片添加点击跳转功能
-    if (article.value && article.value.product_link) {
+    if (parts.length === 3) {
+      let product_link = ''
+      if (locale.value === 'en') {
+        product_link = `https://www.hauty.com/products/${parts[0]}`
+      } else {
+        product_link = `https://www.hauty.com.cn/products/${parts[0]}`
+      }
       // 创建包装链接元素
       const linkWrapper = document.createElement('div')
       linkWrapper.className = 'image-link-wrapper'
-      linkWrapper.setAttribute('data-product-link', article.value.product_link)
+      linkWrapper.setAttribute('data-product-link', product_link)
 
       // 创建遮罩元素
       const overlay = document.createElement('div')
