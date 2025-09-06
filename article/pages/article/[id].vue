@@ -70,13 +70,13 @@ const formatDate = (dateString) => {
 // 格式化文章内容（将\n转换为<br>，并处理图片说明文字样式）
 const formattedContent = computed(() => {
   if (!article.value || !article.value.content) return ''
-  
+
   // 先将换行符转换为<br>
   let content = article.value.content.replace(/\n/g, '<br>')
-  
+
   // 预处理HTML：为图片后的14px文字添加特殊样式
   content = preprocessImageCaptions(content)
-  
+
   return content
 })
 
@@ -85,39 +85,40 @@ const preprocessImageCaptions = (html) => {
   // 创建一个临时DOM元素来解析HTML
   const tempDiv = document.createElement('div')
   tempDiv.innerHTML = html
-  
+
   // 查找所有img标签
   const images = tempDiv.querySelectorAll('img')
-  
+
   images.forEach(img => {
+    console.log('img :', img);
     // 先记录原始的父元素，用于后续的样式处理
     const originalParent = img.parentElement
     let targetParent = originalParent // 默认目标父元素
-    
+
     // 如果文章有商品链接，为图片添加点击跳转功能
     if (article.value && article.value.product_link) {
       // 创建包装链接元素
       const linkWrapper = document.createElement('div')
       linkWrapper.className = 'image-link-wrapper'
       linkWrapper.setAttribute('data-product-link', article.value.product_link)
-      
+
       // 创建遮罩元素
       const overlay = document.createElement('div')
       overlay.className = 'image-overlay'
-      
+
       // 创建文字元素
       const overlayText = document.createElement('span')
       overlayText.className = 'overlay-text'
       overlayText.textContent = locale.value === 'en' ? 'Shop This Look' : '购买同款'
-      
+
       overlay.appendChild(overlayText)
-      
+
       // 将img从原位置移除并添加到wrapper中
       const imgClone = img.cloneNode(true)
-      
+
       linkWrapper.appendChild(imgClone)
       linkWrapper.appendChild(overlay)
-      
+
       // 如果原始父元素是空的p标签，移除它以避免多余的空白段落
       if (originalParent.tagName === 'P' && originalParent.textContent.trim() === '') {
         const grandParent = originalParent.parentElement
@@ -133,19 +134,19 @@ const preprocessImageCaptions = (html) => {
         originalParent.replaceChild(linkWrapper, img)
         targetParent = originalParent
       }
-      
+
       // 更新img引用为克隆的元素
       img = imgClone
     } else {
       // 如果没有商品链接，目标父元素就是图片的直接父元素
       targetParent = img.parentElement
     }
-    
+
     if (!targetParent) return
-    
+
     // 查找紧跟在目标父元素后面的下一个兄弟元素
     let nextElement = targetParent.nextElementSibling
-    
+
     // 检查下一个元素是否包含14px的文字
     if (nextElement && isImageCaption(nextElement)) {
       // 为目标父元素添加特殊class
@@ -154,7 +155,7 @@ const preprocessImageCaptions = (html) => {
       nextElement.classList.add('image-caption')
     }
   })
-  
+
   return tempDiv.innerHTML
 }
 
@@ -165,7 +166,7 @@ const isImageCaption = (element) => {
     if (el.style && el.style.fontSize === '14px') {
       return true
     }
-    
+
     // 检查内联样式中是否包含font-size: 14px
     if (el.getAttribute && el.getAttribute('style')) {
       const style = el.getAttribute('style')
@@ -173,17 +174,17 @@ const isImageCaption = (element) => {
         return true
       }
     }
-    
+
     // 递归检查子元素
     for (let child of el.children || []) {
       if (checkFontSize(child)) {
         return true
       }
     }
-    
+
     return false
   }
-  
+
   return checkFontSize(element)
 }
 
@@ -238,7 +239,7 @@ async function fetchArticle() {
 
     article.value = data
     post_group_id.value = data.post_group_id
-    
+
     // 将文章id和language存储到localStorage
     localStorage.setItem(`article_${data.id}_language`, data.language)
     // 设置页面元数据
@@ -477,12 +478,15 @@ onMounted(() => {
 
 /* 图片与说明文字的特殊样式 */
 .article-body :deep(.image-with-caption) {
-  margin-bottom: 0.1rem; /* 减少图片段落的下边距 */
+  margin-bottom: 0.1rem;
+  /* 减少图片段落的下边距 */
 }
 
 .article-body :deep(.image-caption) {
-  margin-top: 0.1rem; /* 减少说明文字段落的上边距 */
-  margin-bottom: 1.5rem; /* 保持与下一段落的正常间距 */
+  margin-top: 0.1rem;
+  /* 减少说明文字段落的上边距 */
+  margin-bottom: 1.5rem;
+  /* 保持与下一段落的正常间距 */
 }
 
 .article-body :deep(h2) {
