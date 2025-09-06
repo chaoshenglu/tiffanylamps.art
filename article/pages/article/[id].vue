@@ -102,10 +102,10 @@ const preprocessImageCaptions = (html) => {
     // 如果文章有商品链接，为图片添加点击跳转功能
     if (parts.length === 3) {
       let product_link = ''
-      if (locale.value === 'en') {
-        product_link = `https://www.hauty.com/products/${parts[0]}`
+      if (locale.value === 'zh-CN') {
+        product_link = `https://detail.tmall.com/item.htm?id=${parts[1]}`
       } else {
-        product_link = `https://www.hauty.com.cn/products/${parts[0]}`
+        product_link = `https://www.amazon.com/dp/${parts[0]}`
       }
       // 创建包装链接元素
       const linkWrapper = document.createElement('div')
